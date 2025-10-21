@@ -1,0 +1,107 @@
+/* ===== Fonts (Playfair cho tiêu đề) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+:root{
+    /* Màu nền & chữ */
+    --brand:#8a1538;     /* bổ sung lại */
+    --paper:#fff;
+    --fg:#2b2b2b;
+    --fg-muted:#666;
+    --bg:#faf7f2;
+
+    /* Màu thương hiệu/CTA */
+    --brand-2:#b45309;
+    --accent:#d97706;
+
+    /* Gradient header (3 màu, đồng bộ với button palette) */
+    --g1:#d97706;  /* hổ phách */
+    --g2:#c2410c;  /* đất nung đậm */
+    --g3:#8a1538;  /* đỏ vang */
+
+    /* Viền & bóng cho footer/cta */
+    --border:#e9e2d9;
+    --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+    --shadow-md:0 8px 24px rgba(0,0,0,.08);
+
+    /* Motion */
+    --ease:cubic-bezier(0.3,0.7,0.4,1);
+    --dur:220ms;
+}
+
+/* ===== Reset nhẹ & nền trang ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    color:var(--fg);
+    background: radial-gradient(1200px 600px at 50% -10%, #fff 0%, var(--bg) 60%);
+    line-height:1.6;
+}
+
+/* ===== Link ===== */
+a{color:var(--brand-2);text-decoration:none;}
+a:hover{color:var(--accent);}
+
+/* ===== Header ===== */
+header{
+    color:#fff;
+    text-align:center;
+    padding:40px 20px;
+    background:linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+    box-shadow:var(--shadow-md);
+}
+header h1{
+    font-family:"Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight:700;
+    letter-spacing:.3px;
+    font-size:clamp(2.2rem, 3.5vw + 1rem, 3.25rem);
+    line-height:1.15;
+    margin-bottom:.4rem;
+}
+header p{
+    font-size:clamp(1rem, .6vw + .8rem, 1.2rem);
+    opacity:.95;
+}
+
+/* ===== Khung nội dung ===== */
+.wrap{
+    max-width:840px;
+    margin:48px auto;
+    padding:0 20px;
+    text-align:center;
+}
+
+/* ===== CTA buttons ===== */
+.buttons{
+    display:flex;justify-content:center;align-items:center;flex-wrap:wrap;
+    gap:16px;margin-top:28px;
+}
+.buttons a{
+    display:inline-block;
+    padding:12px 22px;
+    border-radius:999px;
+    color:#fff;
+    background:var(--brand-2);
+    font-weight:600;letter-spacing:.2px;
+    box-shadow:var(--shadow-sm);
+    transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.buttons a:hover{
+    background:var(--accent);
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-md);
+}
+.buttons a:active{transform:translateY(-1px);box-shadow:var(--shadow-sm);}
+.buttons a:focus-visible{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(255,255,255,.8), 0 0 0 6px rgba(138,21,56,.5);
+}
+
+/* ===== Footer ===== */
+footer{
+    margin-top:20px;
+    color:var(--fg-muted);
+    font-size:.95rem;
+    padding:16px 0 28px;
+    border-top:1px solid var(--border);
+}

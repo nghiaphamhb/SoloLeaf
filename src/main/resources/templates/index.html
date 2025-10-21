@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="/css/index.css">
+</head>
+<body>
+
+<header>
+    <h1>Chào mừng đến với Ứng dụng SoloLeaf</h1>
+    <p>Cùng đặt hàng và thưởng thức những món ăn nóng hổi tuyệt vời từ mọi nhà hàng mà bạn muốn!</p>
+</header>
+
+<main class="wrap">
+    <img th:src="@{/favicon.png}" alt="SoloLeaf logo" style="max-width:40%;height:auto;">
+
+    <section class="buttons">
+        <a href="/signIn" th:href="@{/signIn}">Đăng nhập</a>
+        <a href="/signUp" th:href="@{/signUp}">Đăng ký</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Ứng dụng SoloLeaf - Dịch vụ giao đồ ăn nhanh nhất mọi thời đại</p>
+    </footer>
+</main>
+
+</body>
+</html>

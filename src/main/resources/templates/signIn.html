@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="/css/index.css">
+    <link rel="stylesheet" th:href="@{/css/sign.css}" href="/css/sign.css">
+</head>
+<body>
+<header>
+    <h3>Đăng nhập ngay để đặt hàng và thưởng thức các món ăn nóng hổi!</h3>
+</header>
+
+<main class="wrap">
+    <div>
+        <h1>Đăng nhập</h1>
+        <form id="form-signin">
+            <label for="username">Email</label>
+            <input id="username" type="email" required placeholder="Nhập email của bạn" />
+<!--            vua sua tu type = text -> email-->
+
+            <label for="password">Mật khẩu</label>
+            <input id="password" type="password" required minlength="6" placeholder="Nhập mật khẩu" />
+
+            <button id="btn-signin" type="submit">Đăng nhập</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>Chưa có tài khoản? <a href="/signUp" th:href="@{/signUp}">Đăng ký ngay</a></p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/signIn.js"></script>
+</body>
+</html>
