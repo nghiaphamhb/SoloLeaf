@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="/css/index.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
+</head>
+
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <!-- Logo -->
+        <div class="brand-logo" >
+            <img th:src="@{/favicon.png}" src="/favicon.png" alt="App logo">
+        </div>
+
+        <!-- Sidebar content -->
+        <div class="sidebar-content">
+            <h3>Menu</h3>
+            <a href="#">Home</a>
+            <a href="#">Explore</a>
+            <a href="#">Favourites</a>
+            <a href="#">Orders</a>
+            <a href="#">Messages</a>
+            <a href="#">Settings</a>
+        </div>
+
+        <!-- User panel (dưới cùng) -->
+        <div class="user-panel">
+            <div class="user-info">
+                <div class="name">No user</div>
+                <div class="email">No email</div>
+            </div>
+            <!-- Nút logout/icon -->
+             <button class="logout" title="Sign out">Log out</button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <h2>Khám phá nhà hàng</h2>
+        <div id="feature-restaurant" class="row"></div>
+
+        <h2>Khám phá món ăn</h2>
+        <div id="menu-sections" class="row"></div>
+    </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

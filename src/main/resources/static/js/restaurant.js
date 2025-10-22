@@ -1,0 +1,165 @@
+/* ================== ENDPOINT ================== */
+const API_RESTAURANT_DETAIL = (id) => `/api/restaurant/detail/${id}`;
+
+$(function () {
+    function getRestaurantId() {
+        const match = window.location.pathname.match(/\/restaurant\/(\d+)/);
+        return match ? match[1] : null;
+    }
+
+    const restaurantId = getRestaurantId();
+    if (!restaurantId) {
+        renderError("Không tìm thấy tham số id trên URL.");
+        return;
+    }
+
+
+    const token = localStorage.getItem("token");
+    if (!token) { alert("Bạn chưa đăng nhập!"); window.location.href = "/signIn"; return; }
+
+    const headers = { "Authorization": `Bearer ${token}` };
+
+    // 1 request duy nhất vì API đã trả cả detail + categories
+    $.ajax({
+        method: "GET",
+        url: API_RESTAURANT_DETAIL(restaurantId),
+        headers: headers
+    })
+        .done(function (resp) {
+            const d = resp && resp.data ? resp.data : {};
+            renderRestaurantHeaderFromApi(d);
+
+            // categories: [{ name, foodList: [{image,title,rating,timeShip,freeShip}, ...] }]
+            const categoriesArr = Array.isArray(d.categories) ? d.categories : [];
+
+            // Tạo map {catName: foodList[]} để tái dùng hàm render hiện có
+            const grouped = {};
+            categoriesArr.forEach(cat => {
+                const name = cat?.name || "Danh mục";
+                grouped[name] = Array.isArray(cat?.foodList)
+                    ? cat.foodList.map(food => ({
+                        imageUrl: food?.image ? `/images/${food.image}` : "/img/food-placeholder.jpg",
+                        name: food?.title || "No title",
+                        price: food?.price ?? 0,                 // nếu API chưa trả giá, cho 0
+                        rating: typeof food?.rating === "number" ? food.rating : "—",
+                        prepMinutes: food?.timeShip || "",       // có thể là "15-20 min" hoặc null
+                        freeShip: !!food?.freeShip,
+                    }))
+                    : [];
+            });
+
+            renderCategoryTabs(grouped);
+            const firstCat = Object.keys(grouped)[0];
+            renderMenuGrid(grouped[firstCat], firstCat);
+
+            // Đổi tab
+            $("#category-tabs").on("click", "a[data-cat]", function (e) {
+                e.preventDefault();
+                const cat = $(this).data("cat");
+                $("#category-tabs a").removeClass("active");
+                $(this).addClass("active");
+                renderMenuGrid(grouped[cat], cat);
+            });
+        })
+        .fail(function (xhr) {
+            console.error("Lỗi gọi API:", xhr.status, xhr.responseText);
+            renderError("Không tải được dữ liệu. Vui lòng thử lại.");
+        });
+});
+
+/* ================== RENDER HELPERS ================== */
+
+function renderError(msg) {
+    $("#restaurant-header").replaceWith(
+        `<div class="alert alert-danger m-3">${msg}</div>`
+    );
+}
+
+// Map đúng field theo JSON của bạn
+function renderRestaurantHeaderFromApi(d) {
+    // d.image, d.title, d.subtitle, d.promo, d.description, d.rating, d.address, d.freeship
+    $("#rest-logo").attr("src", d.image ? `/images/${d.image}` : "/img/placeholder.png");
+    $("#rest-name").text(d.title || "Restaurant");
+    $("#rest-cuisines").text(d.subtitle || ""); // hiển thị 1 dòng như ảnh mẫu
+    $("#rest-desc").text(d.description || "");
+    $("#rest-rating").text(
+        typeof d.rating === "number" ? d.rating : "—"
+    );
+    $("#rest-rating-count").text("—");          // API chưa có
+    $("#rest-cost").text("—");                  // API chưa có
+    $("#rest-distance").text("—");              // API chưa có
+    $("#rest-address").text(d.address || "—");
+    // giữ nguyên location-text hiện có nếu API không trả
+    // $("#location-text") thường cố định trên UI, có thể bỏ qua
+
+    const $badges = $("#rest-badges").empty();
+    if (d.freeship) {
+        $badges.append(`<span class="badge text-bg-light border">Free delivery</span>`);
+    }
+    if (typeof d.promo === "number" && d.promo > 0) {
+        $badges.append(`<span class="badge text-bg-light border">${d.promo}% OFF</span>`);
+    }
+}
+
+/* Giữ lại các hàm render bạn đã có, chỉ tinh chỉnh chút cho hợp dữ liệu đã chuẩn hoá */
+
+function renderCategoryTabs(grouped) {
+    const $tabs = $("#category-tabs").empty();
+    Object.keys(grouped).forEach((cat, idx) => {
+        const a = $(`
+      <a href="#" class="nav-link ${idx === 0 ? "active" : ""}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</a>
+    `);
+        $tabs.append($("<li class='nav-item'></li>").append(a));
+    });
+}
+
+function renderMenuGrid(items, catName) {
+    const $grid = $("#menu-grid").empty();
+    if (!items || !items.length) {
+        $grid.append(
+            `<div class="col-12"><div class="alert alert-warning">Chưa có món trong nhóm "${escapeHtml(
+                catName || ""
+            )}".</div></div>`
+        );
+        return;
+    }
+
+    items.forEach((m) => {
+        const freeBadge = m.freeShip ? `<span class="badge text-bg-success">Free delivery</span>` : '';
+        const prepText  = m.prepMinutes ? `${escapeHtml(m.prepMinutes)}`
+            : ""; // API dùng timeShip, đã map sang prepMinutes
+        const priceText = (typeof m.price === "number")
+            ? `$${Number(m.price).toFixed(2)}`
+            : "";
+
+        const card = $(`
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card menu-card h-100 border-0 shadow-sm">
+          <img src="${escapeAttr(m.imageUrl)}" class="card-img-top" alt="${escapeAttr(m.name)}">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start">
+              <h6 class="card-title mb-1">${escapeHtml(m.name)}</h6>
+              ${freeBadge}
+            </div>
+            <div class="text-muted small mb-2">
+              ⭐ ${m.rating ?? "—"} ${prepText ? `· ${prepText}` : ""}
+            </div>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="fw-semibold">${priceText}</div>
+              <button class="btn btn-sm btn-danger">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+        $grid.append(card);
+    });
+}
+
+/* nhỏ gọn tránh XSS khi chèn text vào HTML */
+function escapeHtml(s) {
+    return String(s ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+function escapeAttr(s) { return escapeHtml(s); }
