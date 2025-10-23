@@ -1,5 +1,6 @@
 package com.example.soloLeaf.controller;
 
+import com.example.soloLeaf.payload.ResponseData;
 import com.example.soloLeaf.service.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,12 @@ public class UserController {
     @Autowired
     UserServiceImp userServiceImp;
 
-//    @GetMapping("")
-//    public ResponseEntity<?> getUser() {
-//
-//    }
+    @GetMapping("/me")
+    public ResponseEntity<?> me() {
+        ResponseData responseData = new ResponseData();
+        responseData.setData(userServiceImp.getMyProfile());
+        return new ResponseEntity<>(responseData, HttpStatus.OK);
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> getAllUsers() {
