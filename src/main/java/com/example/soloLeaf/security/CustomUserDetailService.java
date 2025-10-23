@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 /**
- * Phương án 2: Tùy chỉnh UserDetailsService theo yêu cầu -. logic thường: UserDetailsManager -> (Custom)UserDetailsService
+ *  Phục vụ việc tùy chỉnh làm việc với UserDetail
+ *  Tùy chỉnh UserDetailsService theo yêu cầu -. logic thường: UserDetailsManager -> (Custom)UserDetailsService
  */
 @Service
 public class CustomUserDetailService implements UserDetailsService {
@@ -25,7 +26,6 @@ public class CustomUserDetailService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-//        System.out.println("Pw from DB: "+ user.getPassword());
         return new User(username, user.getPassword(), new ArrayList<>());  //User - class impl interface UserDetail
     }
 }
