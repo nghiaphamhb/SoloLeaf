@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Lấy token JWT từ localStorage
     var token = localStorage.getItem("token");
-    var linkUser = "/api/user"
+    var linkUser = "/api/user/me"
     var linkRestaurant = "/api/restaurant";
     var linkMenuCategory = "/api/category-menu";
     if (!token) {
@@ -17,16 +17,17 @@ $(document).ready(function () {
         headers: { "Authorization": `Bearer ${token}` }
     })
         .done(function (msg) {
-            const box = $("#user-info").empty();
-            const user = Array.isArray(msg?.data) ? msg.data[0] : msg?.data;
+            const box = $(".user-info").empty();
 
-            if (user && (user.fullname || user.email)) {
-                const name  = user.fullname || "Người dùng";
-                const email = user.email || "";
+            const user = Array.isArray(msg?.data) ? msg.data[0] : (msg?.data || msg);
+
+            if (user && (user.fullname || user.username)) {
+                const fullname  = user.fullname || "Người dùng";
+                const username  = user.username || "";
 
                 const html = `
-                    <div class="name">${name}</div>
-                    <div class="email">${email}</div>
+                    <div class="fullname">${fullname}</div>
+                    <div class="username">${username}</div>
                 `;
                 box.html(html);
             } else {
@@ -37,6 +38,7 @@ $(document).ready(function () {
             console.error("Lỗi mạng/Server: ", xhr.status, xhr.responseText);
             alert("Lỗi khi tải user!");
         });
+
 
 
     // restaurant

@@ -79,19 +79,22 @@
 }
 
 /* == User panel == */
-.user-info .name{
+.user-panel{
+    margin-top: auto;             /* đẩy user panel xuống đáy */
+}
+.user-info .fullname{
     font-weight: 700;
     font-size: 14px;
     line-height: 1.15;
     color: #fff;
 }
-.user-info .email{
+.user-info .username{
     font-size: 12px;
     opacity: .9;
     color: #fff;
     text-decoration: none;
 }
-.user-info .email:hover{ text-decoration: underline; }
+.user-info .username:hover{ text-decoration: underline; }
 
 /* == Log out button == */
 .logout{
