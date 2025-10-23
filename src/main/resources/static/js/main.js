@@ -112,10 +112,10 @@ $(document).ready(function () {
 
                 // Tạo khối danh mục riêng
                 let catHtml = `
-        <div class="menu-section">
-          <h5 class="menu-section-title">${catName}</h5>
-          <div class="menu-items">
-      `;
+                    <div class="menu-section">
+                      <h5 class="menu-section-title">${catName}</h5>
+                      <div class="menu-items">
+                  `;
 
                 // Thêm từng món ăn dưới tiêu đề danh mục
                 foods.forEach(function (food) {
@@ -124,14 +124,14 @@ $(document).ready(function () {
                     const badge = food?.freeShip ? `<span class="menu-badge">Free delivery</span>` : '';
 
                     catHtml += `
-          <div class="menu-item">
-            <img src="${img}" alt="${title}" class="menu-item-img">
-            <div class="menu-item-info">
-              <p class="menu-item-title">${title}</p>
-              ${badge}
-            </div>
-          </div>
-        `;
+                      <div class="menu-item">
+                        <img src="${img}" alt="${title}" class="menu-item-img">
+                        <div class="menu-item-info">
+                          <p class="menu-item-title">${title}</p>
+                          ${badge}
+                        </div>
+                      </div>
+                    `;
                 });
 
                 catHtml += `</div></div>`;
