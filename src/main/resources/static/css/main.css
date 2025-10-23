@@ -218,3 +218,59 @@
     font-size: .8rem; font-weight: 600; color: #0a7a0a; background: #e6f6e6;
     padding: 2px 8px; border-radius: 999px;
 }
+
+/* == Danh sách món ăn == */
+.menu-section { margin-block: 16px; }
+/* = Tên category = */
+.menu-section-title { margin: 0 0 10px; font-weight: 700; }
+
+/* --- Menu theo category --- */
+.menu-items{
+    display: grid;
+    grid-auto-flow: column;                          /* xếp theo cột -> 1 hàng */
+    grid-auto-columns: clamp(180px, 22vw, 240px);    /* bề rộng mỗi card */
+    gap: 16px;
+    overflow-x: auto;
+    padding: 6px 6px 10px;                           /* chừa đáy cho scrollbar */
+    scroll-snap-type: x mandatory;                   /* bám card khi cuộn */
+}
+
+/* -- Món ăn trong category -- */
+.menu-item{
+    background: var(--paper, #fff);
+    border: 1px solid var(--border, #eee);
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+.menu-item:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.10);
+}
+
+/* - Ảnh - */
+.menu-item-img{
+    width: 100%;
+    aspect-ratio: 16 / 9;   /* hoặc height: 160px; */
+    object-fit: cover;
+    display: block;
+}
+
+/* - Thông tin món ăn - */
+.menu-item-info{ padding: 10px 12px; }
+.menu-item-title{
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+/* - Free ship - */
+.menu-badge{
+    justify-self: start;
+    font-size: .8rem; font-weight: 600; color: #0a7a0a; background: #e6f6e6;
+    padding: 2px 8px; border-radius: 999px;
+}
+
+
