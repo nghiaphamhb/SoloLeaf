@@ -4,7 +4,9 @@
     min-height: 100vh;           /* full chiều cao màn hình */
 }
 
-/* ===== Brand / Logo ===== */
+/* === Sidebar === */
+
+/* -- Sidebar : Logo -- */
 .brand-logo{
     /* khung chứa logo: căn giữa hoàn hảo */
     display: flex;
@@ -30,7 +32,7 @@
     filter: drop-shadow(0 2px 4px rgba(0,0,0,.35));
 }
 
-/* == Sidebar == */
+/* -- Sidebar : Titles -- */
 .sidebar{
     flex: 0 0 220px;
     padding: 16px 14px;
@@ -78,7 +80,7 @@
     box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
 }
 
-/* == User panel == */
+/* -- Sidebar : User panel -- */
 .user-panel{
     margin-top: auto;
 }
@@ -96,7 +98,7 @@
 }
 .user-info .username:hover{ text-decoration: underline; }
 
-/* == Log out button == */
+/* -- Sidebar: Log out button -- */
 .logout{
     place-self: center;                 /* căn giữa trong cột thứ 3 của .user-panel */
     padding: 6px 12px;                  /* thu nhỏ (4–10px tùy thích) */
@@ -131,8 +133,88 @@
     background: rgba(255,255,255,.12);
 }
 
-/* Vùng nội dung chiếm phần còn lại */
+/* === Main part === */
 .main{
-    flex: 1 1 auto;              /* chiếm phần còn lại */
-    padding: 24px;
+    flex: 1 1 auto;
+    inline-size: min(1200px, 100%);  /* max 1200px, không vượt 100% màn hình */
+    margin-inline: auto;
+    padding-inline: 16px;
+}
+
+/* == Danh sách nhà hàng == */
+#feature-restaurant{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;                 /* khoảng cách giữa các card */
+    padding-inline: 20px;      /* mép trái/phải = 20px, đều với gap */
+    align-items: stretch;
+}
+
+/* = DSNH : Link gắn = */
+.restaurants a{
+    display: block;            /* để thẻ <a> chiếm toàn card */
+}
+
+/* = DSNH : Card = */
+.restaurants .restaurant{
+    background: var(--paper, #fff);
+    border: 1px solid var(--border, #e9e2d9);
+    border-radius: 16px;
+    overflow: hidden;                                   /* bo ảnh theo card */
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    transition: transform 180ms cubic-bezier(.2,.7,.3,1),
+    box-shadow 180ms cubic-bezier(.2,.7,.3,1);
+
+    display: grid;
+    grid-template-columns: 160px 1fr;   /* + ảnh trái 160px, phải chiếm phần còn lại */
+    column-gap: 16px;                   /* + khoảng cách giữa ảnh và info */
+    align-items: stretch;
+    height: 150px;
+}
+.restaurant:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.10);
+}
+
+/* --- Card : Ảnh --- */
+.restaurants img{
+    width: 80%;
+    height: 80%;       /* + kéo theo chiều cao cột */
+    object-fit: cover;  /* giữ crop đẹp */
+    aspect-ratio: auto; /* bỏ ép 4/3 */
+    place-self: center;
+    object-position: center;
+}
+
+/* --- Card : Restaurant info --- */
+.restaurant-info{
+    padding: 12px 14px;
+    display: grid;
+    gap: 6px;
+}
+/* -- Restaurant info : title -- */
+.title{
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--fg, #2b2b2b);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* -- Restaurant info : subtitle -- */
+.sub-title{
+    color: var(--fg-muted, #666);
+    font-size: .95rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* -- Restaurant info : rating -- */
+.rating{
+    display: inline-flex; align-items: center; gap: 6px; font-weight: 600;
+}
+.rating::before{
+    content: "★"; color: #eab308; font-size: .95rem; line-height: 1;
+}
+/* -- Restaurant info : freeship -- */
+.free-ship{
+    justify-self: start;
+    font-size: .8rem; font-weight: 600; color: #0a7a0a; background: #e6f6e6;
+    padding: 2px 8px; border-radius: 999px;
 }

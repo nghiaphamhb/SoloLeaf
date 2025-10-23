@@ -10,7 +10,7 @@ $(document).ready(function () {
         return;
     }
 
-    // user
+    // user profile (fullname + username(email) )
     $.ajax({
         method: "GET",
         url: linkUser,
@@ -60,19 +60,16 @@ $(document).ready(function () {
                 // Lặp qua từng nhà hàng
                 $.each(msg.data, function (index, value) {
                     var html = `
-                <div class="col-md-6 col-lg-4">
-                    <a href="/restaurant/${value.id}" class="text-dark text-decoration-none">
-                        <div class="restaurant-card d-flex align-items-center p-3 mb-4">
+                <div class="restaurants">
+                    <a href="/restaurant/${value.id}">
+                        <div class="restaurant">
                             <img src="${'/images/' + value.image }"
-                             class="img-fluid rounded" alt="${value.title}">
-                            <div class="ms-3 w-100">
-                                <p class="name mb-1">${value.title}</p>
-                                <p class="category mb-1">${value.subtitle || ''}</p>
-                                <div>
-                                    <i class="mdi mdi-star text-warning"></i>
-                                    <span class="fw-bold">${value.rating.toFixed(1)}</span> 
-                                </div>
-                                <span class="badge bg-success">${value.freeship ? 'Free delivery' : ''}</span>
+                             alt="${value.title}">
+                            <div class="restaurant-info">
+                                <p class="title">${value.title}</p>
+                                <p class="sub-title">${value.subtitle || ''}</p>
+                                <p class="rating">${value.rating.toFixed(1)}</p>
+                                <p class="free-ship">${value.freeship ? 'Free delivery' : ''}</p>
                             </div>
                         </div>
                     </a>
@@ -145,8 +142,5 @@ $(document).ready(function () {
             console.error("Lỗi mạng/Server: ", xhr.status, xhr.responseText);
             alert("Lỗi khi tải danh sách menu!");
         });
-
-
-
 
 });
