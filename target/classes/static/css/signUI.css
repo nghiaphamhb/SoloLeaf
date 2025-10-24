@@ -1,0 +1,137 @@
+/* Bổ sung thêm cho các phần tử */
+:root{
+    --radius-lg: 16px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+    --shadow-md: 0 10px 30px rgba(0,0,0,.10);
+    --ease: cubic-bezier(.2,.7,.3,1);
+    --dur: 200ms;
+}
+
+/* Căn giữa nội dung trang đăng nhập */
+main.wrap{
+    display: grid;
+    place-items: center;
+    padding-inline: 20px;
+}
+
+/* Card chứa form (không cần thêm class vào HTML) */
+main.wrap > div{
+    width: 100%;
+    max-width: 420px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    text-align: left;
+    transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+main.wrap > div:hover{
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* Tiêu đề form*/
+main.wrap > div > h1{
+    margin-bottom: 18px;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    color: var(--fg);
+}
+
+/* Form */
+#form-signin,
+#form-signup{
+    display: grid;
+    gap: 14px;
+}
+
+/* Label */
+#form-signin label,
+#form-signup label{
+    font-weight: 600;
+    font-size: .95rem;
+    color: var(--fg);
+}
+
+/* Input */
+#form-signin input[type="email"],
+#form-signin input[type="password"],
+#form-signup input[type="text"],
+#form-signup input[type="email"],
+#form-signup input[type="password"]{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--fg);
+    outline: none;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+#form-signin input::placeholder,
+#form-signup input::placeholder{
+    color: #9aa1a9;
+}
+
+#form-signin input:focus,
+#form-signup input:focus{
+    border-color: color-mix(in srgb, var(--brand) 70%, #0000);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, #0000);
+}
+
+/* Nút Đăng nhập */
+#btn-signin,
+#btn-signup{
+    margin-top: 6px;
+    width: 100%;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: .2px;
+    background-image: linear-gradient(90deg, var(--brand-2), var(--accent), var(--brand));
+    background-size: 200% 100%;
+    cursor: pointer;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-position var(--dur) var(--ease);
+    box-shadow: 0 6px 20px rgba(0,0,0,.12);
+}
+
+#btn-signin:hover,
+#btn-signup:hover{
+    transform: translateY(-1px);
+    background-position: 100% 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,.16);
+}
+
+#btn-signin:active,
+#btn-signup:active{
+    transform: translateY(0);
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+}
+
+/* Footer dưới form (link đăng ký) */
+footer{
+    text-align: center;
+    color: var(--fg-muted);
+    padding: 5px 0 24px;
+}
+footer a{
+    color: var(--brand-2);
+    font-weight: 600;
+}
+footer a:hover{ color: var(--accent); }
+
+/* Header thông báo ngắn phía trên */
+header{
+    padding: 18px 12px;
+}
+
+/* Responsive nhỏ */
+@media (max-width: 420px){
+    main.wrap{ margin: 28px auto; }
+    main.wrap > div{ padding: 22px; }
+}
+
