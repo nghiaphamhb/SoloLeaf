@@ -1,2 +1,2 @@
-src/main/resources/templates/wrapper.htm
+src/main/resources/templates/wrapper.html
 target/classes/templates/wrapper.htm
