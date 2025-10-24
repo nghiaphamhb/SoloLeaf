@@ -25,11 +25,16 @@ public class MainController {
 
     @GetMapping("/main")
     public String mainPage() {
-        return "main";
+        return "home";
     }
 
     @GetMapping("/restaurant/{id}")
     public String restaurantPage(@PathVariable("id") Long id) {
         return "restaurant";
+    }
+
+    @GetMapping("/error")
+    public String errorPage() {
+        return "error";
     }
 }
