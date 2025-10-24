@@ -1,47 +1,6 @@
 /* ===== Fonts (Playfair cho tiêu đề) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-:root{  /* Khai báo các biến màu và kích thước */
-    /* Màu nền & chữ */
-    --brand:#8a1538;     /* bổ sung lại */
-    --paper:#fff;
-    --fg:#2b2b2b;
-    --fg-muted:#666;
-    --bg:#faf7f2;
-
-    /* Màu thương hiệu/CTA */
-    --brand-2:#b45309;
-    --accent:#d97706;
-
-    /* Gradient header (3 màu, đồng bộ với button palette) */
-    --g1:#d97706;  /* hổ phách */
-    --g2:#c2410c;  /* đất nung đậm */
-    --g3:#8a1538;  /* đỏ vang */
-
-    /* Viền & bóng cho footer/cta */
-    --border:#e9e2d9;
-    --shadow-sm:0 2px 8px rgba(0,0,0,.06);
-    --shadow-md:0 8px 24px rgba(0,0,0,.08);
-
-    /* Motion */
-    --ease:cubic-bezier(0.3,0.7,0.4,1);
-    --dur:220ms;
-}
-
-/* ===== Reset nhẹ & nền trang ===== */
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-    color:var(--fg);
-    background: radial-gradient(1200px 600px at 50% -10%, #fff 0%, var(--bg) 60%);
-    line-height:1.6;
-}
-
-/* ===== Link ===== */
-a{color:var(--brand-2);text-decoration:none;}
-a:hover{color:var(--accent);}
-
 /* ===== Header ===== */
 header{
     color:#fff;
