@@ -21,12 +21,12 @@
         <!-- Sidebar content -->
         <div class="sidebar-content">
             <h3>Menu</h3>
-            <a href="#">Home</a>
-            <a href="/error">Explore</a>
-            <a href="/error">Favourites</a>
-            <a href="/error">Orders</a>
-            <a href="/error">Messages</a>
-            <a href="/error">Settings</a>
+            <a href="#">🏠 Home</a>
+            <a href="/error">🔍 Explore</a>
+            <a href="/error">⭐️ Favourites</a>
+            <a href="/error">🚴 Orders</a>
+            <a href="/error">✉️ Messages</a>
+            <a href="/error">⚙️ Settings</a>
         </div>
 
         <!-- User panel (dưới cùng) -->
@@ -39,55 +39,53 @@
     </aside>
 
     <!-- Main -->
-    <main class="main">
-        <!-- Location bar -->
-        <div >
-            <div>
-                <span class="text-danger">📍</span>
-                <span id="location-text">SAN FRANCISCO, CALIFORNIA</span>
-            </div>
-        </div>
-
-        <!-- Restaurant header -->
-        <section id="restaurant-header" class="card border-0 shadow-sm mb-3">
-            <div class="card-body">
-                <div class="d-flex gap-3">
-                    <div class="brand-badge">
-                        <img id="rest-logo" src="" alt="logo"/>
+    <main class="restaurant-page">
+        <!-- 🏠 Restaurant header -->
+        <section class="restaurant-header" id="restaurant-header">
+            <div class="restaurant-header__body">
+                <div class="restaurant-header__main">
+                    <div class="restaurant-header__logo">
+                        <img id="rest-logo" src="" alt="Restaurant logo" />
                     </div>
-                    <div class="flex-grow-1">
-                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <h3 id="rest-name" class="mb-0">—</h3>
-                            <span id="rest-cuisines" class="text-muted">—</span>
+
+                    <div class="restaurant-header__info">
+                        <div class="restaurant-header__title-group">
+                            <h3 id="rest-name" class="restaurant-header__name">—</h3>
+                            <span id="rest-cuisines" class="restaurant-header__cuisines">—</span>
                         </div>
 
-                        <div class="mt-2 d-flex align-items-center gap-2 flex-wrap" id="rest-badges">
-                            <!-- ví dụ: Free delivery | 65% OFF | Opens at 12 PM -->
+                        <div class="restaurant-header__badges" id="rest-badges">
+                            <!-- Ví dụ: Free delivery | 65% OFF | Opens at 12 PM -->
                         </div>
 
-                        <p id="rest-desc" class="mt-2 mb-0 text-muted small"></p>
+                        <p id="rest-desc" class="restaurant-header__desc"></p>
 
-                        <div class="mt-2 small text-muted d-flex flex-wrap gap-3">
-                            <span>⭐ <span id="rest-rating">—</span> • <span id="rest-rating-count">—</span> ratings</span>
-                            <span>📌 <span id="rest-address">—</span></span>
+                        <div class="restaurant-header__meta">
+            <span class="restaurant-header__rating">
+              <span id="rest-rating">—</span> • <span id="rest-rating-count">—</span> ratings
+            </span>
+                            <span class="restaurant-header__address">
+              <span id="rest-address">—</span>
+            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Subnav (categories) -->
-        <div class="sticky-subnav">
-            <ul id="category-tabs" class="nav nav-pills small gap-2"></ul>
-        </div>
+        <!-- 🧩 Subnav (categories) -->
+        <nav class="menu-subnav sticky-subnav">
+            <ul id="category-tabs" class="menu-subnav__tabs"></ul>
+        </nav>
 
-        <!-- Menu grid -->
-        <section id="menu-section" class="mt-3">
-            <div id="menu-grid" class="row g-3">
-                <!-- thẻ món ăn sẽ render ở đây -->
+        <!-- 🍽️ Menu grid -->
+        <section class="menu-grid-section" id="menu-section">
+            <div class="menu-grid" id="menu-grid">
+                <!-- Các thẻ món ăn (menu-card) render tại đây -->
             </div>
         </section>
     </main>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

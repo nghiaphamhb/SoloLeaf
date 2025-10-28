@@ -75,7 +75,7 @@ function renderError(msg) {
     );
 }
 
-// Map đúng field theo JSON của bạn
+// Restaurant header
 function renderRestaurantHeaderFromApi(d) {
     // d.image, d.title, d.subtitle, d.promo, d.description, d.rating, d.address, d.freeship
     $("#rest-logo").attr("src", d.image ? `/images/${d.image}` : "/img/placeholder.png");
@@ -93,9 +93,9 @@ function renderRestaurantHeaderFromApi(d) {
     // $("#location-text") thường cố định trên UI, có thể bỏ qua
 
     const $badges = $("#rest-badges").empty();
-    if (d.freeship) {
-        $badges.append(`<span class="badge text-bg-light border">Free delivery</span>`);
-    }
+    // if (d.freeship) {
+    //     $badges.append(`<span class="badge text-bg-light border">Free delivery</span>`);
+    // }
     if (typeof d.promo === "number" && d.promo > 0) {
         $badges.append(`<span class="badge text-bg-light border">${d.promo}% OFF</span>`);
     }
@@ -125,7 +125,7 @@ function renderMenuGrid(items, catName) {
     }
 
     items.forEach((m) => {
-        const freeBadge = m.freeShip ? `<span class="badge text-bg-success">Free delivery</span>` : '';
+        const freeBadge = m.freeShip ? `<span class="menu-card_freeship">Free delivery</span>` : '';
         const prepText  = m.prepMinutes ? `${escapeHtml(m.prepMinutes)}`
             : ""; // API dùng timeShip, đã map sang prepMinutes
         const priceText = (typeof m.price === "number")
@@ -133,24 +133,28 @@ function renderMenuGrid(items, catName) {
             : "";
 
         const card = $(`
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="card menu-card h-100 border-0 shadow-sm">
-          <img src="${escapeAttr(m.imageUrl)}" class="card-img-top" alt="${escapeAttr(m.name)}">
-          <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-start">
-              <h6 class="card-title mb-1">${escapeHtml(m.name)}</h6>
-              ${freeBadge}
+      <div class="menu-card">
+          <div class="menu-card__media">
+            <img src="${escapeAttr(m.imageUrl)}" class="menu-card__img" alt="${escapeAttr(m.name)}" />
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__header">
+              <h6 class="menu-card__title">${escapeHtml(m.name)}</h6>
+              ${freeBadge} <!-- gợi ý: thêm class="menu-card__badge" trong freeBadge -->
             </div>
-            <div class="text-muted small mb-2">
-              ⭐ ${m.rating ?? "—"} ${prepText ? `· ${prepText}` : ""}
+            <div class="menu-card__meta">
+              <span class="menu-card__rating" aria-label="Rating">
+                <span class="menu-card__star" aria-hidden="true">⭐</span>
+                ${m.rating ?? "—"}
+              </span>
+              ${prepText ? `<span class="menu-card__dot">·</span><span class="menu-card__prep">${prepText}</span>` : ""}
             </div>
-            <div class="mt-auto d-flex justify-content-between align-items-center">
-              <div class="fw-semibold">${priceText}</div>
-              <button class="btn btn-sm btn-danger">Add</button>
+            <div class="menu-card__footer">
+              <div class="menu-card__price">${priceText}</div>
+              <button class="menu-card__btn buttons" aria-label="Add ${escapeAttr(m.name)} to cart">Add</button>
             </div>
           </div>
         </div>
-      </div>
     `);
         $grid.append(card);
     });
@@ -162,4 +166,7 @@ function escapeHtml(s) {
         .replace(/&/g, "&amp;").replace(/</g, "&lt;")
         .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
-function escapeAttr(s) { return escapeHtml(s); }
+
+function escapeAttr(s) {
+    return escapeHtml(s);
+}

@@ -51,10 +51,6 @@ header p{
     box-shadow:var(--shadow-md);
 }
 .buttons a:active{transform:translateY(-1px);box-shadow:var(--shadow-sm);}
-.buttons a:focus-visible{
-    outline:none;
-    box-shadow:0 0 0 3px rgba(255,255,255,.8), 0 0 0 6px rgba(138,21,56,.5);
-}
 
 /* ===== Footer ===== */
 footer{

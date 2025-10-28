@@ -128,10 +128,3 @@ footer a:hover{ color: var(--accent); }
 header{
     padding: 18px 12px;
 }
-
-/* Responsive nhỏ */
-@media (max-width: 420px){
-    main.wrap{ margin: 28px auto; }
-    main.wrap > div{ padding: 22px; }
-}
-

@@ -48,7 +48,7 @@ $(document).ready(function () {
                 const username  = user.username || "";
 
                 const html = `
-                    <div class="fullname">${fullname}</div>
+                    <div class="fullname">👤${fullname}</div>
                     <div class="username">${username}</div>
                 `;
                 box.html(html);
