@@ -28,13 +28,13 @@
     --dur:220ms;
 }
 
-/* ===== Reset nhẹ & nền trang ===== */
+/* ===== CSS RESET ===== */
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
 body{
+    background: radial-gradient(1200px 600px at 50% -10%, #fff 0%, var(--bg) 60%);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
     color:var(--fg);
-    background: radial-gradient(1200px 600px at 50% -10%, #fff 0%, var(--bg) 60%);
     line-height:1.6;
 }
 
