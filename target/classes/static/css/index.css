@@ -1,13 +1,13 @@
 /* ===== Header ===== */
 header{
-    padding:40px 20px;
+     padding:40px 20px;
 
-    background:linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
-    box-shadow:var(--shadow-md);
+     background:linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+     box-shadow:var(--shadow-md);
 
-    color:#fff;
-    text-align:center;
-}
+     color:#fff;
+     text-align:center;
+ }
 header h1{
     margin-bottom:.4rem;
 
