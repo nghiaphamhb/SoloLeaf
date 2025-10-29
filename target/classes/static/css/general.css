@@ -3,7 +3,7 @@
 
 :root{  /* Khai báo các biến màu và kích thước */
     /* Màu nền & chữ */
-    --brand:#8a1538;     /* bổ sung lại */
+    --brand:#8a1538;
     --paper:#fff;
     --fg:#2b2b2b;
     --fg-muted:#666;

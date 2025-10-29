@@ -2,7 +2,7 @@
     --text: #111;
     --muted: #6b7280;
     --ring: #ff4d4f;
-    --brand: #ef7d00;
+    --brand: #cc3200;
     --chip-bg: #f3f4f6;
     --chip-text: #374151;
     --shadow: 0 8px 24px rgba(0,0,0,.08);
@@ -119,7 +119,7 @@
 .restaurant-header__rating::before{ content:"⭐"; }
 .restaurant-header__address::before{ content:"📍"; }
 
-/* Tabs category (subnav) */
+/* ==== Tabs category (subnav) ==== */
 .menu-subnav{
     position: sticky;
     z-index: 20;
@@ -127,25 +127,35 @@
     border-bottom: 1px solid #eee;
     backdrop-filter: saturate(1.1) blur(4px);
 }
-/* ===== Tabs list ===== */
-.menu-subnav__tabs{
+/* Categories nav */
+#menu-subnav__tabs{
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     padding: 10px 12px;
     margin: 0;
     list-style: none;
     overflow-x: auto;          /* kéo ngang khi nhiều tab */
     -webkit-overflow-scrolling: touch;
 }
-
-.menu-subnav__tabs .nav-link{
-    border-radius:999px; padding:6px 12px;
+#menu-subnav__tabs .nav-item{
+    display: inline-block;
+    border-radius: 7px;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #333;
+    background: #f4f4f4;
+    transition: background-color 0.2s, color 0.2s;
 }
-.menu-subnav__tabs .nav-link.active{
-    background:var(--brand); color:#fff;
+#menu-subnav__tabs .nav-item:hover{
+    background: #e8e8e8;
+}
+#menu-subnav__tabs .nav-item.active{
+    background:var(--brand);
+    color:#fff;
 }
 
+/* ==== Menu các món ăn theo category ==== */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);  /* Mỗi hàng 3 cột */

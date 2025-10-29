@@ -18,7 +18,7 @@ $(function () {
 
     const headers = { "Authorization": `Bearer ${token}` };
 
-    // API trả cả detail + categories
+    // API chính trả detail + categories của restaurant
     $.ajax({
         method: "GET",
         url: API_RESTAURANT_DETAIL(restaurantId),
@@ -51,11 +51,11 @@ $(function () {
             const firstCat = Object.keys(grouped)[0];
             renderMenuGrid(grouped[firstCat], firstCat);
 
-            // Đổi tab
-            $("#category-tabs").on("click", "a[data-cat]", function (e) {
+            // Đổi tab category
+            $("#menu-subnav__tabs").on("click", "a[data-cat]", function (e) {
                 e.preventDefault();
                 const cat = $(this).data("cat");
-                $("#category-tabs a").removeClass("active");
+                $("#menu-subnav__tabs a").removeClass("active");
                 $(this).addClass("active");
                 renderMenuGrid(grouped[cat], cat);
             });
@@ -74,7 +74,7 @@ function renderError(msg) {
     );
 }
 
-/* API Restaurant header */
+/* Restaurant header render */
 function renderRestaurantHeaderFromApi(d) {
     // logo, name, subtitle
     $("#rest-logo").attr("src", d.image ? `/images/${d.image}` : "/img/placeholder.png");
@@ -92,29 +92,32 @@ function renderRestaurantHeaderFromApi(d) {
 
     $("#rest-desc").text(d.description || "");
     $("#rest-rating").text(
-        typeof d.rating === "number" ? d.rating : "—"
+        typeof d.rating === "number" ? d.rating.toFixed(1) : "—"
     );
     $("#rest-address").text(d.address || "—");
 }
 
-/* Categories */
+/* Category tabs render */
 function renderCategoryTabs(grouped) {
-    const $tabs = $("#category-tabs").empty();
+    const $tabs = $("#menu-subnav__tabs").empty();
     Object.keys(grouped).forEach((cat, idx) => {
         const a = $(`
-      <a href="#" class="nav-link ${idx === 0 ? "active" : ""}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</a>
-    `);
-        $tabs.append($("<li class='nav-item'></li>").append(a));
+                      <a href="#" class="nav-item ${idx === 0 ? "active" : ""}" data-cat="${escapeHtml(cat)}">
+                        ${escapeHtml(cat)}
+                      </a>
+                    `);
+        $tabs.append($("<li></li>").append(a));
     });
 }
 
+/* render menu các món ăn (theo category) */
 function renderMenuGrid(items, catName) {
     const $grid = $("#menu-grid").empty();
     if (!items || !items.length) {
         $grid.append(
-            `<div class="col-12"><div class="alert alert-warning">Chưa có món trong nhóm "${escapeHtml(
+            `<div>Chưa có món trong nhóm "${escapeHtml(
                 catName || ""
-            )}".</div></div>`
+            )}".</div>`
         );
         return;
     }
@@ -130,7 +133,7 @@ function renderMenuGrid(items, catName) {
         const card = $(`
       <div class="menu-card">
           <div class="menu-card__media">
-            <img src="${escapeAttr(m.imageUrl)}" class="menu-card__img" alt="${escapeAttr(m.name)}" />
+            <img src="${escapeHtml(m.imageUrl)}" class="menu-card__img" alt="${escapeHtml(m.name)}" />
           </div>
           <div class="menu-card__body">
             <div class="menu-card__header">
@@ -146,7 +149,7 @@ function renderMenuGrid(items, catName) {
             </div>
             <div class="menu-card__footer">
               <div class="menu-card__price">${priceText}</div>
-              <button class="menu-card__btn buttons" aria-label="Add ${escapeAttr(m.name)} to cart">Add</button>
+              <button class="menu-card__btn buttons" aria-label="Add ${escapeHtml(m.name)} to cart">Add</button>
             </div>
           </div>
         </div>
@@ -158,10 +161,9 @@ function renderMenuGrid(items, catName) {
 /* nhỏ gọn tránh XSS khi chèn text vào HTML */
 function escapeHtml(s) {
     return String(s ?? "")
-        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-}
-
-function escapeAttr(s) {
-    return escapeHtml(s);
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
