@@ -43,6 +43,7 @@
     font-weight: 800;
     margin: 0;
 }
+/* Subtitle restaurant header */
 .restaurant-header__cuisines {
     color: var(--muted);
     font-weight: 500;
@@ -66,7 +67,7 @@
     font-weight: 600;
 }
 
-/* Mô tả */
+/* Mô tả nhà hàng - Header*/
 .restaurant-header__desc {
     margin-top: 6px;
     color: var(--muted);
@@ -88,7 +89,6 @@
 .restaurant-header__address::before {
     content: "📍 ";
 }
-
 
 /* == Menu == */
 .menu-card__badge,

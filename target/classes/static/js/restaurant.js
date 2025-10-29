@@ -94,9 +94,6 @@ function renderRestaurantHeaderFromApi(d) {
     $("#rest-rating").text(
         typeof d.rating === "number" ? d.rating : "—"
     );
-    $("#rest-rating-count").text("—");          // API chưa có
-    $("#rest-cost").text("—");                  // API chưa có
-    $("#rest-distance").text("—");              // API chưa có
     $("#rest-address").text(d.address || "—");
 }
 
