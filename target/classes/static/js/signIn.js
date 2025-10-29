@@ -16,7 +16,7 @@ $(document).ready(function(){
                 if (msg && msg.data) {
                     console.log("[Client] Get token: " + msg.data);
                     localStorage.setItem("token", msg.data);
-                    window.location.href = "/main";
+                    window.location.href = "/home";
                 } else {
                     alert((msg && msg.message) || "Đăng nhập thất bại!");
                 }

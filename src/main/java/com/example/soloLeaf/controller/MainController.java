@@ -23,8 +23,8 @@ public class MainController {
         return "signUp";
     }
 
-    @GetMapping("/main")
-    public String mainPage() {
+    @GetMapping("/home")
+    public String homePage() {
         return "home";
     }
 
