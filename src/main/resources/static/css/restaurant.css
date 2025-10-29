@@ -193,13 +193,16 @@
 
 /* Ảnh */
 .menu-card__media {
-    flex: 0 0 55%;                          /* Chiếm khoảng 55% chiều cao card */
+    width: 100%;
+    aspect-ratio: 5 / 4;
     overflow: hidden;
 }
 .menu-card__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    display: block;
+    object-position: 50% 40%;   /* canh trọng tâm (đẩy lên một chút để không cắt phần “nắp bánh”) */
 }
 
 .menu-card:hover .menu-card__img{ transform: scale(1.05); }
