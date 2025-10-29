@@ -201,8 +201,8 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display: block;             /* bỏ khoảng trống inline */
-    object-position: 50% 40%;   /* canh trọng tâm (ví dụ đẩy lên một chút để không cắt phần “nắp bánh”) */
+    display: block;
+    object-position: 50% 40%;   /* canh trọng tâm (đẩy lên một chút để không cắt phần “nắp bánh”) */
 }
 
 .menu-card:hover .menu-card__img{ transform: scale(1.05); }

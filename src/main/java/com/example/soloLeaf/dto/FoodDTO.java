@@ -8,6 +8,7 @@ public class FoodDTO {
     private boolean isFreeShip;
     private double rating;
     private String timeShip;
+    private double price;
 
     public String getImage() {
         return image;
@@ -47,5 +48,13 @@ public class FoodDTO {
 
     public void setTimeShip(String timeShip) {
         this.timeShip = timeShip;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
