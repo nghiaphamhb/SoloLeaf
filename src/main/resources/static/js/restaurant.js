@@ -13,13 +13,12 @@ $(function () {
         return;
     }
 
-
     const token = localStorage.getItem("token");
     if (!token) { alert("Bạn chưa đăng nhập!"); window.location.href = "/signIn"; return; }
 
     const headers = { "Authorization": `Bearer ${token}` };
 
-    // 1 request duy nhất vì API đã trả cả detail + categories
+    // API trả cả detail + categories
     $.ajax({
         method: "GET",
         url: API_RESTAURANT_DETAIL(restaurantId),
@@ -68,19 +67,29 @@ $(function () {
 });
 
 /* ================== RENDER HELPERS ================== */
-
+/* header print error message */
 function renderError(msg) {
     $("#restaurant-header").replaceWith(
-        `<div class="alert alert-danger m-3">${msg}</div>`
+        `<div>${msg}</div>`
     );
 }
 
-// Restaurant header
+/* API Restaurant header */
 function renderRestaurantHeaderFromApi(d) {
-    // d.image, d.title, d.subtitle, d.promo, d.description, d.rating, d.address, d.freeship
+    // logo, name, subtitle
     $("#rest-logo").attr("src", d.image ? `/images/${d.image}` : "/img/placeholder.png");
     $("#rest-name").text(d.title || "Restaurant");
-    $("#rest-cuisines").text(d.subtitle || ""); // hiển thị 1 dòng như ảnh mẫu
+    $("#rest-cuisines").text(d.subtitle || "");
+
+    const $badges = $("#rest-badges");
+    $badges.empty();
+    if (d.freeship) {
+        $badges.append(`<span class="badge" style="color: #0a7a0a; background: #e6f6e6;">Free delivery</span>`);
+    }
+    if (typeof d.promo === "number" && d.promo > 0) {
+        $badges.append(`<span class="badge"  style="color: #b34700; background: #fff1e6;">${d.promo}% OFF</span>`);
+    }
+
     $("#rest-desc").text(d.description || "");
     $("#rest-rating").text(
         typeof d.rating === "number" ? d.rating : "—"
@@ -89,20 +98,9 @@ function renderRestaurantHeaderFromApi(d) {
     $("#rest-cost").text("—");                  // API chưa có
     $("#rest-distance").text("—");              // API chưa có
     $("#rest-address").text(d.address || "—");
-    // giữ nguyên location-text hiện có nếu API không trả
-    // $("#location-text") thường cố định trên UI, có thể bỏ qua
-
-    const $badges = $("#rest-badges").empty();
-    // if (d.freeship) {
-    //     $badges.append(`<span class="badge text-bg-light border">Free delivery</span>`);
-    // }
-    if (typeof d.promo === "number" && d.promo > 0) {
-        $badges.append(`<span class="badge text-bg-light border">${d.promo}% OFF</span>`);
-    }
 }
 
-/* Giữ lại các hàm render bạn đã có, chỉ tinh chỉnh chút cho hợp dữ liệu đã chuẩn hoá */
-
+/* Categories */
 function renderCategoryTabs(grouped) {
     const $tabs = $("#category-tabs").empty();
     Object.keys(grouped).forEach((cat, idx) => {
@@ -125,7 +123,7 @@ function renderMenuGrid(items, catName) {
     }
 
     items.forEach((m) => {
-        const freeBadge = m.freeShip ? `<span class="menu-card_freeship">Free delivery</span>` : '';
+        const freeBadge = m.freeShip ? `<span class="label_freeship">Free delivery</span>` : '';
         const prepText  = m.prepMinutes ? `${escapeHtml(m.prepMinutes)}`
             : ""; // API dùng timeShip, đã map sang prepMinutes
         const priceText = (typeof m.price === "number")

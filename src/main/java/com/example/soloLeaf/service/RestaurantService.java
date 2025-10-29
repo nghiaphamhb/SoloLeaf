@@ -96,6 +96,7 @@ public class RestaurantService implements RestaurantServiceImp {
                     calculatorRating(res.getRatingRestaurantList())
             );
             dto.setAddress(res.getAddress());
+            dto.setFreeship(res.isFreeShip());
 
             // tao list categoryDTO
             List<CategoryDTO> categories = new ArrayList<>();

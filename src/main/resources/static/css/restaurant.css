@@ -9,24 +9,16 @@
 }
 /* == Phần Header Restaurant == */
 /* Header card */
-.restaurant-header {
+#restaurant-header {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: var(--shadow);
     background: #fff;
-}
-
-.restaurant-header__body {
-    padding: 20px;
-}
-
-/* Bố cục ngang: logo bên trái, info bên phải */
-.restaurant-header__main {
     display: flex;
+    padding: 20px;
     align-items: center;
     gap: 25px; /* Khoảng cách giữa ảnh và nội dung */
 }
-
 /* Logo */
 .restaurant-header__logo {
     flex: 0 0 auto; /* Không co giãn */
@@ -38,16 +30,14 @@
     object-fit: cover;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
-
-/* Thông tin bên phải */
+/* Thông tin nhà hàng bên phải */
 .restaurant-header__info {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
-/* Tên + loại món */
+/* Restaurant's name in header */
 .restaurant-header__name {
     font-size: 1.5rem;
     font-weight: 800;
@@ -58,7 +48,7 @@
     font-weight: 500;
 }
 
-/* Badge (ví dụ 30% OFF) */
+/* Badge - Promo (ví dụ 30% OFF) */
 .restaurant-header__badges {
     margin-top: 6px;
     display: flex;
@@ -70,8 +60,8 @@
     align-items: center;
     padding: 4px 10px;
     border-radius: 999px;
-    background: #f3f4f6;
-    color: #374151;
+    /*background: #f3f4f6;*/
+    /*color: #374151;*/
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -208,13 +198,6 @@
 }
 .menu-card__title{
     font-size: 1rem; font-weight: 700; line-height: 1.2; margin: 0; flex: 1;
-}
-
-/* Badge gợi ý */
-.menu-card_freeship{
-    justify-self: start;
-    font-size: .8rem; font-weight: 600; color: #0a7a0a; background: #e6f6e6;
-    padding: 2px 8px; border-radius: 999px;
 }
 
 /* Meta: rating + prep */
