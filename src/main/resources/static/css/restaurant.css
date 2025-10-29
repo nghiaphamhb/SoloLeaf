@@ -56,15 +56,24 @@
     flex-wrap: wrap;
     gap: 8px;
 }
-.restaurant-header__badges .badge {
+.restaurant-header__badges .badge_promo {
     display: inline-flex;
     align-items: center;
     padding: 4px 10px;
     border-radius: 999px;
-    /*background: #f3f4f6;*/
-    /*color: #374151;*/
     font-size: 0.8rem;
     font-weight: 600;
+    color: #b34700;
+    background: #fff1e6;
+}
+
+.badge_freeship{
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0a7a0a;
+    background: #e6f6e6;
 }
 
 /* Mô tả nhà hàng - Header*/
@@ -95,7 +104,6 @@
 .restaurant-header__badges span{
     display:inline-flex; align-items:center; gap:6px;
     padding:4px 10px; border-radius:999px;
-    background:var(--chip-bg); color:var(--chip-text);
     font-size:.8rem; font-weight:700;
     box-shadow: 0 1px 0 rgba(0,0,0,.05) inset;
 }
@@ -156,10 +164,10 @@
 }
 
 /* ==== Menu các món ăn theo category ==== */
-.menu-grid {
+#menu-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* Mỗi hàng 3 cột */
-    gap: 24px;                              /* Khoảng cách giữa các card */
+    grid-template-columns: repeat(4, 1fr);  /* Mỗi hàng 4 cột */
+    gap: 15px;                              /* Khoảng cách giữa các card */
     justify-items: center;                  /* Căn giữa theo chiều ngang */
     align-items: start;                     /* Căn đầu theo chiều dọc */
     padding: 20px;
@@ -171,12 +179,12 @@
     height: 280px;                          /* Chiều cao cố định */
     display: flex;
     flex-direction: column;
-    background: var(--card-bg, #fff);
-    border-radius: var(--radius, 16px);
+    background: #fff;
+    border-radius: 16px;
     box-shadow: var(--shadow-sm, 0 2px 10px rgba(0,0,0,.08));
     overflow: hidden;
     transition: transform .2s ease, box-shadow .2s ease;
-    margin: 30px
+    margin-top: 20px
 }
 .menu-card:hover {
     transform: translateY(-4px);

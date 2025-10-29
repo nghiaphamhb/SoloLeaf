@@ -27,4 +27,3 @@ jwt:
 
 fileUpload:
   rootPath: src/main/resources/static/images
-

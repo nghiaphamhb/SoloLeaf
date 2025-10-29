@@ -84,10 +84,10 @@ function renderRestaurantHeaderFromApi(d) {
     const $badges = $("#rest-badges");
     $badges.empty();
     if (d.freeship) {
-        $badges.append(`<span class="badge" style="color: #0a7a0a; background: #e6f6e6;">Free delivery</span>`);
+        $badges.append(`<span class="badge_freeship">Free delivery</span>`);
     }
     if (typeof d.promo === "number" && d.promo > 0) {
-        $badges.append(`<span class="badge"  style="color: #b34700; background: #fff1e6;">${d.promo}% OFF</span>`);
+        $badges.append(`<span class="badge_promo">${d.promo}% OFF</span>`);
     }
 
     $("#rest-desc").text(d.description || "");
@@ -123,7 +123,7 @@ function renderMenuGrid(items, catName) {
     }
 
     items.forEach((m) => {
-        const freeBadge = m.freeShip ? `<span class="label_freeship">Free delivery</span>` : '';
+        const freeBadge = m.freeShip ? `<span class="badge_freeship">Free delivery</span>` : '';
         const prepText  = m.prepMinutes ? `${escapeHtml(m.prepMinutes)}`
             : ""; // API dùng timeShip, đã map sang prepMinutes
         const priceText = (typeof m.price === "number")
