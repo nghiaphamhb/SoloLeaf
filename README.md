@@ -1,4 +1,4 @@
-### 🍽️ Restaurant Food Ordering Project
+# 🍽️ Restaurant Food Ordering Project
 
 The Restaurant Food Ordering project is a modern web application that allows users to browse restaurant menus, explore food categories, and place online orders with ease.
 It is designed to bring restaurant experiences closer to customers through an intuitive interface, fast navigation, and real-time interaction between menu data and the user’s selections.
@@ -15,4 +15,4 @@ The system features:
 
 Built with HTML, CSS, and JavaScript (jQuery) on the frontend and a Spring Boot / Node.js backend, the project focuses on clean UI, reusable components, and secure rendering (XSS-safe HTML) to ensure both aesthetics and safety.
 
-## 🧠 Goal: To simulate a real online restaurant experience where users can explore, choose, and enjoy — all from one responsive, lightweight, and secure web interface.
+### 🧠 Goal: To simulate a real online restaurant experience where users can explore, choose, and enjoy — all from one responsive, lightweight, and secure web interface.
