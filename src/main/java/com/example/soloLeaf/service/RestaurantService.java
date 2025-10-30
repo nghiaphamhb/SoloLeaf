@@ -88,8 +88,15 @@ public class RestaurantService implements RestaurantServiceImp {
             dto.setTitle(res.getTitle());
             dto.setSubtitle(res.getSubtitle());
 
-            Promo promo = res.getPromoList().get(0);
-            dto.setPromo(promo.getPercent());
+            List<Promo> promos = res.getPromoList();
+            int promoPercent = 0;
+
+            if (promos != null && !promos.isEmpty()) {
+                Promo promo = promos.get(0);
+                promoPercent = promo.getPercent();
+            }
+
+            dto.setPromo(promoPercent);
 
             dto.setDescription(res.getDescription());
             dto.setRating(
