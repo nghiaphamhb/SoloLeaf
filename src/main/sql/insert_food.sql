@@ -64,6 +64,7 @@ INSERT INTO food (
 (38,  'reddragon_9.png', true, 147.99, '50m', 'Vegetarian snack with beef Xiange', 11),
 (39, 'reddragon_10.png', true, 147.99, '50m', 'Spicy wheat snack Xiange', 11);
 
+-- yakitoriya
 INSERT INTO food (
     id,
     image,
@@ -73,23 +74,9 @@ INSERT INTO food (
     title,
     cate_id
 ) VALUES
--- 🍜 Hanoi Restaurant
-(13, 'hanoirestaurant_5.png', false, 599.99, NULL, 'Phở Sốt Vang', 4),
-(14, 'hanoirestaurant_4.png', false, 499.99, NULL, 'Mì Quảng', 4),
-(15, 'hanoirestaurant_3.png', false, 449.99, NULL, 'Bún Chả Cá', 4),
-(16, 'hanoirestaurant_2.png', false, 469.99, NULL, 'Bún Bò Huế', 4),
-(17, 'hanoirestaurant_1.png', false, 499.99, NULL, 'Phở Bò', 4),
-(18, 'hanoirestaurant_8.png', false, 7999.99, NULL, 'Mâm Tất Niên', 5),
-(19, 'hanoirestaurant_7.png', false, 6999.99, NULL, 'Mâm Cơm Quê', 5),
-(20, 'hanoirestaurant_6.png', false, 5999.99, NULL, 'Mâm Gia Tiên', 5),
-
--- 🍔 Burger King
-(21, 'burgerking_6.png', true,  300.99, '20m', 'Super Fry', 7),
-(22, 'burgerking_5.png', true,  160.99, '20m', 'Fry Derevo', 7),
-(23, 'burgerking_4.png', true,  110.99, '20m', 'King Fry', 7),
-(24, 'burgerking_3.png', true,  340.99, '20m', 'Spicy Hambuger vs Cheese', 6),
-(25, 'burgerking_2.png', true,  340.99, '20m', 'Hamburger Cheese', 6),
-(26, 'burgerking_1.png', true,  300.99, '20m', 'Hambuger', 6),
-(27, 'burgerking_9.png', false, 150.99, NULL, 'Frustyle Orange', 8),
-(28, 'burgerking_8.png', false, 150.99, NULL, 'Frustyle Limon', 8),
-(29, 'burgerking_7.png', false, 150.99, NULL, 'Lipton', 8);
+(40,  'yakitoriya_1.png',  true, 2801.00, '30m', 'Salmon set', 12),
+(41,  'yakitoriya_2.png',  true, 2700.00, '30m', 'Tempura set', 12),
+(42,  'yakitoriya_3.png',  true, 2658.00, '30m', 'Grill set', 12),
+(43,  'yakitoriya_4.png',  true, 685.00, '10m', 'Sunray', 13),
+(44,  'yakitoriya_5.png',  true, 615.00, '10m', 'Geisha', 13),
+(45,  'yakitoriya_6.png',  true, 706.00, '10m', 'Duosei', 13);
