@@ -80,3 +80,20 @@ INSERT INTO food (
 (43,  'yakitoriya_4.png',  true, 685.00, '10m', 'Sunray', 13),
 (44,  'yakitoriya_5.png',  true, 615.00, '10m', 'Geisha', 13),
 (45,  'yakitoriya_6.png',  true, 706.00, '10m', 'Duosei', 13);
+
+--teremok
+INSERT INTO food (
+    id,
+    image,
+    is_free_ship,
+    price,
+    time_ship,
+    title,
+    cate_id
+) VALUES
+(46,  'teremok_1.png',  false, 183.00, null, 'Pancake with mushrooms', 14),
+(47,  'teremok_2.png',  false, 183.00, null, 'Pancake with ham and cheese', 14),
+(48,  'teremok_3.png',  false, 252.00, null, 'Dessert Gurievsky with cherry jam and nuts', 15),
+(49,  'teremok_4.png',  false, 252.00, null, 'Dessert Gurievsky with raspberries, strawberries and nuts', 15),
+(50,  'teremok_5.png',  false, 415.00, null, 'Double portion of dumplings', 16),
+(51,  'teremok_6.png',  false, 276.00, null, 'Dumplings', 16);

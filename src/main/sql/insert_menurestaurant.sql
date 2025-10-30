@@ -19,3 +19,9 @@ INSERT INTO menurestaurant (cate_id, res_id, create_date) VALUES
 INSERT INTO menurestaurant (cate_id, res_id, create_date) VALUES
 (12, 5, '2020-10-12 00:00:00'),
 (13, 5, '2020-10-12 00:00:00');
+
+-- teremok
+INSERT INTO menurestaurant (cate_id, res_id, create_date) VALUES
+(14, 6, '2020-10-12 00:00:00'),
+(15, 6, '2020-10-12 00:00:00'),
+(16, 6, '2020-10-12 00:00:00');

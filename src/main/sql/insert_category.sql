@@ -31,3 +31,13 @@ INSERT INTO category (
 ) VALUES
 (12, '2025-10-11 00:00:00', 'Set'),
 (13, '2025-10-11 00:00:00', 'Rolls');
+
+--teremok
+INSERT INTO category (
+    id,
+    create_date,
+    name_cate
+) VALUES
+(14, '2025-10-11 00:00:00', 'Pancakes'),
+(15, '2025-10-11 00:00:00', 'Desserts'),
+(16, '2025-10-11 00:00:00', 'Dumplings');
