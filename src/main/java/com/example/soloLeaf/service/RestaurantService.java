@@ -120,6 +120,16 @@ public class RestaurantService implements RestaurantServiceImp {
                     FoodDTO foodDTO = new FoodDTO();
                     foodDTO.setImage(food.getImage());
                     foodDTO.setTitle(food.getTitle());
+
+                    List<RatingFood> ratingFoodList = food.getRatingFoodList();
+                    double averageRating = 0;
+                    for (RatingFood ratingFood : ratingFoodList) {
+                        averageRating += ratingFood.getRatePoint();
+                    }
+                    averageRating /= ratingFoodList.size();
+
+                    foodDTO.setRating(averageRating);
+
                     foodDTO.setFreeShip(food.isFreeShip());
                     foodDTO.setPrice(food.getPrice());
 
