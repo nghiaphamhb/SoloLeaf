@@ -233,7 +233,7 @@
 .menu-card__footer{
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
-.menu-card__price{ font-weight: 800; font-size: 1.05rem; }
+.menu-card__price{ font-weight: 650; font-size: 1.05rem; }
 
 .menu-card__btn{
     display: inline-flex; align-items: center; justify-content: center;

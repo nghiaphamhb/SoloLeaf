@@ -141,9 +141,9 @@ function renderMenuGrid(items, catName) {
               ${freeBadge} 
             </div>
             <div class="menu-card__meta">
-              <span class="menu-card__rating" aria-label="Rating">
-                <span class="menu-card__star" aria-hidden="true">⭐</span>
-                ${m.rating ?? "—"}
+              <span class="menu-card__rating">
+                <span class="menu-card__star">⭐</span>
+                ${m.rating.toFixed(1) ?? "—"}
               </span>
               ${prepText ? `<span class="menu-card__dot">·</span><span class="menu-card__prep">${prepText}</span>` : ""}
             </div>
