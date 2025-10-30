@@ -127,7 +127,7 @@ function renderMenuGrid(items, catName) {
         const prepText  = m.prepMinutes ? `${escapeHtml(m.prepMinutes)}`
             : ""; // API dùng timeShip, đã map sang prepMinutes
         const priceText = (typeof m.price === "number")
-            ? `$${Number(m.price).toFixed(2)}`
+            ? `${Number(m.price).toFixed(2)} ₽`
             : "";
 
         const card = $(`
@@ -138,7 +138,7 @@ function renderMenuGrid(items, catName) {
           <div class="menu-card__body">
             <div class="menu-card__header">
               <h6 class="menu-card__title">${escapeHtml(m.name)}</h6>
-              ${freeBadge} <!-- gợi ý: thêm class="menu-card__badge" trong freeBadge -->
+              ${freeBadge} 
             </div>
             <div class="menu-card__meta">
               <span class="menu-card__rating" aria-label="Rating">
