@@ -149,7 +149,12 @@ function renderMenuGrid(items, catName) {
             </div>
             <div class="menu-card__footer">
               <div class="menu-card__price">${priceText}</div>
-              <button class="menu-card__btn buttons" aria-label="Add ${escapeHtml(m.name)} to cart">Add</button>
+              <button class="menu-card__btn buttons" aria-label="Add ${escapeHtml(m.name)} to cart"
+              onclick="addToCart({
+                  image: m.imageUrl,
+                  title: m.title,
+                  price: m.price
+              })">Add</button>
             </div>
           </div>
         </div>
@@ -166,4 +171,8 @@ function escapeHtml(s) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+}
+
+function addToCart(item) {
+    $(document).trigger("cart:add", item);
 }
