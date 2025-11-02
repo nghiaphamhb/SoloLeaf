@@ -43,8 +43,8 @@ $(document).ready(function () {
               <button class="cart-item__remove">×</button>
             </div>
             <div class="cart-item__meta">
-              <span class="cart-item__qty">${it.qty}×</span>
-              <span class="cart-item__price">${it.price.toLocaleString()}₫</span>
+              <span class="cart-item__qty">${it.qty}×</span>   
+              <span class="cart-item__price">${it.price} ₽</span>
             </div>
           </div>
         </div>
@@ -57,12 +57,16 @@ $(document).ready(function () {
 
     // Lắng nghe sự kiện 'cart:add'
     $(document).on("cart:add", function(e, item) {
-        // Nếu món đã có → tăng số lượng
-        const found = cartState.find(p => p.id === item.id);
+        let found = undefined;
+
+        if (item.id != null) {
+            found = cartState.find(p => p.id === item.id);
+        }
+
         if (found) {
             found.qty += item.qty;
         } else {
-            cartState.push($.extend({}, item));
+            cartState.push({ ...item });
         }
 
         renderCartPanel();
