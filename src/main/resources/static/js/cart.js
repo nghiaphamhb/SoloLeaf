@@ -56,7 +56,8 @@ $(document).ready(function () {
         });
 
         // Cập nhật badge số lượng
-        $("#cartCount").text(cartState.length);
+        const totalQty = cartState.reduce((sum, it) => sum + it.qty, 0);
+        $("#cartCount").text(totalQty);
     }
 
     // Sự kiện thay đổi số lượng khi bấm nút "+/-"
