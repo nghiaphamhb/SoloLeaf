@@ -43,7 +43,7 @@ $(document).ready(function () {
               <button class="cart-item__remove">×</button>
             </div>
             <div class="cart-item__meta">
-              <span class="cart-item__qty">${it.qty}×</span>   
+              <span class="cart-item__qty">x ${it.qty}</span>   
               <span class="cart-item__price">${it.price} ₽</span>
             </div>
           </div>
