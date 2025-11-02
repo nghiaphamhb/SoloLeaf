@@ -58,6 +58,13 @@ $(document).ready(function () {
         // Cập nhật badge số lượng
         const totalQty = cartState.reduce((sum, it) => sum + it.qty, 0);
         $("#cartCount").text(totalQty);
+
+        // update prices
+        const initPrice = cartState.reduce((sum, it) => sum + it.price * it.qty, 0);
+        $("#initial-price").text(`${initPrice.toFixed(2)} ₽`);
+        const discount = 0;
+        const totalPrice = initPrice - discount;
+        $("#total-price").text(`${totalPrice.toFixed(2)} ₽` );
     }
 
     // Sự kiện thay đổi số lượng khi bấm nút "+/-"
