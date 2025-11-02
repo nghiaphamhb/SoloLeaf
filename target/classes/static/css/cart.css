@@ -170,18 +170,45 @@
     word-break: break-word;
 }
 
-.cart-item__remove {
-    background: none;
+/* Nhóm chứa 2 nút và số lượng */
+.cart-item__controls {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* Nút + và - */
+.cart-item__controls button {
+    width: 28px;
+    height: 28px;
     border: none;
-    color: #777;
+    border-radius: .5rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
     font-size: 1rem;
+    font-weight: 600;
     line-height: 1;
     cursor: pointer;
-    padding: .25rem .5rem;
-    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s ease;
 }
-.cart-item__remove:hover {
-    background: rgba(255,255,255,0.06);
+
+.cart-item__controls button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.cart-item__controls button:active {
+    transform: scale(0.95);
+}
+
+/* Ô hiển thị số lượng */
+.cart-item__qty {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 500;
     color: #fff;
 }
 
