@@ -37,8 +37,9 @@ $(function () {
                 const name = cat?.name || "Danh mục";
                 grouped[name] = Array.isArray(cat?.foodList)
                     ? cat.foodList.map(food => ({
-                        imageUrl: food?.image ? `/images/${food.image}` : "/img/food-placeholder.jpg",
-                        name: food?.title || "No title",
+                        id: food?.id,
+                        image: food?.image ? `/images/${food.image}` : "/img/food-placeholder.jpg",
+                        title: food?.title || "No title",
                         price: food?.price ?? 0,                 // nếu API chưa trả giá, cho 0
                         rating: typeof food?.rating === "number" ? food.rating : "—",
                         prepMinutes: food?.timeShip || "",       // có thể là "15-20 min" hoặc null
