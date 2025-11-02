@@ -155,11 +155,16 @@ function renderMenuGrid(items, catName) {
             <button
               class="menu-card__btn"
               type="button"
+              data-id="${m.id}"
+              data-image="${m.image}"
+              data-title="${m.title}"
+              data-price="${m.price ?? 0}"
             >Add</button>
           </div>
         </div>
+      </div>
     `);
-        $grid.append(card);
+        $grid.append($card);
     });
 }
 
