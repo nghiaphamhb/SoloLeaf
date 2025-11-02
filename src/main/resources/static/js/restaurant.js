@@ -67,6 +67,21 @@ $(function () {
         });
 });
 
+// Tạo sự kiện cho toàn bộ các nút Add trong trang
+$(document).on("click", ".menu-card__btn", function (e) {
+    e.stopImmediatePropagation(); // Bind 1 handler duy nhất
+    const $btn = $(this);
+    const payload = {
+        id: $btn.data("id"),
+        image: $btn.data("image"),
+        title: $btn.data("title"),
+        qty: 1,
+        price: Number($btn.data("price"))
+    };
+    // console.log("[Add click]", payload, this); // debug console
+    addToCart(payload);
+});
+
 /* ================== RENDER HELPERS ================== */
 /* header print error message */
 function renderError(msg) {
