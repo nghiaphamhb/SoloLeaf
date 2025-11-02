@@ -103,8 +103,8 @@ function renderCategoryTabs(grouped) {
     const $tabs = $("#menu-subnav__tabs").empty();
     Object.keys(grouped).forEach((cat, idx) => {
         const a = $(`
-                      <a href="#" class="nav-item ${idx === 0 ? "active" : ""}" data-cat="${escapeHtml(cat)}">
-                        ${escapeHtml(cat)}
+                      <a href="#" class="nav-item ${idx === 0 ? "active" : ""}" data-cat="${cat}">
+                        ${cat}
                       </a>
                     `);
         $tabs.append($("<li></li>").append(a));
@@ -116,47 +116,46 @@ function renderMenuGrid(items, catName) {
     const $grid = $("#menu-grid").empty();
     if (!items || !items.length) {
         $grid.append(
-            `<div>Chưa có món trong nhóm "${escapeHtml(
-                catName || ""
-            )}".</div>`
+            `<div>Chưa có món trong nhóm "${catName || ""}".</div>`
         );
         return;
     }
 
     items.forEach((m) => {
         const freeBadge = m.freeShip ? `<span class="badge_freeship">Free delivery</span>` : '';
-        const prepText  = m.prepMinutes ? `${escapeHtml(m.prepMinutes)}`
-            : ""; // API dùng timeShip, đã map sang prepMinutes
+        const prepText  = m.prepMinutes ? String(m.prepMinutes) : "";
+
+        const rating = (typeof m.rating === "number" && !Number.isNaN(m.rating))
+            ? m.rating.toFixed(1)
+            : "—";
+
         const priceText = (typeof m.price === "number")
             ? `${Number(m.price).toFixed(2)} ₽`
             : "";
 
-        const card = $(`
+        const $card = $(`
       <div class="menu-card">
-          <div class="menu-card__media">
-            <img src="${escapeHtml(m.imageUrl)}" class="menu-card__img" alt="${escapeHtml(m.name)}" />
+        <div class="menu-card__media">
+          <img src="${m.image}" class="menu-card__img" alt="${m.title}" />
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__header">
+            <h6 class="menu-card__title">${m.title}</h6>
+            ${freeBadge}
           </div>
-          <div class="menu-card__body">
-            <div class="menu-card__header">
-              <h6 class="menu-card__title">${escapeHtml(m.name)}</h6>
-              ${freeBadge} 
-            </div>
-            <div class="menu-card__meta">
-              <span class="menu-card__rating">
-                <span class="menu-card__star">⭐</span>
-                ${m.rating.toFixed(1) ?? "—"}
-              </span>
-              ${prepText ? `<span class="menu-card__dot">·</span><span class="menu-card__prep">${prepText}</span>` : ""}
-            </div>
-            <div class="menu-card__footer">
-              <div class="menu-card__price">${priceText}</div>
-              <button class="menu-card__btn buttons" aria-label="Add ${escapeHtml(m.name)} to cart"
-              onclick="addToCart({
-                  image: m.imageUrl,
-                  title: m.title,
-                  price: m.price
-              })">Add</button>
-            </div>
+          <div class="menu-card__meta">
+            <span class="menu-card__rating">
+              <span class="menu-card__star">⭐</span>
+              ${rating}
+            </span>
+            ${prepText ? `<span class="menu-card__dot">·</span><span class="menu-card__prep">${prepText}</span>` : ""}
+          </div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">${priceText}</div>
+            <button
+              class="menu-card__btn"
+              type="button"
+            >Add</button>
           </div>
         </div>
     `);
@@ -164,16 +163,8 @@ function renderMenuGrid(items, catName) {
     });
 }
 
-/* nhỏ gọn tránh XSS khi chèn text vào HTML */
-function escapeHtml(s) {
-    return String(s ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
 
+// Func add data to cart panel
 function addToCart(item) {
     $(document).trigger("cart:add", item);
 }
