@@ -3,12 +3,21 @@ package com.example.soloLeaf.dto;
 
 // food is in category's menu in the main site
 public class FoodDTO {
+    private int id;
     private String image;
     private String title;
     private boolean isFreeShip;
     private double rating;
     private String timeShip;
     private double price;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getImage() {
         return image;
