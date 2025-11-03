@@ -7,7 +7,7 @@
     height: 56px;
     border-radius: 999px;
     border: none;
-    background: #111;
+    background: var(--brand-3);
     color: #fff;
     font-size: 1.4rem;
     font-weight: 600;
@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.4);
     cursor: pointer;
     z-index: 1000;
 }
@@ -36,7 +36,7 @@
     font-size: 0.75rem;
     line-height: 20px;
     font-weight: 600;
-    background: #e11d48; /* đỏ hồng kiểu tailwind rose-600 */
+    background: var(--brand);
     color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,.4);
 }
@@ -65,9 +65,9 @@
     height: 100dvh; /* hỗ trợ mobile browser bar */
     max-height: 100vh;
     width: min(360px, 90vw);
-    background: #1f1f1f;
-    color: #fff;
-    box-shadow: -24px 0 48px rgba(0,0,0,0.8);
+    background: var(--brand-3);
+    color: #1f1f1f;
+    box-shadow: 0 0 48px #fff;
     display: flex;
     flex-direction: column;
 
@@ -175,6 +175,7 @@
     display: flex;
     align-items: center;
     gap: .5rem;
+    color: #fff;
 }
 
 /* Nút + và - */
@@ -265,8 +266,8 @@
     appearance: none;
     border: none;
     border-radius: .75rem;
-    background: linear-gradient(to right, #e11d48, #fb923c);
-    color: #fff;
+    background: var(--bg);
+    color: var(--brand);
     font-size: .95rem;
     font-weight: 600;
     line-height: 1;
