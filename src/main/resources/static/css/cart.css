@@ -128,6 +128,29 @@
     grid-auto-rows: min-content;
 }
 
+/* === Cart store (nhóm theo cửa hàng) === */
+.cart-store {
+    padding: .6rem;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: .75rem;
+    background: rgba(255,255,255,.03);
+    box-shadow: 0 6px 16px rgba(0,0,0,.15);
+}
+.cart-store + .cart-store { margin-top: .9rem; }
+
+/* Header mỗi cửa hàng */
+.cart-store__header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: .25rem .25rem .5rem;
+    border-bottom: 1px dashed rgba(255,255,255,.12);
+}
+.cart-store__name{
+    display:flex; align-items:center; gap:.5rem;
+    font-weight: 600;
+    color:#fff;
+    letter-spacing:.2px;
+}
+
 .cart-item {
     display: grid;
     grid-template-columns: 60px 1fr;
