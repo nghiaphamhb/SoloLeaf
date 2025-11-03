@@ -22,6 +22,7 @@ $(document).ready(function () {
         //   clearTokenEverywhere();
         //   window.location.replace(LOGIN_URL);
         // });
+        try { localStorage.removeItem('userId'); } catch {}
 
         clearTokenEverywhere();
         window.location.replace(linkOut);
@@ -37,6 +38,11 @@ $(document).ready(function () {
             const box = $(".user-info").empty();
 
             const user = Array.isArray(msg?.data) ? msg.data[0] : (msg?.data || msg);
+
+            // Lưu userId cho các module khác dùng (cart.js)
+            try { localStorage.setItem("userId", String(user.id ?? user.userId ?? "")); } catch {}
+            // Báo cho cart.js biết đã có userId (để chuyển key khỏi GUEST)
+            $(document).trigger("auth:ready", { userId: String(user.id ?? user.userId) });
 
             if (user && (user.fullname || user.username)) {
                 const fullname  = user.fullname || "Người dùng";

@@ -26,11 +26,19 @@ $(document).ready(function () {
         }
     });
 
-    const CART_KEY = "CART_STATE_GLOBAL";
+    function getCurrentUserId() {
+        var uid = localStorage.getItem("userId");
+        return uid ? String(uid) : "GUEST";
+    }
+    // Home page: dùng GLOBAL theo user
+    function getCartKey() {
+        return "CART_STATE__U_" + getCurrentUserId() + "__R_GLOBAL";
+    }
 
     function loadCart() {
         try {
-            const raw = localStorage.getItem(CART_KEY);
+            var key = getCartKey();
+            const raw = localStorage.getItem(key);
             if (!raw) return [];
             const arr = JSON.parse(raw);
             if (!Array.isArray(arr)) return [];
@@ -51,11 +59,19 @@ $(document).ready(function () {
 
     function saveCart() {
         try {
-            localStorage.setItem(CART_KEY, JSON.stringify(cartState));
+            var key = getCartKey();
+            localStorage.setItem(key, JSON.stringify(cartState));
         } catch (e) {
             console.warn("Save cart failed:", e);
         }
     }
+
+    $(document).on("auth:ready", function (e, data) {
+        // Khi userId được set (sau /me), nạp lại giỏ theo key mới và render
+        cartState.length = 0;
+        Array.prototype.push.apply(cartState, loadCart());
+        renderCartPanel();
+    });
 
     const cartState = loadCart();
     renderCartPanel();
@@ -80,7 +96,7 @@ $(document).ready(function () {
             </div>
             <div class="cart-item__meta">
               <span class="cart-item__qty">x ${it.qty}</span>   
-              <span class="cart-item__price">${it.price} ₽</span>
+              <span class="cart-item__price">${it.price.toFixed(2)} ₽</span>
             </div>
           </div>
         </div>
