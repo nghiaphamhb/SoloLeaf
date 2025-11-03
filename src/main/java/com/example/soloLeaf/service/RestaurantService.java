@@ -118,6 +118,7 @@ public class RestaurantService implements RestaurantServiceImp {
                 List<FoodDTO> foodListDTO = new ArrayList<>();
                 for (Food food : category.getFoods()) {
                     FoodDTO foodDTO = new FoodDTO();
+                    foodDTO.setId(food.getId());
                     foodDTO.setImage(food.getImage());
                     foodDTO.setTitle(food.getTitle());
 
