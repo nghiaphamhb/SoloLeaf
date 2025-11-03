@@ -1,28 +1,18 @@
 server:
-  port: ${PORT:8080}
-  address: 0.0.0.0
+  port: 8080
 
 spring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
-
   application:
     name: Solo-Leaf-app
 
-# ========= DEV (local, pgAdmin4) =========
----
-spring:
-  config:
-    activate:
-      on-profile: dev
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:osahaneat}?sslmode=${DB_SSLMODE:disable}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:}
+    url: jdbc:postgresql://dpg-d44b5i2dbo4c73bo2flg-a.oregon-postgres.render.com:5432/solo_leaf_db_lzi5
+    username: solo_leaf_db_lzi5_user
+    password: vktPXzZDS2PdJLUubshFpu8gLtABcFLG
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # none - not create in db if not exists
     show-sql: true
     properties:
       hibernate:
@@ -34,46 +24,11 @@ spring:
 logging:
   level:
     org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.security.web.FilterChainProxy: TRACE
+    org.springframework.web: DEBUG          # log request/response MVC
+    org.springframework.security.web.FilterChainProxy: TRACE  # log thứ tự filter
 
 jwt:
-  privateKey: ${JWT_PRIVATE_KEY:YMHSmjBxy968154aoc9c1Q4imkJd4hRwgs3fpkWNe/w=}
+  privateKey: YMHSmjBxy968154aoc9c1Q4imkJd4hRwgs3fpkWNe/w=
 
 fileUpload:
-  rootPath: ${FILE_UPLOAD_ROOT:src/main/resources/static/images}
-
-# ========= PROD (Render) =========
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}?sslmode=${DB_SSLMODE:require}
-    username: ${PGUSER}
-    password: ${PGPASSWORD}
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: validate   # muốn auto update thì đổi thành 'update'
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  servlet:
-    multipart:
-      max-file-size: 10MB
-
-logging:
-  level:
-    org.springframework.security: INFO
-    org.springframework.web: INFO
-    org.springframework.security.web.FilterChainProxy: INFO
-
-jwt:
-  privateKey: ${JWT_PRIVATE_KEY:YMHSmjBxy968154aoc9c1Q4imkJd4hRwgs3fpkWNe/w=}
-
-fileUpload:
-  # Trên Render: dùng thư mục tạm hoặc gắn Persistent Disk
-  rootPath: ${FILE_UPLOAD_ROOT:/var/tmp/solo-leaf-uploads}
+  rootPath: src/main/resources/static/images

@@ -1,19 +1,9 @@
-# ---- Build stage ----
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM openjdk:17-jdk-alpine
+
 WORKDIR /app
 
-# Cache dependencies trước
-COPY pom.xml .
-RUN mvn -q -DskipTests dependency:go-offline
+COPY target/soloLeaf-0.0.1-SNAPSHOT.jar app.jar
 
-# Copy source và build
-COPY src ./src
-RUN mvn -DskipTests package
-
-# ---- Run stage ----
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-ENV PORT=8080
 EXPOSE 8080
-COPY --from=build /app/target/*.jar app.jar
-CMD ["sh", "-c", "java -Dserver.port=${PORT} -jar app.jar"]
+
+CMD ["java", "-jar", "app.jar"]
