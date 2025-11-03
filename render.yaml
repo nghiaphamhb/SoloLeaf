@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: my-spring-app
+    runtime: docker
+    plan: free
+    healthCheckPath: /actuator/health
+    autoDeploy: true
