@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
     <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css"/>
     <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css"/>
+    <link rel="stylesheet" th:href="@{/css/cart.css}" href="/css/cart.css"/>
     <link rel="stylesheet" th:href="@{/css/restaurant.css}" href="/css/restaurant.css">
 </head>
 <body>
@@ -21,7 +22,7 @@
         <!-- Sidebar content -->
         <div class="sidebar-content">
             <h3>Menu</h3>
-            <a href="#">🏠 Home</a>
+            <a href="/home">🏠 Home</a>
             <a href="/error">🔍 Explore</a>
             <a href="/error">⭐️ Favourites</a>
             <a href="/error">🚴 Orders</a>
@@ -86,8 +87,61 @@
 
 </div>
 
+<!-- Floating Cart Button -->
+<button class="cart-fab" id="cartFab">
+    🛒
+    <span class="cart-fab__badge" id="cartCount">-</span>
+</button>
+
+<!-- Cart Side Panel -->
+<aside class="cart-panel" id="cartPanel">
+    <header class="cart-panel__header">
+        <h2 class="cart-panel__title">Shopping cart</h2>
+        <button class="cart-panel__close" id="cartCloseBtn">✕</button>
+    </header>
+
+    <div class="cart-panel__body">
+        <!-- ví dụ item -->
+<!--        <div class="cart-item">-->
+<!--            <img class="cart-item__img" src="https://via.placeholder.com/60x60" alt="Food img">-->
+<!--            <div class="cart-item__info">-->
+<!--                <div class="cart-item__top">-->
+<!--                    <span class="cart-item__name">Gà rán cay</span>-->
+<!--                    <button class="cart-item__remove">×</button>-->
+<!--                </div>-->
+<!--                <div class="cart-item__meta">-->
+<!--                    <span class="cart-item__qty">2×</span>-->
+<!--                    <span class="cart-item__price">120 000₫</span>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <footer class="cart-panel__footer">
+        <div class="cart-summary">
+            <div class="cart-summary__row">
+                <span>Initial price</span>
+                <span id="initial-price">0 ₽</span>
+            </div>
+            <div class="cart-summary__row">
+                <span>Discount</span>
+                <span>0 ₽</span>
+            </div>
+            <div class="cart-summary__row cart-summary__row--total">
+                <span>Total price</span>
+                <span id="total-price">0 ₽</span>
+            </div>
+        </div>
+        <button class="cart-checkout-btn">Order</button>
+    </footer>
+</aside>
+
+<!-- Backdrop (nền tối mờ khi cart mở) -->
+<div class="cart-backdrop" id="cartBackdrop"></div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/js/sidebar.js"></script>
+<script src="/js/cart.js"></script>
 <script src="/js/restaurant.js"></script>
 </body>
 </html>

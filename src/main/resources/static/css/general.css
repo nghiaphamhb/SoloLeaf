@@ -12,6 +12,7 @@
     /* Màu thương hiệu/CTA */
     --brand-2:#b45309;
     --accent:#d97706;
+    --brand-3: linear-gradient(to right, #e11d48, #fb923c);
 
     /* Gradient header (3 màu, đồng bộ với button palette) */
     --g1:#d97706;  /* hổ phách */
