@@ -43,14 +43,18 @@ $(document).ready(function () {
             const arr = JSON.parse(raw);
             if (!Array.isArray(arr)) return [];
             return arr
-                .map(it => ({
-                    id: it.id,
-                    title: String(it.title || ""),
-                    image: String(it.image || ""),
-                    price: Number(it.price) || 0,
-                    qty: Number(it.qty) || 0
-                }))
-                .filter(it => it.id != null && it.qty > 0);
+                .map(function (it) {
+                    return {
+                        id: it.id,
+                        title: String(it.title || ""),
+                        image: String(it.image || ""),
+                        price: Number(it.price) || 0,
+                        qty: Number(it.qty) || 0,
+                        restId: it.restId != null ? String(it.restId) : undefined,
+                        restName: it.restName != null ? String(it.restName) : ""
+                    };
+                })
+                .filter(function (it) { return it.id != null && it.qty > 0; });
         } catch (e) {
             console.warn("Load cart failed:", e);
             return [];
@@ -77,48 +81,72 @@ $(document).ready(function () {
     renderCartPanel();
 
     function renderCartPanel() {
-        const $body = $("#cartPanel .cart-panel__body");
-        $body.empty();
+        const $body = $("#cartPanel .cart-panel__body").empty();
 
-        // render từng món
-        $.each(cartState, function(_, it) {
-            $body.append(`
-        <div class="cart-item">
-          <img class="cart-item__img" src="${it.image}" alt="">
-          <div class="cart-item__info">
-            <div class="cart-item__top">
-              <span class="cart-item__name">${it.title}</span>
-              <div class="cart-item__controls">
-                  <button class="cart-item__decrease" data-id="${it.id}">−</button>
-                  <span>${it.qty}</span>
-                  <button class="cart-item__increase" data-id="${it.id}">+</button>
-              </div>
-            </div>
-            <div class="cart-item__meta">
-              <span class="cart-item__qty">x ${it.qty}</span>   
-              <span class="cart-item__price">${it.price.toFixed(2)} ₽</span>
-            </div>
-          </div>
-        </div>
-      `);
+        // Nhóm theo restId
+        const groups = {};
+        cartState.forEach(function(it){
+            const rid = String(it.restId || "UNKNOWN");
+            if (!groups[rid]) groups[rid] = { name: it.restName || ("Store " + rid), items: [] };
+            groups[rid].items.push(it);
         });
 
-        // Cập nhật badge số lượng
-        const totalQty = cartState.reduce((sum, it) => sum + it.qty, 0);
+        // Render từng nhóm
+        Object.keys(groups).forEach(function(rid){
+            const g = groups[rid];
+            // Header cửa hàng
+            $body.append(
+                `<div class="cart-store">
+                     <div class="cart-store__header">
+                       <span class="cart-store__name">${g.name}</span>
+                     </div>
+                   </div>`
+            );
+            const $store = $body.children().last();
+
+            // Items của cửa hàng
+            g.items.forEach(function(it){
+                $store.append(
+                    `<div class="cart-item">
+           <img class="cart-item__img" src="${it.image}" alt="">
+           <div class="cart-item__info">
+             <div class="cart-item__top">
+               <span class="cart-item__name">${it.title}</span>
+               <div class="cart-item__controls">
+                 <button class="cart-item__decrease" data-id="${it.id}" data-rest-id="${it.restId}">−</button>
+                 <span>${it.qty}</span>
+                 <button class="cart-item__increase" data-id="${it.id}" data-rest-id="${it.restId}">+</button>
+               </div>
+             </div>
+             <div class="cart-item__meta">
+               <span class="cart-item__qty">x ${it.qty}</span>
+               <span class="cart-item__price">${Number(it.price).toFixed(2)} ₽</span>
+             </div>
+           </div>
+         </div>`
+                );
+            });
+        });
+
+        // Badge & tổng tiền toàn giỏ
+        const totalQty = cartState.reduce((s,it)=>s+it.qty,0);
         $("#cartCount").text(totalQty);
 
-        // update prices
-        const initPrice = cartState.reduce((sum, it) => sum + it.price * it.qty, 0);
-        $("#initial-price").text(`${initPrice.toFixed(2)} ₽`);
+        const initPrice = cartState.reduce((s,it)=>s+it.price*it.qty,0);
+        $("#initial-price").text(initPrice.toFixed(2) + " ₽");
         const discount = 0;
-        const totalPrice = initPrice - discount;
-        $("#total-price").text(`${totalPrice.toFixed(2)} ₽` );
+        $("#total-price").text((initPrice-discount).toFixed(2) + " ₽");
+    }
+
+    function findByKey(id, rid) {
+        return cartState.find(function(p){ return p.id===id && String(p.restId)===String(rid); });
     }
 
     // Sự kiện thay đổi số lượng khi bấm nút "+/-"
     $(document).on("click", ".cart-item__decrease, .cart-item__increase", function () {
         const id = $(this).data("id");
-        const found = cartState.find(p => p.id === id);
+        const rid = String($(this).data("rest-id"));
+        const found = findByKey(id, rid);
         if (!found) return;
 
         if ($(this).hasClass("cart-item__decrease")) {
@@ -139,16 +167,22 @@ $(document).ready(function () {
 
     // Lắng nghe sự kiện 'cart:add'
     $(document).on("cart:add", function(e, item) {
-        let found = undefined;
-
-        if (item.id != null) {
-            found = cartState.find(p => p.id === item.id);
-        }
+        const id  = item.id;
+        const rid = String(item.restId);
+        let found = findByKey(id, rid);
 
         if (found) {
-            found.qty += item.qty;
+            found.qty += Number(item.qty)||1;
         } else {
-            cartState.push({ ...item });
+            cartState.push({
+                id: id,
+                title: String(item.title||""),
+                image: String(item.image||""),
+                price: Number(item.price)||0,
+                qty: Number(item.qty)||1,
+                restId: rid,
+                restName: String(item.restName||"")
+            });
         }
         saveCart();
         renderCartPanel();

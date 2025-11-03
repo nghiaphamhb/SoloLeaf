@@ -1,12 +1,12 @@
 /* ================== ENDPOINT ================== */
 const API_RESTAURANT_DETAIL = (id) => `/api/restaurant/detail/${id}`;
 
-$(function () {
-    function getRestaurantId() {
-        const match = window.location.pathname.match(/\/restaurant\/(\d+)/);
-        return match ? match[1] : null;
-    }
+function getRestaurantId() {
+    const match = window.location.pathname.match(/\/restaurant\/(\d+)/);
+    return match ? match[1] : null;
+}
 
+$(function () {
     const restaurantId = getRestaurantId();
     if (!restaurantId) {
         renderError("Không tìm thấy tham số id trên URL.");
@@ -50,7 +50,7 @@ $(function () {
 
             renderCategoryTabs(grouped);
             const firstCat = Object.keys(grouped)[0];
-            renderMenuGrid(grouped[firstCat], firstCat);
+            renderMenuGrid(d.title, grouped[firstCat], firstCat);
 
             // Đổi tab category
             $("#menu-subnav__tabs").on("click", "a[data-cat]", function (e) {
@@ -58,7 +58,7 @@ $(function () {
                 const cat = $(this).data("cat");
                 $("#menu-subnav__tabs a").removeClass("active");
                 $(this).addClass("active");
-                renderMenuGrid(grouped[cat], cat);
+                renderMenuGrid(d.title, grouped[cat], cat);
             });
         })
         .fail(function (xhr) {
@@ -76,7 +76,9 @@ $(document).on("click", ".menu-card__btn", function (e) {
         image: $btn.data("image"),
         title: $btn.data("title"),
         qty: 1,
-        price: Number($btn.data("price"))
+        price: Number($btn.data("price")),
+        restId: String($btn.data("rest-id")),
+        restName: String($btn.data("rest-name")||"")
     };
     // console.log("[Add click]", payload, this); // debug console
     addToCart(payload);
@@ -127,7 +129,7 @@ function renderCategoryTabs(grouped) {
 }
 
 /* render menu các món ăn (theo category) */
-function renderMenuGrid(items, catName) {
+function renderMenuGrid(name_res, items, catName) {
     const $grid = $("#menu-grid").empty();
     if (!items || !items.length) {
         $grid.append(
@@ -174,6 +176,8 @@ function renderMenuGrid(items, catName) {
               data-image="${m.image}"
               data-title="${m.title}"
               data-price="${m.price ?? 0}"
+              data-rest-id="${getRestaurantId()}"
+              data-rest-name="${name_res}"
             >Add</button>
           </div>
         </div>
