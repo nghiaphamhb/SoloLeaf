@@ -22,7 +22,7 @@
         <!-- Sidebar content -->
         <div class="sidebar-content">
             <h3>Menu</h3>
-            <a href="#">🏠 Home</a>
+            <a href="/home">🏠 Home</a>
             <a href="/error">🔍 Explore</a>
             <a href="/error">⭐️ Favourites</a>
             <a href="/error">🚴 Orders</a>
@@ -51,60 +51,49 @@
 <!-- Floating Cart Button -->
 <button class="cart-fab" id="cartFab">
     🛒
-    <span class="cart-fab__badge" id="cartCount">3</span>
+    <span class="cart-fab__badge" id="cartCount">-</span>
 </button>
 
 <!-- Cart Side Panel -->
 <aside class="cart-panel" id="cartPanel">
     <header class="cart-panel__header">
-        <h2 class="cart-panel__title">Giỏ hàng</h2>
+        <h2 class="cart-panel__title">Shopping cart</h2>
         <button class="cart-panel__close" id="cartCloseBtn">✕</button>
     </header>
 
     <div class="cart-panel__body">
         <!-- ví dụ item -->
-        <div class="cart-item">
-            <img class="cart-item__img" src="https://via.placeholder.com/60x60" alt="Food img">
-            <div class="cart-item__info">
-                <div class="cart-item__top">
-                    <span class="cart-item__name">Gà rán cay</span>
-                    <button class="cart-item__remove">×</button>
-                </div>
-                <div class="cart-item__meta">
-                    <span class="cart-item__qty">2×</span>
-                    <span class="cart-item__price">120 000₫</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="cart-item">
-            <img class="cart-item__img" src="https://via.placeholder.com/60x60" alt="Food img">
-            <div class="cart-item__info">
-                <div class="cart-item__top">
-                    <span class="cart-item__name">Trà sữa trân châu</span>
-                    <button class="cart-item__remove">×</button>
-                </div>
-                <div class="cart-item__meta">
-                    <span class="cart-item__qty">1×</span>
-                    <span class="cart-item__price">45 000₫</span>
-                </div>
-            </div>
-        </div>
-        <!-- /ví dụ item -->
+        <!--        <div class="cart-item">-->
+        <!--            <img class="cart-item__img" src="https://via.placeholder.com/60x60" alt="Food img">-->
+        <!--            <div class="cart-item__info">-->
+        <!--                <div class="cart-item__top">-->
+        <!--                    <span class="cart-item__name">Gà rán cay</span>-->
+        <!--                    <button class="cart-item__remove">×</button>-->
+        <!--                </div>-->
+        <!--                <div class="cart-item__meta">-->
+        <!--                    <span class="cart-item__qty">2×</span>-->
+        <!--                    <span class="cart-item__price">120 000₫</span>-->
+        <!--                </div>-->
+    </div>
+    </div>
     </div>
 
     <footer class="cart-panel__footer">
         <div class="cart-summary">
             <div class="cart-summary__row">
-                <span>Tạm tính</span>
-                <span>165 000₫</span>
+                <span>Initial price</span>
+                <span id="initial-price">0 ₽</span>
+            </div>
+            <div class="cart-summary__row">
+                <span>Discount</span>
+                <span>0 ₽</span>
             </div>
             <div class="cart-summary__row cart-summary__row--total">
-                <span>Tổng</span>
-                <span>165 000₫</span>
+                <span>Total price</span>
+                <span id="total-price">0 ₽</span>
             </div>
         </div>
-        <button class="cart-checkout-btn">Đặt hàng</button>
+        <button class="cart-checkout-btn">Order</button>
     </footer>
 </aside>
 

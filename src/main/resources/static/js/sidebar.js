@@ -12,11 +12,6 @@ $(document).ready(function () {
     function clearTokenEverywhere() {
         try { localStorage.removeItem('token'); } catch {}
         try { sessionStorage.removeItem('token'); } catch {}
-        // Nếu có dùng axios/jQuery headers mặc định thì bỏ comment để gỡ:
-        // if (window.axios && axios.defaults?.headers?.common) {
-        //   delete axios.defaults.headers.common['Authorization'];
-        // }
-        // $.ajaxSetup({ headers: {} });
     }
 
     // Bắt sự kiện click

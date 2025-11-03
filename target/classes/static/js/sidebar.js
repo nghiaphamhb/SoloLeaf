@@ -12,15 +12,21 @@ $(document).ready(function () {
     function clearTokenEverywhere() {
         try { localStorage.removeItem('token'); } catch {}
         try { sessionStorage.removeItem('token'); } catch {}
-        // Nếu có dùng axios/jQuery headers mặc định thì bỏ comment để gỡ:
-        // if (window.axios && axios.defaults?.headers?.common) {
-        //   delete axios.defaults.headers.common['Authorization'];
-        // }
-        // $.ajaxSetup({ headers: {} });
     }
 
     // Bắt sự kiện click
     $(document).on('click', '.logout', function (e) {
+        e.preventDefault();
+        // (tuỳ chọn) gọi API /auth/logout trước khi xoá token
+        // fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).finally(() => {
+        //   clearTokenEverywhere();
+        //   window.location.replace(LOGIN_URL);
+        // });
+
+        clearTokenEverywhere();
+        window.location.replace(linkOut);
+    });
+    $(document).on('click', '#home-button', function (e) {
         e.preventDefault();
         // (tuỳ chọn) gọi API /auth/logout trước khi xoá token
         // fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).finally(() => {
