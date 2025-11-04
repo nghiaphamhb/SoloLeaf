@@ -1,14 +1,10 @@
-server:
-  port: 8080
-
+# change when set up in local
 spring:
-  application:
-    name: Solo-Leaf-app
-
   datasource:
-    url: jdbc:postgresql://dpg-d44b5i2dbo4c73bo2flg-a.oregon-postgres.render.com:5432/solo_leaf_db_lzi5
-    username: solo_leaf_db_lzi5_user
-    password: vktPXzZDS2PdJLUubshFpu8gLtABcFLG
+    #    jdbc:postgresql://<host>:<port>/<database>
+    url: jdbc:postgresql://localhost:5432/osahaneat
+    username: postgres
+    password:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
