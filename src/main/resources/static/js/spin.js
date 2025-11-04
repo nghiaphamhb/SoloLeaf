@@ -1,5 +1,5 @@
 // Lucky Spin – mỗi ngày 1 lượt (client-only MVP)
-(function ($) {
+$(function () {
     const WHEEL = $("#spinWheel");
     const BTN_SPIN = $("#btnSpin");
     const NOTE = $("#spinNote");
@@ -14,6 +14,7 @@
     const PRIZE_META = $("#prizeMeta");
     const PRIZE_USE_NOW = $("#prizeUseNow");
     const MY_COUPONS = $("#myCoupons");
+    const SPIN = $("#spinWheel");
 
     const LS_LAST = "SPIN_LAST_DATE";
     const LS_COUPONS = "SPIN_COUPONS";
@@ -39,10 +40,28 @@
         return `${y}-${m}-${dd}`;
     }
 
+
+    function loadSlices() {
+        try { return JSON.parse(localStorage.getItem(LS_COUPONS) || "[]"); }
+        catch { return []; }
+    }
+
+    function renderSlices() {
+        const list = loadSlices();
+        if (!list.length) {
+            SPIN.addClass("empty").html(`<p>Chưa có mã — quay để nhận ngay!</p>`);
+            return;
+        }
+        SPIN.removeClass("empty").html(list.map(s => {
+            return `<div class="slice s${s.id}"><span>-10%<br>K-Burger</span></div>`;
+        }).join(""));
+    }
+
     function loadCoupons() {
         try { return JSON.parse(localStorage.getItem(LS_COUPONS) || "[]"); }
         catch { return []; }
     }
+
     function saveCoupons(list) {
         localStorage.setItem(LS_COUPONS, JSON.stringify(list));
     }
@@ -199,6 +218,7 @@
     });
 
     // Khởi tạo
+    renderSlices();
     renderCoupons();
     updateDailyState();
 
@@ -211,4 +231,4 @@
         void this.offsetHeight;
     });
 
-})(jQuery);
+});
