@@ -1,0 +1,125 @@
+/* ========== Lucky Spin (Daily) ========== */
+.spin-wrap { display: grid; gap: 16px; }
+.spin-head { display: grid; gap: 4px; }
+.spin-title { font-size: 28px; font-weight: 800; margin: 0; }
+.spin-sub { margin: 0; opacity: .8; }
+
+.spin-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 20px;
+}
+@media (max-width: 980px) {
+    .spin-grid { grid-template-columns: 1fr; }
+}
+
+.spin-stage { display: grid; justify-items: center; gap: 14px; }
+
+.spin-wheel {
+    --size: 420px;
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    border: 10px solid rgba(0,0,0,.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 0 0 6px rgba(255,255,255,.06);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.spin-pointer {
+    width: 0; height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 26px solid #ffcd4a;
+    filter: drop-shadow(0 2px 0 rgba(0,0,0,.2));
+    margin-bottom: 8px;
+}
+
+.slice {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-weight: 700; text-align: center;
+    color: #111;
+}
+.slice span {
+    display: inline-block;
+    transform: rotate(-22.5deg);
+    font-size: 16px; line-height: 1.25;
+}
+
+:root { --c1:#FDE68A; --c2:#A7F3D0; --c3:#93C5FD; --c4:#FCA5A5; }
+
+.s0 { background: conic-gradient(var(--c1) 0 45deg, transparent 45deg); }
+.s1 { background: conic-gradient(transparent 0 45deg, var(--c2) 45deg 90deg, transparent 90deg); }
+.s2 { background: conic-gradient(transparent 0 90deg, var(--c3) 90deg 135deg, transparent 135deg); }
+.s3 { background: conic-gradient(transparent 0 135deg, var(--c4) 135deg 180deg, transparent 180deg); }
+.s4 { background: conic-gradient(transparent 0 180deg, var(--c1) 180deg 225deg, transparent 225deg); }
+.s5 { background: conic-gradient(transparent 0 225deg, var(--c2) 225deg 270deg, transparent 270deg); }
+.s6 { background: conic-gradient(transparent 0 270deg, var(--c3) 270deg 315deg, transparent 315deg); }
+.s7 { background: conic-gradient(transparent 0 315deg, var(--c4) 315deg 360deg); }
+
+/* đặt text cho từng lát – xoay đúng góc trung tâm lát */
+.s0 span { transform: rotate(-22.5deg); }
+.s1 span { transform: rotate(-67.5deg); }
+.s2 span { transform: rotate(-112.5deg); }
+.s3 span { transform: rotate(-157.5deg); }
+.s4 span { transform: rotate(-202.5deg); }
+.s5 span { transform: rotate(-247.5deg); }
+.s6 span { transform: rotate(-292.5deg); }
+.s7 span { transform: rotate(-337.5deg); }
+
+/* nút */
+.spin-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 160px; height: 44px; padding: 0 18px;
+    border-radius: 12px; border: none; cursor: pointer;
+    background: linear-gradient(180deg, #22c55e, #16a34a);
+    color: #fff; font-weight: 800; letter-spacing: .2px;
+    box-shadow: 0 6px 16px rgba(34,197,94,.35);
+}
+.spin-btn.small { height: 40px; min-width: 120px; }
+.spin-btn:disabled { filter: grayscale(70%); cursor: not-allowed; opacity: .7; }
+
+.spin-ghost {
+    height: 36px; padding: 0 12px; border-radius: 10px;
+    background: transparent; color: inherit; border: 1px solid rgba(255,255,255,.2);
+    cursor: pointer;
+}
+.spin-ghost.danger { border-color: rgba(255,0,0,.35); color: #ffb3b3; }
+
+.spin-note { opacity: .8; }
+
+.spin-side { display: grid; gap: 16px; }
+.spin-card {
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px; padding: 14px;
+    background: rgba(255,255,255,.03);
+}
+.coupon-list { display: grid; gap: 10px; }
+.coupon-list.empty { opacity: .8; }
+.coupon {
+    border: 1px dashed rgba(255,255,255,.25);
+    border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px;
+}
+.coupon .c-top { display:flex; gap:8px; align-items:center; justify-content:space-between; }
+.coupon .store { font-weight: 700; }
+.coupon .code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+.spin-rules { margin: 8px 0 0; padding-left: 18px; opacity: .9; }
+.spin-rules li { margin-bottom: 6px; }
+
+/* Modal */
+.spin-modal { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.55); z-index: 80; }
+.spin-modal.show { display: grid; }
+.spin-modal__dialog {
+    width: min(480px, 92vw); background: #15171d; border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 16px;
+}
+.spin-modal__close { float:right; border:none; background:transparent; color:#aaa; cursor:pointer; }
+.spin-modal__body { padding: 6px 4px 10px; text-align: center; }
+.prize-box { display: grid; gap: 10px; margin-top: 8px; }
+.prize-main { font-size: 22px; font-weight: 800; }
+.prize-code { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }
+.prize-meta { opacity: .85; font-size: 14px; }
+.spin-modal__actions { margin-top: 12px; display: flex; gap: 10px; justify-content: center; }
