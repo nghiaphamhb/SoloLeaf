@@ -78,13 +78,14 @@
     function updateDailyState() {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        if (last === today) {
-            BTN_SPIN.prop("disabled", true).text("Hết lượt hôm nay");
-            NOTE.html(`Hãy quay lại vào ngày mai 📅`);
-        } else {
-            BTN_SPIN.prop("disabled", false).text("Quay ngay");
-            NOTE.html(`Bạn còn <b>1</b> lượt quay hôm nay.`);
-        }
+        BTN_SPIN.prop("disabled", false).text("Quay ngay");
+        // if (last === today) {
+        //     BTN_SPIN.prop("disabled", true).text("Hết lượt hôm nay");
+        //     NOTE.html(`Hãy quay lại vào ngày mai 📅`);
+        // } else {
+        //     BTN_SPIN.prop("disabled", false).text("Quay ngay");
+        //     NOTE.html(`Bạn còn <b>1</b> lượt quay hôm nay.`);
+        // }
     }
 
     // Tạo code: 3-3-4 kiểu ABC-12Z-9KQ3
@@ -127,7 +128,7 @@
     BTN_SPIN.on("click", function () {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        if (last === today) return; // đã quay
+        // if (last === today) return; // đã quay
 
         const idx = pickPrizeIndex();
         const deg = spinToIndex(idx);
@@ -176,8 +177,8 @@
     BTN_COPY_CODE.on("click", function () {
         const code = PRIZE_CODE.text().trim();
         navigator.clipboard.writeText(code).then(() => {
-            BTN_COPY_CODE.text("Đã sao chép");
-            setTimeout(()=>BTN_COPY_CODE.text("Sao chép"), 1200);
+            BTN_COPY_CODE.text("Copied");
+            setTimeout(()=>BTN_COPY_CODE.text("Copy"), 1200);
         });
     });
 
@@ -186,8 +187,8 @@
         if (!list.length) return;
         const txt = list.map(c => `${c.code} — ${c.title} @ ${c.store} (HSD ${formatDateTime(c.expireAt)})`).join("\n");
         navigator.clipboard.writeText(txt).then(() => {
-            BTN_COPY_ALL.text("Đã sao chép");
-            setTimeout(()=>BTN_COPY_ALL.text("Sao chép tất cả"), 1200);
+            BTN_COPY_ALL.text("Copied");
+            setTimeout(()=>BTN_COPY_ALL.text("Copy all"), 1200);
         });
     });
 
