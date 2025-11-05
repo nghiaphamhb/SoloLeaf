@@ -14,7 +14,7 @@ public class PromoController {
     @Autowired
     private PromoServiceImp promoServiceImp;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<?> getAllPromo() {
         ResponseData responseData = new ResponseData();
         responseData.setData(promoServiceImp.getAllPromo());

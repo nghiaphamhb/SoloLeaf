@@ -80,34 +80,27 @@
     pointer-events: none;
 }
 
-/* Lát bánh + nhãn theo trục bán kính (từ tâm → rìa) */
-.slice { position: absolute; inset: 0; }
-/* Nhãn nằm theo trục bán kính: neo ở tâm (top-center) rồi đẩy ra ngoài */
+/* Mỗi lát nhận góc & màu qua biến CSS */
+.slice{
+    position: absolute; inset: 0;
+    --start: 0deg; --end: 45deg; --ang: 22.5deg; --bg: #FDE68A;
+    background: conic-gradient(transparent 0 var(--start),
+    var(--bg) var(--start) var(--end),
+    transparent var(--end));
+}
 .slice span{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    /* neo top-center đúng tại tâm bánh */
+    position: absolute; left: 50%; top: 50%;
     transform-origin: top center;
     translate: -50% 0;
-
-    writing-mode: vertical-rl;     /* chữ dọc: từ tâm ra rìa */
-    text-orientation: mixed;
-    white-space: nowrap;
-    text-align: center;
-
-    font-weight: 800;
-    color: #111;
-    font-size: 16px;
-    line-height: 1;
-    text-shadow: 0 1px 0 rgba(255,255,255,.35);
-
-    /* cắt bớt nếu text quá dài (bảo vệ layout khi đổ API) */
-    max-height: calc(var(--size)/2 - 20px);
-    overflow: hidden;
+    writing-mode: vertical-rl; text-orientation: mixed; white-space: nowrap;
+    font-weight: 800; color: #111; font-size: 16px; line-height: 1;
+    transform: rotate(var(--ang)) translateY(calc(-1 * var(--labelRadius)));
+}
+/* Tuỳ chọn: lật chữ ở nửa dưới (đỡ ngược) */
+.slice.flip span{
+    transform: rotate(var(--ang)) translateY(calc(-1 * var(--labelRadius))) rotate(180deg);
 }
 
-/*.slice.flip span { transform: rotate(var(--ang)) translateY(calc(-1*var(--labelRadius))) rotate(180deg); }*/
 @media (max-width: 640px){ :root{ --size: 340px; --labelRadius: calc(var(--size)/2 - 56px); } } /* Responsive bán kính chữ */
 
 /* Màu nền cho từng lát bằng conic-gradient */

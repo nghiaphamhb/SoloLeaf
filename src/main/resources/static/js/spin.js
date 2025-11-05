@@ -14,7 +14,6 @@ $(function () {
     const PRIZE_META = $("#prizeMeta");
     const PRIZE_USE_NOW = $("#prizeUseNow");
     const MY_COUPONS = $("#myCoupons");
-    const SPIN = $("#spinWheel");
 
     const LS_LAST = "SPIN_LAST_DATE";
     const LS_COUPONS = "SPIN_COUPONS";
@@ -31,6 +30,46 @@ $(function () {
         { label: "🎁 Mystery – Any store", store: "Any store", type: "mystery", value: 1, min: 0, ttlHours: 24, slug: "mystery" }
     ];
 
+    const linkPromoApi = "/api/promo";
+    const PALETTE = ["#FDE68A","#A7F3D0","#93C5FD","#FCA5A5","#FBCFE8","#BBF7D0","#BAE6FD","#FED7AA"];
+    let OFFERS = []; // danh sách chuẩn hoá từ API
+
+    function renderSlicesFrom(items){
+        if (!Array.isArray(items) || !items.length){
+            WHEEL.html('<p style="text-align:center;margin:20px 0;">None promo code.</p>');
+            OFFERS = [];
+            return;
+        }
+
+        // Chuẩn hoá để phần “trao thưởng” dùng ổn
+        OFFERS = items.map((it, i)=>({
+            id: it.id,
+            percent: it.percent,
+            startDate: it.startDate || "",
+            endDate:  it.endDate  || "",
+            resId:  it.resId,
+            resTitle: it.resTitle,
+            color: PALETTE[i % PALETTE.length],
+        }));
+
+        const n = items.length;
+        const step = 360 / n;
+
+        const html = OFFERS.map((p, i)=>{
+            const start = i * step;
+            const end   = (i + 1) * step;
+            const ang   = start + step/2;
+            const flip  = ang > 180 ? " flip" : "";
+            return `
+      <div class="slice${flip}" style="--start:${start}deg;--end:${end}deg;--ang:${ang}deg;--bg:${p.color}">
+        <span>${escapeHTML(p.resTitle)}</span>
+      </div>`;
+        }).join("");
+
+        WHEEL.removeClass("empty").html(html);
+    }
+
+
     // Helper ngày (yyyy-mm-dd)
     function todayKey() {
         const d = new Date();
@@ -38,23 +77,6 @@ $(function () {
         const m = String(d.getMonth() + 1).padStart(2, "0");
         const dd = String(d.getDate()).padStart(2, "0");
         return `${y}-${m}-${dd}`;
-    }
-
-
-    function loadSlices() {
-        try { return JSON.parse(localStorage.getItem(LS_COUPONS) || "[]"); }
-        catch { return []; }
-    }
-
-    function renderSlices() {
-        const list = loadSlices();
-        if (!list.length) {
-            SPIN.addClass("empty").html(`<p>Chưa có mã — quay để nhận ngay!</p>`);
-            return;
-        }
-        SPIN.removeClass("empty").html(list.map(s => {
-            return `<div class="slice s${s.id}"><span>-10%<br>K-Burger</span></div>`;
-        }).join(""));
     }
 
     function loadCoupons() {
@@ -97,7 +119,7 @@ $(function () {
     function updateDailyState() {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        BTN_SPIN.prop("disabled", false).text("Quay ngay");
+        BTN_SPIN.prop("disabled", false).text("Spin now");
         // if (last === today) {
         //     BTN_SPIN.prop("disabled", true).text("Hết lượt hôm nay");
         //     NOTE.html(`Hãy quay lại vào ngày mai 📅`);
@@ -116,19 +138,16 @@ $(function () {
     }
 
     function pickPrizeIndex() {
-        // Có thể gán trọng số nếu muốn. Hiện tại đều nhau.
-        return Math.floor(Math.random() * PRIZES.length);
+        if (!OFFERS.length) return 0;
+        return Math.floor(Math.random() * OFFERS.length);
     }
 
     function spinToIndex(idx) {
-        const fullTurns = 6; // quay 6 vòng cho đã
-        const sliceAngle = 360 / PRIZES.length; // 45
-        // Pointer ở trên (0°). Ta cần đưa "lát trúng" vào vị trí 0° (đầu trên).
-        // Lát s0 chiếm 0..45°, s1:45..90°, ... Ta ngắm giữa lát:
-        const targetFromZero = idx * sliceAngle + sliceAngle/2; // trung tâm lát
-        // Đảo chiều vì CSS rotate theo chiều kim đồng hồ, pointer cố định.
+        const n = OFFERS.length || 1;
+        const fullTurns = 6;
+        const sliceAngle = 360 / n;
+        const targetFromZero = idx * sliceAngle + sliceAngle/2;
         const targetDeg = fullTurns * 360 + (360 - targetFromZero);
-        // Thêm jitter nhỏ ±6° cho tự nhiên
         const jitter = (Math.random()*12 - 6);
         return targetDeg + jitter;
     }
@@ -143,7 +162,33 @@ $(function () {
         MODAL.removeClass("show").attr("aria-hidden", "true");
     }
 
-    // Sự kiện
+    // ==== Begin logic ====
+    var token = localStorage.getItem("token");
+    if (!token) {
+        alert("Bạn chưa đăng nhập!");
+        window.location.href = "/signIn";
+        return;
+    }
+
+    // Khởi tạo
+    renderCoupons();
+    updateDailyState();
+
+    // Khởi tạo bánh
+    $.ajax({
+        method: "GET",
+        url: linkPromoApi,
+        headers: { "Authorization": "Bearer " + token },
+    }).done(function (msg) {
+        const items = (msg && msg.data) || [];
+        renderSlicesFrom(items);
+    })
+        .fail(function (){
+            console.error("Load offers error");
+            WHEEL.html('<div style="text-align:center;margin:20px 0;">Cannot load promo codes.</div>');
+        });
+
+    // Events
     BTN_SPIN.on("click", function () {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
@@ -216,11 +261,6 @@ $(function () {
         saveCoupons([]);
         renderCoupons();
     });
-
-    // Khởi tạo
-    renderSlices();
-    renderCoupons();
-    updateDailyState();
 
     // Giữ lại transform cuối để wheel không bật ngược khi hover
     WHEEL.on("transitionend", function () {
