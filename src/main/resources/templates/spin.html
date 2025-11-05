@@ -81,7 +81,6 @@
                         <h3>ℹ️ Rules</h3>
                         <ul class="spin-rules">
                             <li>Each account 01 turn per day.</li>
-                            <li>Code is valid for 24-72 hours (depending on shop).</li>
                             <li>Each order applies only 1 code.</li>
                         </ul>
                     </div>
@@ -94,19 +93,20 @@
             <div class="spin-modal__dialog">
                 <button class="spin-modal__close" id="spinModalClose">✕</button>
                 <div class="spin-modal__body">
-                    <h2>🎉 Chúc mừng!</h2>
-                    <p class="spin-modal__desc">Bạn nhận được:</p>
+                    <h2>🎉 Congratulations!</h2>
+                    <p class="spin-modal__desc">You received:</p>
                     <div class="prize-box">
-                        <div class="prize-main" id="prizeMain">-20% Pizza Loco</div>
+                        <div class="prize-main" id="prizeMain">-</div>
                         <div class="prize-code">
-                            <span id="prizeCode">PZL-20-7JXQ</span>
-                            <button id="btnCopyCode" class="spin-ghost">Sao chép</button>
+                            <span id="prizeCode">-</span>
+                            <button id="btnCopyCode" class="spin-ghost danger">Copy</button>
                         </div>
-                        <div class="prize-meta" id="prizeMeta">HSD: 48 giờ • Áp dụng đơn tối thiểu 120k</div>
+                        <div class="prize-meta" id="prizeMeta">-</div>
                     </div>
                     <div class="spin-modal__actions">
-                        <a id="prizeUseNow" href="/home" class="spin-btn small">Dùng ngay</a>
-                        <button id="prizeClose" class="spin-ghost">Để sau</button>
+                        <a id="prizeUseNow" href="/home" class="spin-btn small">Use now</a>
+                        <button id="prizeClose" class="spin-btn small"
+                                style="background: #fff1e6; color: var(--brand-2)">Later</button>
                     </div>
                 </div>
             </div>
@@ -129,20 +129,6 @@
     </header>
 
     <div class="cart-panel__body">
-        <!-- ví dụ item -->
-        <!--        <div class="cart-item">-->
-        <!--            <img class="cart-item__img" src="https://via.placeholder.com/60x60" alt="Food img">-->
-        <!--            <div class="cart-item__info">-->
-        <!--                <div class="cart-item__top">-->
-        <!--                    <span class="cart-item__name">Gà rán cay</span>-->
-        <!--                    <button class="cart-item__remove">×</button>-->
-        <!--                </div>-->
-        <!--                <div class="cart-item__meta">-->
-        <!--                    <span class="cart-item__qty">2×</span>-->
-        <!--                    <span class="cart-item__price">120 000₫</span>-->
-        <!--                </div>-->
-<!--        </div>-->
-<!--        </div>-->
     </div>
 
     <footer class="cart-panel__footer">

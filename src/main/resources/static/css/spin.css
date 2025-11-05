@@ -103,25 +103,6 @@
 
 @media (max-width: 640px){ :root{ --size: 340px; --labelRadius: calc(var(--size)/2 - 56px); } } /* Responsive bán kính chữ */
 
-/* Màu nền cho từng lát bằng conic-gradient */
-.s0 { background: conic-gradient(var(--c1) 0 45deg,  transparent 45deg); }
-.s1 { background: conic-gradient(transparent 0 45deg, var(--c2) 45deg 90deg,  transparent 90deg); }
-.s2 { background: conic-gradient(transparent 0 90deg, var(--c3) 90deg 135deg, transparent 135deg); }
-.s3 { background: conic-gradient(transparent 0 135deg, var(--c4) 135deg 180deg, transparent 180deg); }
-.s4 { background: conic-gradient(transparent 0 180deg, var(--c1) 180deg 225deg, transparent 225deg); }
-.s5 { background: conic-gradient(transparent 0 225deg, var(--c2) 225deg 270deg, transparent 270deg); }
-.s6 { background: conic-gradient(transparent 0 270deg, var(--c3) 270deg 315deg, transparent 315deg); }
-.s7 { background: conic-gradient(transparent 0 315deg, var(--c4) 315deg 360deg); }
-
-/* Góc trung tâm từng lát + đẩy ra đúng bán kính */
-.s0 span { transform: rotate(22.5deg)  translateY(calc(-1 * var(--labelRadius))); }
-.s1 span { transform: rotate(67.5deg)  translateY(calc(-1 * var(--labelRadius))); }
-.s2 span { transform: rotate(112.5deg) translateY(calc(-1 * var(--labelRadius))); }
-.s3 span { transform: rotate(157.5deg) translateY(calc(-1 * var(--labelRadius))); }
-.s4 span { transform: rotate(202.5deg) translateY(calc(-1 * var(--labelRadius))); }
-.s5 span { transform: rotate(247.5deg) translateY(calc(-1 * var(--labelRadius))); }
-.s6 span { transform: rotate(292.5deg) translateY(calc(-1 * var(--labelRadius))); }
-.s7 span { transform: rotate(337.5deg) translateY(calc(-1 * var(--labelRadius))); }
 
 /* Nút quay */
 .spin-btn {
@@ -137,7 +118,7 @@
 }
 .spin-btn.small { height: 40px; min-width: 120px; }
 .spin-btn:disabled { filter: grayscale(70%); cursor: not-allowed; opacity: .7; }
-.spin-btn:hover{ background: var(--accent, #ef7d00); transform: translateY(-1px); box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,.12)); }
+.spin-btn:hover{ background: var(--accent, #ef7d00); transform: translateY(-0.5px); box-shadow: var(--shadow-md, 0 6px 10px rgba(0,0,0,.12)); }
 .spin-btn:active{ transform: translateY(0); box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,.08)); }
 .spin-btn:focus-visible{ outline: 2px solid var(--ring); outline-offset: 3px; }
 
@@ -181,7 +162,9 @@
 .spin-modal { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.55); z-index: 80; }
 .spin-modal.show { display: grid; }
 .spin-modal__dialog {
-    width: min(480px, 92vw); background: #15171d; border: 1px solid rgba(255,255,255,.08);
+    width: min(480px, 92vw);
+    background: var(--bg);
+    border: 3px solid var(--brand-2);
     border-radius: 14px; padding: 16px;
 }
 .spin-modal__close { float:right; border:none; background:transparent; color:#aaa; cursor:pointer; }

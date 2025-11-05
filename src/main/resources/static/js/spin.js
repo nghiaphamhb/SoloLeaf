@@ -20,17 +20,17 @@ $(function () {
 
     const linkPromoApi = "/api/promo";
     const PALETTE = ["#FDE68A","#A7F3D0","#93C5FD","#FCA5A5","#FBCFE8","#BBF7D0","#BAE6FD","#FED7AA"];
-    let OFFERS = []; // danh sách chuẩn hoá từ API
+    let PROMO = []; // danh sách chuẩn hoá từ API
 
     function renderSlicesFrom(items){
         if (!Array.isArray(items) || !items.length){
             WHEEL.html('<p style="text-align:center;margin:20px 0;">None promo code.</p>');
-            OFFERS = [];
+            PROMO = [];
             return;
         }
 
         // Chuẩn hoá để phần “trao thưởng” dùng ổn
-        OFFERS = items.map((it, i)=>({
+        PROMO = items.map((it, i)=>({
             id: it.id,
             percent: it.percent,
             startDate: it.startDate || "",
@@ -43,7 +43,7 @@ $(function () {
         const n = items.length;
         const step = 360 / n;
 
-        const html = OFFERS.map((p, i)=>{
+        const html = PROMO.map((p, i)=>{
             const start = i * step;
             const end   = (i + 1) * step;
             const ang   = start + step/2;
@@ -79,18 +79,18 @@ $(function () {
     function renderCoupons() {
         const list = loadCoupons();
         if (!list.length) {
-            MY_COUPONS.addClass("empty").html(`<p>Chưa có mã — quay để nhận ngay!</p>`);
+            MY_COUPONS.addClass("empty").html(`<p>No code-spin to get it now!</p>`);
             return;
         }
         MY_COUPONS.removeClass("empty").html(list.map(c => {
             return `
         <div class="coupon">
           <div class="c-top">
-            <div class="store">🏷️ ${escapeHTML(c.store)}</div>
-            <div class="code">${escapeHTML(c.code)}</div>
+            <div class="code" style="font-weight: 500">🏷️ ${escapeHTML(c.code)}</div>
+            <small>• ${escapeHTML(c.resTitle)}</small>
           </div>
           <div class="c-bottom">
-            <small>${escapeHTML(c.title)} • HSD: ${formatDateTime(c.expireAt)}</small>
+            <small>• Expires: ${formatDateTime(c.endDate)}</small>
           </div>
         </div>`;
         }).join(""));
@@ -117,8 +117,13 @@ $(function () {
         // }
     }
 
-    // Tạo code: 3-3-4 kiểu ABC-12Z-9KQ3
-    function genCode(prefix) {
+    // Tạo code: kiểu ABC-12Z-9KQ3
+    function genCode(resTitle) {
+        const prefix = resTitle
+            .replace(/[^A-Za-z0-9\s]/g, " ") // ký tự lạ → khoảng trắng
+            .trim().match(/[A-Za-z0-9]+/g)
+            .map(w => w[0]).join("")
+            .toUpperCase().slice(0, 3); // giới hạn độ dài
         const A = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3);
         const B = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,3);
         const C = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0,4);
@@ -127,13 +132,13 @@ $(function () {
 
     // Chọn ngẫu nhiên index phần thưởng
     function pickPrizeIndex() {
-        if (!OFFERS.length) return 0;
-        return Math.floor(Math.random() * OFFERS.length);
+        if (!PROMO.length) return 0;
+        return Math.floor(Math.random() * PROMO.length);
     }
 
     // Tính góc quay tới index phần thưởng đó
     function spinToIndex(idx) {
-        const n = OFFERS.length || 1;
+        const n = PROMO.length || 1;
         const fullTurns = 6;
         const sliceAngle = 360 / n;
         const targetFromZero = idx * sliceAngle + sliceAngle/2;
@@ -142,10 +147,10 @@ $(function () {
         return targetDeg + jitter;
     }
 
-    function openModal(prize, code, metaText) {
-        PRIZE_MAIN.text(prize.label);
+    function openModal(promo, code) {
+        PRIZE_MAIN.text(` - ${promo.percent}% ${promo.resTitle}`);
         PRIZE_CODE.text(code);
-        PRIZE_META.text(metaText);
+        PRIZE_META.text(`Expiry to: ${formatDateTime(promo.endDate)}`);
         MODAL.addClass("show").attr("aria-hidden", "false");
     }
     function closeModal() {
@@ -174,7 +179,7 @@ $(function () {
         renderSlicesFrom(items);
     })
         .fail(function (){
-            console.error("Load offers error");
+            console.error("Load promo error");
             WHEEL.html('<div style="text-align:center;margin:20px 0;">Cannot load promo codes.</div>');
         });
 
@@ -193,19 +198,19 @@ $(function () {
 
         setTimeout(() => {
             // Xác nhận trúng
-            const p = OFFERS[idx];
-            // const code = genCode(p.slug); tạo mã promo code (để sau này điền mã giảm)
+            const p = PROMO[idx];
+            const code = genCode(p.resTitle);
             const now = Date.now();
             // const exp = now + p.ttlHours * 3600 * 1000; thoi gian ton tai
 
             // Lưu mã
             const list = loadCoupons();
             list.unshift({ // thêm phần tử vào đầu mảng
-                // code,
+                code,
                 id: p.id,
                 percent: p.percent,
-                startDate: p.startDate || "",
-                endDate:  p.endDate  || "",
+                startDate: p.startDate,
+                endDate:  p.endDate,
                 resId:  p.resId,
                 resTitle: p.resTitle
             });
@@ -217,8 +222,12 @@ $(function () {
             updateDailyState();
 
             // Modal
-            // const meta = `HSD: ${p.ttlHours} giờ • Đơn tối thiểu ${p.min ? (p.min.toLocaleString() + "₫") : "không"}`
-            // openModal(p, code, meta);
+            const receivedPromo = {
+                percent: p.percent,
+                endDate:  p.endDate,
+                resTitle: p.resTitle
+            }
+            openModal(receivedPromo, code);
 
             // Link dùng ngay (có thể điều hướng theo cửa hàng)
             PRIZE_USE_NOW.attr("href", `/home?store=${encodeURIComponent(p.slug)}`);
@@ -240,20 +249,20 @@ $(function () {
     BTN_COPY_ALL.on("click", function () {
         const list = loadCoupons();
         if (!list.length) return;
-        const txt = list.map(c => `${c.code} — ${c.title} @ ${c.store} (HSD ${formatDateTime(c.expireAt)})`).join("\n");
-        navigator.clipboard.writeText(txt).then(() => {
+        const txt = list.map(c => `${c.code} — ${c.resTitle} (Expires: ${formatDateTime(c.endDate)})`).join("\n");
+        navigator.clipboard.writeText(txt).then(() => { //Sao chép chuỗi này vào clipboard
             BTN_COPY_ALL.text("Copied");
             setTimeout(()=>BTN_COPY_ALL.text("Copy all"), 1200);
         });
     });
 
     BTN_CLEAR.on("click", function () {
-        if (!confirm("Xoá toàn bộ mã đã lưu?")) return;
+        if (!confirm("Delete all saved code?")) return;
         saveCoupons([]);
         renderCoupons();
     });
 
-    // Giữ lại transform cuối để wheel không bật ngược khi hover
+    // Giữ lại transform cuối để wheel không “quay ngược” để về gốc rồi mới hover
     WHEEL.on("transitionend", function () {
         const st = getComputedStyle(this).transform;
         this.style.transition = "none";
