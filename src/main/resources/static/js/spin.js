@@ -18,18 +18,6 @@ $(function () {
     const LS_LAST = "SPIN_LAST_DATE";
     const LS_COUPONS = "SPIN_COUPONS";
 
-    // 8 giải (theo thứ tự lát s0..s7 – 0°..315° mỗi 45°)
-    const PRIZES = [
-        { label: "-10% K-Burger", store: "K-Burger", type: "percent", value: 10, min: 100000, ttlHours: 48, slug: "kburger" },
-        { label: "FreeShip Yakitoriya", store: "Yakitoriya", type: "freeship", value: 1, min: 0, ttlHours: 24, slug: "yakitoriya" },
-        { label: "-20% Pizza Loco", store: "Pizza Loco", type: "percent", value: 20, min: 120000, ttlHours: 48, slug: "pizza-loco" },
-        { label: "-15k Bún Bò", store: "Bún Bò", type: "amount", value: 15000, min: 60000, ttlHours: 24, slug: "bunbo" },
-        { label: "-25% Sushi Zen", store: "Sushi Zen", type: "percent", value: 25, min: 150000, ttlHours: 72, slug: "sushizen" },
-        { label: "-30k Gà Rán", store: "Gà Rán", type: "amount", value: 30000, min: 100000, ttlHours: 48, slug: "garan" },
-        { label: "-15% Healthy Bar", store: "Healthy Bar", type: "percent", value: 15, min: 80000, ttlHours: 24, slug: "healthy" },
-        { label: "🎁 Mystery – Any store", store: "Any store", type: "mystery", value: 1, min: 0, ttlHours: 24, slug: "mystery" }
-    ];
-
     const linkPromoApi = "/api/promo";
     const PALETTE = ["#FDE68A","#A7F3D0","#93C5FD","#FCA5A5","#FBCFE8","#BBF7D0","#BAE6FD","#FED7AA"];
     let OFFERS = []; // danh sách chuẩn hoá từ API
@@ -62,7 +50,7 @@ $(function () {
             const flip  = ang > 180 ? " flip" : "";
             return `
       <div class="slice${flip}" style="--start:${start}deg;--end:${end}deg;--ang:${ang}deg;--bg:${p.color}">
-        <span>${escapeHTML(p.resTitle)}</span>
+        <span>${p.resTitle}<br>- ${p.percent} %</span>
       </div>`;
         }).join("");
 
@@ -137,11 +125,13 @@ $(function () {
         return `${(prefix||"SPN").toUpperCase()}-${A}-${B}${C}`;
     }
 
+    // Chọn ngẫu nhiên index phần thưởng
     function pickPrizeIndex() {
         if (!OFFERS.length) return 0;
         return Math.floor(Math.random() * OFFERS.length);
     }
 
+    // Tính góc quay tới index phần thưởng đó
     function spinToIndex(idx) {
         const n = OFFERS.length || 1;
         const fullTurns = 6;
@@ -165,7 +155,7 @@ $(function () {
     // ==== Begin logic ====
     var token = localStorage.getItem("token");
     if (!token) {
-        alert("Bạn chưa đăng nhập!");
+        alert("Need login!");
         window.location.href = "/signIn";
         return;
     }
@@ -197,26 +187,27 @@ $(function () {
         const idx = pickPrizeIndex();
         const deg = spinToIndex(idx);
 
+        // Hiệu ứng quay
         WHEEL.css({ transition: "transform 3.2s cubic-bezier(.2,.9,.2,1.02)", transform: `rotate(${deg}deg)` });
-        BTN_SPIN.prop("disabled", true);
+        // BTN_SPIN.prop("disabled", true); // vô hiệu hóa nút quay
 
         setTimeout(() => {
             // Xác nhận trúng
-            const p = PRIZES[idx];
-            const code = genCode(p.slug);
+            const p = OFFERS[idx];
+            // const code = genCode(p.slug); tạo mã promo code (để sau này điền mã giảm)
             const now = Date.now();
-            const exp = now + p.ttlHours * 3600 * 1000;
+            // const exp = now + p.ttlHours * 3600 * 1000; thoi gian ton tai
 
             // Lưu mã
             const list = loadCoupons();
-            list.unshift({
-                code,
-                store: p.store,
-                title: p.label,
-                type: p.type,
-                value: p.value,
-                min: p.min,
-                expireAt: exp
+            list.unshift({ // thêm phần tử vào đầu mảng
+                // code,
+                id: p.id,
+                percent: p.percent,
+                startDate: p.startDate || "",
+                endDate:  p.endDate  || "",
+                resId:  p.resId,
+                resTitle: p.resTitle
             });
             saveCoupons(list);
             renderCoupons();
@@ -226,8 +217,8 @@ $(function () {
             updateDailyState();
 
             // Modal
-            const meta = `HSD: ${p.ttlHours} giờ • Đơn tối thiểu ${p.min ? (p.min.toLocaleString() + "₫") : "không"}`
-            openModal(p, code, meta);
+            // const meta = `HSD: ${p.ttlHours} giờ • Đơn tối thiểu ${p.min ? (p.min.toLocaleString() + "₫") : "không"}`
+            // openModal(p, code, meta);
 
             // Link dùng ngay (có thể điều hướng theo cửa hàng)
             PRIZE_USE_NOW.attr("href", `/home?store=${encodeURIComponent(p.slug)}`);
