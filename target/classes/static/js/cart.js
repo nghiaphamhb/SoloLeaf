@@ -217,8 +217,6 @@ $(document).ready(function () {
     // Tìm coupon theo code
     function findCouponByCode(code){
         const coupons = loadCoupons();
-        console.log('code: ' + code);
-        console.log(coupons.find(c => normalizeCode(c.code)));
         const now = Date.now();
         return coupons.find(c =>
             normalizeCode(c.code) === code &&
@@ -280,7 +278,7 @@ $(document).ready(function () {
 
     // ====== Apply handler ======
     function applyDiscount(){
-        const code = $("#discount-input").val();
+        const code = normalizeCode($("#discount-input").val());
 
         showDiscountHint(""); // clear
 

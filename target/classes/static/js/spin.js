@@ -29,8 +29,22 @@ $(function () {
             return;
         }
 
+        // Lọc bỏ mã hết hạn
+        const today = todayKey();
+        const validItems = items.filter(it => {
+            if (!it.endDate) return true; // không có endDate => luôn cho phép
+            const endStr = String(it.endDate); // phòng trường hợp có time
+            return today <= endStr;
+        });
+
+        if (!validItems.length) {
+            WHEEL.html('<p style="text-align:center;margin:20px 0;">None promo code.</p>');
+            PROMO = [];
+            return;
+        }
+
         // Chuẩn hoá để phần “trao thưởng” dùng ổn
-        PROMO = items.map((it, i)=>({
+        PROMO = validItems.map((it, i)=>({
             id: it.id,
             percent: it.percent,
             startDate: it.startDate || "",
@@ -40,7 +54,7 @@ $(function () {
             color: PALETTE[i % PALETTE.length],
         }));
 
-        const n = items.length;
+        const n = validItems.length;
         const step = 360 / n;
 
         const html = PROMO.map((p, i)=>{
@@ -72,7 +86,21 @@ $(function () {
             MY_COUPONS.addClass("empty").html(`<p>No code-spin to get it now!</p>`);
             return;
         }
-        MY_COUPONS.removeClass("empty").html(list.map(c => {
+
+        // Lọc bỏ mã hết hạn
+        const today = todayKey();
+        const validList = list.filter(it => {
+            if (!it.endDate) return true; // không có endDate => luôn cho phép
+            const endStr = String(it.endDate); // phòng trường hợp có time
+            return today <= endStr;
+        });
+
+        if (!validList.length) {
+            MY_COUPONS.addClass("empty").html(`<p>No code-spin to get it now!</p>`);
+            return;
+        }
+
+        MY_COUPONS.removeClass("empty").html(validList.map(c => {
             return `
         <div class="coupon">
           <div class="c-top">
@@ -107,13 +135,14 @@ $(function () {
     function updateDailyState() {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        if (last === today) {
-            BTN_SPIN.prop("disabled", true).text("End of today");
-            NOTE.html(`Come back tomorrow 📅`);
-        } else {
-            BTN_SPIN.prop("disabled", false).text("Spin now");
-            NOTE.html(`You still have <b>1</b> turn today.`);
-        }
+        BTN_SPIN.prop("disabled", false).text("Spin now");
+        // if (last === today) {
+        //     BTN_SPIN.prop("disabled", true).text("End of today");
+        //     NOTE.html(`Come back tomorrow 📅`);
+        // } else {
+        //     BTN_SPIN.prop("disabled", false).text("Spin now");
+        //     NOTE.html(`You still have <b>1</b> turn today.`);
+        // }
     }
 
     // Tạo code: kiểu ABC-12Z-9KQ3
@@ -187,7 +216,7 @@ $(function () {
     BTN_SPIN.on("click", function () {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        if (last === today) return; // đã quay
+        // if (last === today) return; // đã quay
 
         const idx = pickPrizeIndex();
         const deg = spinToIndex(idx);
