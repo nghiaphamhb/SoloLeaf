@@ -95,6 +95,9 @@ $(function () {
             return today <= endStr;
         });
 
+        // Cập nhật storage: chỉ lưu lại mã hợp lệ
+        saveCoupons(validList);
+
         if (!validList.length) {
             MY_COUPONS.addClass("empty").html(`<p>No code-spin to get it now!</p>`);
             return;
@@ -135,14 +138,15 @@ $(function () {
     function updateDailyState() {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        BTN_SPIN.prop("disabled", false).text("Spin now");
-        // if (last === today) {
-        //     BTN_SPIN.prop("disabled", true).text("End of today");
-        //     NOTE.html(`Come back tomorrow 📅`);
-        // } else {
-        //     BTN_SPIN.prop("disabled", false).text("Spin now");
-        //     NOTE.html(`You still have <b>1</b> turn today.`);
-        // }
+        // BTN_SPIN.prop("disabled", false).text("Spin now"); // Bật lên để test
+
+        if (last === today) {
+            BTN_SPIN.prop("disabled", true).text("End of today");
+            NOTE.html(`Come back tomorrow 📅`);
+        } else {
+            BTN_SPIN.prop("disabled", false).text("Spin now");
+            NOTE.html(`You still have <b>1</b> turn today.`);
+        }
     }
 
     // Tạo code: kiểu ABC-12Z-9KQ3
@@ -216,7 +220,7 @@ $(function () {
     BTN_SPIN.on("click", function () {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        // if (last === today) return; // đã quay
+        if (last === today) return; // đã quay
 
         const idx = pickPrizeIndex();
         const deg = spinToIndex(idx);
