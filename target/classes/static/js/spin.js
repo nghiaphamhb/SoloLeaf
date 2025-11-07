@@ -57,16 +57,6 @@ $(function () {
         WHEEL.removeClass("empty").html(html);
     }
 
-
-    // Helper ngày (yyyy-mm-dd)
-    function todayKey() {
-        const d = new Date();
-        const y = d.getFullYear();
-        const m = String(d.getMonth() + 1).padStart(2, "0");
-        const dd = String(d.getDate()).padStart(2, "0");
-        return `${y}-${m}-${dd}`;
-    }
-
     function loadCoupons() {
         try { return JSON.parse(localStorage.getItem(LS_COUPONS) || "[]"); }
         catch { return []; }
@@ -104,17 +94,26 @@ $(function () {
         return d.toLocaleString();
     }
 
+
+    // Helper ngày (yyyy-mm-dd)
+    function todayKey() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const dd = String(d.getDate()).padStart(2, "0");
+        return `${y}-${m}-${dd}`;
+    }
+
     function updateDailyState() {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        BTN_SPIN.prop("disabled", false).text("Spin now");
-        // if (last === today) {
-        //     BTN_SPIN.prop("disabled", true).text("Hết lượt hôm nay");
-        //     NOTE.html(`Hãy quay lại vào ngày mai 📅`);
-        // } else {
-        //     BTN_SPIN.prop("disabled", false).text("Quay ngay");
-        //     NOTE.html(`Bạn còn <b>1</b> lượt quay hôm nay.`);
-        // }
+        if (last === today) {
+            BTN_SPIN.prop("disabled", true).text("End of today");
+            NOTE.html(`Come back tomorrow 📅`);
+        } else {
+            BTN_SPIN.prop("disabled", false).text("Spin now");
+            NOTE.html(`You still have <b>1</b> turn today.`);
+        }
     }
 
     // Tạo code: kiểu ABC-12Z-9KQ3
@@ -168,6 +167,7 @@ $(function () {
     // Khởi tạo
     renderCoupons();
     updateDailyState();
+    // localStorage.removeItem(LS_LAST);  // clean for dev
 
     // Khởi tạo bánh
     $.ajax({
@@ -187,21 +187,19 @@ $(function () {
     BTN_SPIN.on("click", function () {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        // if (last === today) return; // đã quay
+        if (last === today) return; // đã quay
 
         const idx = pickPrizeIndex();
         const deg = spinToIndex(idx);
 
         // Hiệu ứng quay
         WHEEL.css({ transition: "transform 3.2s cubic-bezier(.2,.9,.2,1.02)", transform: `rotate(${deg}deg)` });
-        // BTN_SPIN.prop("disabled", true); // vô hiệu hóa nút quay
+        BTN_SPIN.prop("disabled", true); // vô hiệu hóa nút quay
 
         setTimeout(() => {
             // Xác nhận trúng
             const p = PROMO[idx];
             const code = genCode(p.resTitle);
-            const now = Date.now();
-            // const exp = now + p.ttlHours * 3600 * 1000; thoi gian ton tai
 
             // Lưu mã
             const list = loadCoupons();

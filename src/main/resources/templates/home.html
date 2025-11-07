@@ -61,22 +61,7 @@
         <button class="cart-panel__close" id="cartCloseBtn">✕</button>
     </header>
 
-    <div class="cart-panel__body">
-        <!-- ví dụ item -->
-        <!--        <div class="cart-item">-->
-        <!--            <img class="cart-item__img" src="https://via.placeholder.com/60x60" alt="Food img">-->
-        <!--            <div class="cart-item__info">-->
-        <!--                <div class="cart-item__top">-->
-        <!--                    <span class="cart-item__name">Gà rán cay</span>-->
-        <!--                    <button class="cart-item__remove">×</button>-->
-        <!--                </div>-->
-        <!--                <div class="cart-item__meta">-->
-        <!--                    <span class="cart-item__qty">2×</span>-->
-        <!--                    <span class="cart-item__price">120 000₫</span>-->
-        <!--                </div>-->
-    </div>
-    </div>
-    </div>
+    <div class="cart-panel__body"></div>
 
     <footer class="cart-panel__footer">
         <div class="cart-summary">
@@ -86,7 +71,12 @@
             </div>
             <div class="cart-summary__row">
                 <span>Discount</span>
-                <span>0 ₽</span>
+                <span id="discount-cell">
+                    <small id="discount-help" class="discount-help"></small>
+                    <!-- State A: nhập mã -->
+                    <input id="discount-input" placeholder="Enter code" inputmode="text" />
+                    <button id="btn-apply-discount" type="button">Apply</button>
+                </span>
             </div>
             <div class="cart-summary__row cart-summary__row--total">
                 <span>Total price</span>
