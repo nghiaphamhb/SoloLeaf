@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/signIn", "/signUp", "/login/**", "/home", "/restaurant/**", "/error", "/spin").permitAll()  // Cho phép tất cả phương thức GET cho các URL này
+                        .requestMatchers("/", "/signIn", "/signUp", "/login/**", "/home", "/restaurant/**", "/error", "/spin", "/payment").permitAll()  // Cho phép tất cả phương thức GET cho các URL này
                         .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/favicon.png").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/login/**").permitAll()

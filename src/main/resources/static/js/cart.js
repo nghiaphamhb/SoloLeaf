@@ -114,7 +114,6 @@ $(document).ready(function () {
         // KHÔNG set #total-price ở đây; để updateTotals() làm
     }
 
-
     function findByKey(id, rid) {
         return cartState.find(function(p){ return p.id===id && String(p.restId)===String(rid); });
     }
@@ -152,6 +151,10 @@ $(document).ready(function () {
             normalizeCode(c.code) === code &&
             (!c.endDate || new Date(c.endDate).getTime() >= now)
         );
+    }
+
+    function saveCoupons(list) {
+        localStorage.setItem(LS_COUPONS, JSON.stringify(Array.isArray(list) ? list : []));
     }
 
     // Cập nhật tổng tiền khi discount thay đổi
@@ -258,92 +261,112 @@ $(document).ready(function () {
     }
 
     // ====== Remove/Change handler ======
-        function removeDiscount() {
+    function removeDiscount() {
             appliedCoupon = null;
             showDiscountInput();
             updateTotals();
-        }
+    }
 
-        const cartState = loadCart();
-        renderCartPanel();
-        updateTotals();
+    const cartState = loadCart();
+    renderCartPanel();
+    updateTotals();
 
-        // Sự kiện click
-        $cartFab.on("click", openCart);
+    // Sự kiện click
+    $cartFab.on("click", openCart);
 
-        $cartCloseBtn.on("click", closeCart);
+    $cartCloseBtn.on("click", closeCart);
 
-        $cartBackdrop.on("click", closeCart);
+    $cartBackdrop.on("click", closeCart);
 
-        // Esc để đóng
-        $(document).on("keydown", function (e) {
+    // Esc để đóng
+    $(document).on("keydown", function (e) {
             if (e.key === "Escape") {
                 closeCart();
             }
         });
 
-        $(document).on("auth:ready", function (e, data) {
-            // Khi userId được set (sau /me), nạp lại giỏ theo key mới và render
-            cartState.length = 0;
-            Array.prototype.push.apply(cartState, loadCart());
-            renderCartPanel();
-            updateTotals();
-        });
+    $(document).on("auth:ready", function (e, data) {
+        // Khi userId được set (sau /me), nạp lại giỏ theo key mới và render
+        cartState.length = 0;
+        Array.prototype.push.apply(cartState, loadCart());
+        renderCartPanel();
+        updateTotals();
+    });
 
-        // Sự kiện thay đổi số lượng khi bấm nút "+/-"
-        $(document).on("click", ".cart-item__decrease, .cart-item__increase", function () {
-            const id = $(this).data("id");
-            const rid = String($(this).data("rest-id"));
-            const found = findByKey(id, rid);
-            if (!found) return;
+    // Sự kiện thay đổi số lượng khi bấm nút "+/-"
+    $(document).on("click", ".cart-item__decrease, .cart-item__increase", function () {
+        const id = $(this).data("id");
+        const rid = String($(this).data("rest-id"));
+        const found = findByKey(id, rid);
+        if (!found) return;
 
-            if ($(this).hasClass("cart-item__decrease")) {
-                found.qty -= 1;
-                if (found.qty <= 0) {
-                    const idx = cartState.indexOf(found);
-                    if (idx !== -1) cartState.splice(idx, 1);
-                }
+        if ($(this).hasClass("cart-item__decrease")) {
+            found.qty -= 1;
+            if (found.qty <= 0) {
+                const idx = cartState.indexOf(found);
+                if (idx !== -1) cartState.splice(idx, 1);
             }
+        }
 
-            if ($(this).hasClass("cart-item__increase")) {
-                found.qty += 1;
-            }
-            saveCart();
-            renderCartPanel();
-            updateTotals();
-        });
+        if ($(this).hasClass("cart-item__increase")) {
+            found.qty += 1;
+        }
+        saveCart();
+        renderCartPanel();
+        updateTotals();
+    });
 
-        // Lắng nghe sự kiện 'cart:add'
-        $(document).on("cart:add", function (e, item) {
-            const id = item.id;
-            const rid = String(item.restId);
-            let found = findByKey(id, rid);
+    // Lắng nghe sự kiện 'cart:add'
+    $(document).on("cart:add", function (e, item) {
+        const id = item.id;
+        const rid = String(item.restId);
+        let found = findByKey(id, rid);
 
-            if (found) {
-                found.qty += Number(item.qty) || 1;
-            } else {
-                cartState.push({
-                    id: id,
-                    title: String(item.title || ""),
-                    image: String(item.image || ""),
-                    price: Number(item.price) || 0,
-                    qty: Number(item.qty) || 1,
-                    restId: rid,
-                    restName: String(item.restName || "")
-                });
-            }
-            saveCart();
-            renderCartPanel();
-            updateTotals();
-        });
+        if (found) {
+            found.qty += Number(item.qty) || 1;
+        } else {
+            cartState.push({
+                id: id,
+                title: String(item.title || ""),
+                image: String(item.image || ""),
+                price: Number(item.price) || 0,
+                qty: Number(item.qty) || 1,
+                restId: rid,
+                restName: String(item.restName || "")
+            });
+        }
+        saveCart();
+        renderCartPanel();
+        updateTotals();
+    });
 
-        $(document).on("click", "#btn-apply-discount", applyDiscount);
+    $(document).on("click", "#btn-apply-discount", applyDiscount);
 
-        $(document).on("keydown", "#discount-input", function (e) {
-            if (e.key === "Enter") applyDiscount();
-        });
+    $(document).on("keydown", "#discount-input", function (e) {
+        if (e.key === "Enter") applyDiscount();
+    });
 
-        $(document).on("click", "#btn-remove-discount", removeDiscount);
+    $(document).on("click", "#btn-remove-discount", removeDiscount);
+
+    $(document).on("click", ".cart-checkout-btn", function (e) {
+        // delete applied coupon
+        try{
+            const code = appliedCoupon.code || null;
+            const coupons = loadCoupons();
+            const updated = coupons.filter(c => normalizeCode(c.code) !== code);
+            saveCoupons(updated);
+            console.log("Coupons after removal:", updated);
+        } catch (e) {
+            console.log("No coupon code to remove.");
+        }
+
+        // Xoá toàn bộ giỏ hàng hiện tại (RAM + localStorage) rồi render lại
+        cartState.length = 0;
+        saveCart();
+        renderCartPanel();
+        updateTotals();
+
+        window.location.href = "/payment";
+    });
 });
-
 

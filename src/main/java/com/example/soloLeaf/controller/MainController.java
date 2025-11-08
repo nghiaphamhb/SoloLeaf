@@ -38,6 +38,11 @@ public class MainController {
         return "spin";
     }
 
+    @GetMapping("/payment")
+    public String paymentPage() {
+        return "payment";
+    }
+
     @GetMapping("/error")
     public String errorPage() {
         return "error";
