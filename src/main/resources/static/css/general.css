@@ -42,3 +42,30 @@ body{
 /* ===== Format Link ===== */
 a{color:var(--brand-2);text-decoration:none;}  /* ko gach chan link */
 a:hover{color:var(--accent);}
+
+.layout { height: 100vh; display: grid; grid-template-columns: 280px 1fr; }
+.main { overflow-y: auto; }
+
+/* WebKit (Chrome/Edge/Safari) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.main::-webkit-scrollbar,
+.cart-panel__body::-webkit-scrollbar {
+    width: 8px;              /* giống mẫu */
+    height: 8px;             /* cho trục ngang nếu có */
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.main::-webkit-scrollbar-thumb,
+.cart-panel__body::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.2);
+    border-radius: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.main::-webkit-scrollbar-track,
+.cart-panel__body::-webkit-scrollbar-track {
+    background: transparent;
+}

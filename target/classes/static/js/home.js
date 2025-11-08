@@ -22,7 +22,7 @@ $(document).ready(function () {
         .done(function (msg) {
             // msg.data chứa mảng nhà hàng
             if (msg.data && msg.data.length > 0) {
-                console.log(msg.data);
+                // console.log(msg.data);
 
                 // Xóa phần cũ nếu có
                 $("#feature-restaurant").empty();
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
             } else {
                 $("#feature-restaurant").html("<p>Không có nhà hàng nào.</p>");
-                console.log(msg.data);
+                // console.log(msg.data);
             }
         })
         .fail(function (xhr) {

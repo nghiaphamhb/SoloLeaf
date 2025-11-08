@@ -5,7 +5,7 @@ spring:
   application:
     name: Solo-Leaf-app
 
-  datasource:
+  datasource: # database on render
     url: jdbc:postgresql://dpg-d44b5i2dbo4c73bo2flg-a.oregon-postgres.render.com:5432/solo_leaf_db_lzi5
     username: solo_leaf_db_lzi5_user
     password: vktPXzZDS2PdJLUubshFpu8gLtABcFLG

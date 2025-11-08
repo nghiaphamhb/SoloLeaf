@@ -33,6 +33,16 @@ public class MainController {
         return "restaurant";
     }
 
+    @GetMapping("/spin")
+    public String spinPage() {
+        return "spin";
+    }
+
+    @GetMapping("/payment")
+    public String paymentPage() {
+        return "payment";
+    }
+
     @GetMapping("/error")
     public String errorPage() {
         return "error";

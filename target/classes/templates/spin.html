@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lucky Spin</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css">
+    <link rel="stylesheet" th:href="@{/css/cart.css}" href="/css/cart.css">
+    <link rel="stylesheet" th:href="@{/css/spin.css}" href="/css/spin.css">
+</head>
+
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <!-- Logo -->
+        <div class="brand-logo">
+            <img th:src="@{/favicon.png}" src="/favicon.png" alt="App logo">
+        </div>
+
+        <!-- Sidebar content -->
+        <div class="sidebar-content">
+            <h3>Menu</h3>
+            <a href="/home">🏠 Home</a>
+            <a href="/spin">🎁 Lucky Spin</a>
+            <a href="/error">⭐️ Favourites</a>
+            <a href="/error">🚴 Orders</a>
+            <a href="/error">✉️ Messages</a>
+            <a href="/error">⚙️ Settings</a>
+        </div>
+
+        <!-- User panel (dưới cùng) -->
+        <div class="user-panel">
+            <div class="user-info">
+            </div>
+            <!-- Nút logout/icon -->
+            <button class="logout" title="Sign out">Log out</button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <!-- Lucky Spin (Daily) -->
+        <section class="spin-wrap">
+            <header class="spin-head">
+                <h1 class="spin-title">🎡 Lucky Spin</h1>
+                <p class="spin-sub">Spin the hit discount codes from the stores</p>
+            </header>
+
+            <div class="spin-grid">
+                <!-- Vòng quay -->
+                <div class="spin-stage">
+                    <div class="spin-box">
+                        <div class="spin-pointer"></div>
+                        <div class="spin-zoom">
+                            <div class="spin-wheel" id="spinWheel">
+                                <!-- 8 lát cắt -->
+<!--                                <div class="slice s0"><span>-10%<br>K-Burger</span></div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="btnSpin" class="spin-btn" type="button">Spin now</button>
+                    <div class="spin-note" id="spinNote">You have <b>1</b> turn today.</div>
+                </div>
+
+                <!-- Bảng thông tin -->
+                <aside class="spin-side">
+                    <div class="spin-card">
+                        <h3>🎟️ My codes</h3>
+                        <div id="myCoupons" class="coupon-list empty">
+                            <p>No code - Spin to get it now!</p>
+                        </div>
+                        <div class="coupon-actions">
+                            <button id="btnCopyAll" class="spin-ghost">Copy all</button>
+                            <button id="btnClearCoupons" class="spin-ghost danger">Delete all</button>
+                        </div>
+                    </div>
+
+                    <div class="spin-card">
+                        <h3>ℹ️ Rules</h3>
+                        <ul class="spin-rules">
+                            <li>Each account 01 turn per day.</li>
+                            <li>Each order applies only 1 code.</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Modal kết quả -->
+        <div class="spin-modal" id="spinModal" aria-hidden="true">
+            <div class="spin-modal__dialog">
+                <button class="spin-modal__close" id="spinModalClose">✕</button>
+                <div class="spin-modal__body">
+                    <h2>🎉 Congratulations!</h2>
+                    <p class="spin-modal__desc">You received:</p>
+                    <div class="prize-box">
+                        <div class="prize-main" id="prizeMain">-</div>
+                        <div class="prize-code">
+                            <span id="prizeCode">-</span>
+                            <button id="btnCopyCode" class="spin-ghost danger">Copy</button>
+                        </div>
+                        <div class="prize-meta" id="prizeMeta">-</div>
+                    </div>
+                    <div class="spin-modal__actions">
+                        <a id="prizeUseNow" href="/home" class="spin-btn small">Use now</a>
+                        <button id="prizeClose" class="spin-btn small"
+                                style="background: #fff1e6; color: var(--brand-2)">Later</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Floating Cart Button -->
+<button class="cart-fab" id="cartFab">
+    🛒
+    <span class="cart-fab__badge" id="cartCount">-</span>
+</button>
+
+<!-- Cart Side Panel -->
+<aside class="cart-panel" id="cartPanel">
+    <header class="cart-panel__header">
+        <h2 class="cart-panel__title">Shopping cart</h2>
+        <button class="cart-panel__close" id="cartCloseBtn">✕</button>
+    </header>
+
+    <div class="cart-panel__body"></div>
+
+    <footer class="cart-panel__footer">
+        <div class="cart-summary">
+            <div class="cart-summary__row">
+                <span>Initial price</span>
+                <span id="initial-price">0 ₽</span>
+            </div>
+            <div class="cart-summary__row">
+                <span>Discount</span>
+                <span id="discount-cell">
+                    <small id="discount-help" class="discount-help"></small>
+                    <!-- State A: nhập mã -->
+                    <input id="discount-input" placeholder="Enter code" inputmode="text" />
+                    <button id="btn-apply-discount" type="button">Apply</button>
+                </span>
+            </div>
+            <div class="cart-summary__row cart-summary__row--total">
+                <span>Total price</span>
+                <span id="total-price">0 ₽</span>
+            </div>
+        </div>
+        <button class="cart-checkout-btn">Order</button>
+    </footer>
+</aside>
+
+<!-- Backdrop (nền tối mờ khi cart mở) -->
+<div class="cart-backdrop" id="cartBackdrop"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/sidebar.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/spin.js"></script>
+</body>
+
+</html>
