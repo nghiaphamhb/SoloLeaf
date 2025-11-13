@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+    <!-- <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css">
+    <link rel="stylesheet" th:href="@{/css/cart.css}" href="/css/cart.css">
+    <link rel="stylesheet" th:href="@{/css/orders.css}" href="/css/orders.css"> -->
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/general.css}" href="../static/css/general.css">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="../static/css/sidebar.css">
+    <link rel="stylesheet" th:href="@{/css/cart.css}" href="../static/css/cart.css">
+    <link rel="stylesheet" th:href="@{/css/orders.css}" href="../static/css/orders.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <!-- Logo -->
+        <div class="brand-logo">
+            <img th:src="@{/favicon.png}" src="/favicon.png" alt="App logo">
+        </div>
+
+        <!-- Sidebar content -->
+         <div class="sidebar-content">
+            <h3>Menu</h3>
+            <a href="/home">🏠 Home</a>
+            <a href="/search">🔍 Search</a>
+            <a href="/spin">🎁 Lucky Spin</a>
+            <a href="/error">⭐️ Favourites</a>
+            <a href="/error">🚴 Orders</a>
+            <a href="/error">✉️ Messages</a>
+            <a href="/error">⚙️ Settings</a>
+        </div>
+
+        <!-- User panel (dưới cùng) -->
+        <div class="user-panel">
+            <div class="user-info">
+            </div>
+            <!-- Nút logout/icon -->
+             <button class="logout" title="Sign out">Log out</button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <h1>My orders 🚴</h2>
+        
+        <div id="status">
+            <div class="status-tabs">
+                <input type="radio" name="status-order" id="all">
+                <label for="all">All</label>
+            </div>
+            
+            <div class="status-tabs">
+                <input type="radio" name="status-order" id="delivering">
+                <label for="delivering">Delivering</label>
+            </div>
+
+            <div class="status-tabs">
+                <input type="radio" name="status-order" id="done">
+                <label for="done">Done</label>
+            </div>
+        </div>
+
+        <div id="list-orders">
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="header-left">
+                        <img src="../static/images/burgerking.png" alt="">
+                        <div class="rest-info">
+                            <h3>Burger King</h3>
+                            <p>Order #123456</p>
+                            <p>25 Dec 2024, 20:44</p>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="status">Delivering</span>
+                        <span class="total-price">450 ₽</span>
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="body-item">  <!-- api lấy order từ DB (order nên lưu link ảnh các món trong order) -->
+                        <img src="../static/images/burgerking_1.png" alt="">
+                        <img src="../static/images/burgerking_2.png" alt="">
+                        <img src="../static/images/burgerking_3.png" alt="">
+                    </div>
+                    <button class="repeat">Repeat order</button>
+                </div>
+            </div>
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="header-left">
+                        <img src="../static/images/burgerking.png" alt="">
+                        <div class="rest-info">
+                            <h3>Burger King</h3>
+                            <p>Order #123456</p>
+                            <p>25 Dec 2024, 20:44</p>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="status">Delivering</span>
+                        <span class="total-price">450 ₽</span>
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="body-item">  <!-- api lấy order từ DB (order nên lưu link ảnh các món trong order) -->
+                        <img src="../static/images/burgerking_1.png" alt="">
+                        <img src="../static/images/burgerking_2.png" alt="">
+                        <img src="../static/images/burgerking_3.png" alt="">
+                    </div>
+                    <button class="repeat">Repeat order</button>
+                </div>
+            </div>
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="header-left">
+                        <img src="../static/images/burgerking.png" alt="">
+                        <div class="rest-info">
+                            <h3>Burger King</h3>
+                            <p>Order #123456</p>
+                            <p>25 Dec 2024, 20:44</p>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="status">Delivering</span>
+                        <span class="total-price">450 ₽</span>
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="body-item">  <!-- api lấy order từ DB (order nên lưu link ảnh các món trong order) -->
+                        <img src="../static/images/burgerking_1.png" alt="">
+                        <img src="../static/images/burgerking_2.png" alt="">
+                        <img src="../static/images/burgerking_3.png" alt="">
+                    </div>
+                    <button class="repeat">Repeat order</button>
+                </div>
+            </div>
+        </div>
+    
+        </div>
+    </main>
+</div>
+
+<div class="remain">
+    <!-- Floating Cart Button -->
+<button class="cart-fab" id="cartFab">
+    🛒
+    <span class="cart-fab__badge" id="cartCount">-</span>
+</button>
+
+<!-- Cart Side Panel -->
+<aside class="cart-panel" id="cartPanel">
+    <header class="cart-panel__header">
+        <h2 class="cart-panel__title">Shopping cart</h2>
+        <button class="cart-panel__close" id="cartCloseBtn">✕</button>
+    </header>
+
+    <div class="cart-panel__body"></div>
+
+    <footer class="cart-panel__footer">
+        <div class="cart-summary">
+            <div class="cart-summary__row">
+                <span>Initial price</span>
+                <span id="initial-price">0 ₽</span>
+            </div>
+            <div class="cart-summary__row">
+                <span>Discount</span>
+                <span id="discount-cell">
+                    <small id="discount-help" class="discount-help"></small>
+                    <!-- State A: nhập mã -->
+                    <input id="discount-input" placeholder="Enter code" inputmode="text" />
+                    <button id="btn-apply-discount" type="button">Apply</button>
+                </span>
+            </div>
+            <div class="cart-summary__row cart-summary__row--total">
+                <span>Total price</span>
+                <span id="total-price">0 ₽</span>
+            </div>
+        </div>
+        <button class="cart-checkout-btn">Order</button>
+    </footer>
+</aside>
+
+<!-- Backdrop (nền tối mờ khi cart mở) -->
+<div class="cart-backdrop" id="cartBackdrop"></div>
+</div>
+</body>
+</html>
