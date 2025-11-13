@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Search</title>
     <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
     <link rel="stylesheet" th:href="@{/css/reset.css}" href="/static/css/reset.css">
     <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css">
     <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css">
     <link rel="stylesheet" th:href="@{/css/cart.css}" href="/css/cart.css">
-    <link rel="stylesheet" th:href="@{/css/home.css}" href="/css/home.css">
+    <link rel="stylesheet" th:href="@{/css/search.css}" href="/css/search.css">
 </head>
-
 <body>
 <div class="layout">
     <aside class="sidebar">
@@ -42,15 +41,78 @@
     </aside>
 
     <main class="main">
-        <h2>Discover restaurants</h2>
-        <div id="feature-restaurant"></div>
+        <div id="search-card">
+        <h1>Search 🔍</h1>
 
-        <h2>Discover foods</h2>
-        <div id="menu-sections"></div>
+        <form class="search-form" method="post">
+            <div class="search-box">
+                <input type="text" name="" class="search-input" placeholder="Search some foods ...">
+                <button type="reset" class="search-clear">X</button>
+            </div>
+            <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <div class="info-bar">
+            <p>Found <span id="search-count">0</span> results</p>
+            
+            <div class="sort-dropdown">
+                <select id="sort-select" class="sort-select">
+                    <option value="" disabled selected hidden>Sort by</option>
+                    <option value="relevance">Relevance</option>
+                    <option value="price-asc">Price: low → high</option>
+                    <option value="price-desc">Price: high → low</option>
+                    <option value="rating">Rating: high → low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="result-list">
+            <div class="result-card">
+                <img src="../static/images/kfc_1.png" alt="Food image">
+                <div class="result-info">
+                    <h3 class="result-name">Food name</h3>
+                    <p class="result-restaurant">Restaurant name</p>
+                    <p class="result-price">100 ₽</p>
+                    <p>Rating: 5star</p>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <img src="../static/images/kfc_1.png" alt="Food image">
+                <div class="result-info">
+                    <h3 class="result-name">Food name</h3>
+                    <p class="result-restaurant">Restaurant name</p>
+                    <p class="result-price">100 ₽</p>
+                    <p>Rating: 5star</p>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <img src="../static/images/kfc_1.png" alt="Food image">
+                <div class="result-info">
+                    <h3 class="result-name">Food name</h3>
+                    <p class="result-restaurant">Restaurant name</p>
+                    <p class="result-price">100 ₽</p>
+                    <p>Rating: 5star</p>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <img src="../static/images/kfc_1.png" alt="Food image">
+                <div class="result-info">
+                    <h3 class="result-name">Food name</h3>
+                    <p class="result-restaurant">Restaurant name</p>
+                    <p class="result-price">100 ₽</p>
+                    <p>Rating: 5star</p>
+                </div>
+            </div>
+        </div>
+        </div>
     </main>
 </div>
 
-<!-- Floating Cart Button -->
+<div class="remain">
+    <!-- Floating Cart Button -->
 <button class="cart-fab" id="cartFab">
     🛒
     <span class="cart-fab__badge" id="cartCount">-</span>
@@ -91,12 +153,6 @@
 
 <!-- Backdrop (nền tối mờ khi cart mở) -->
 <div class="cart-backdrop" id="cartBackdrop"></div>
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="/js/sidebar.js"></script>
-<script src="/js/cart.js"></script>
-<script src="/js/home.js"></script>
+</div>
 </body>
-
 </html>

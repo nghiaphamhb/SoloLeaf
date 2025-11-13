@@ -24,10 +24,12 @@ header p{
 
 /* ===== Khung nội dung ===== */
 main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width:840px;
     margin:48px auto;
     padding:0 20px;
-
     text-align:center;
 }
 
