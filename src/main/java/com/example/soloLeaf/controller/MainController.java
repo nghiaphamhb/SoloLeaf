@@ -33,9 +33,34 @@ public class MainController {
         return "restaurant";
     }
 
+    @GetMapping("/search")
+    public String searchPage() {
+        return "search";
+    }
+
     @GetMapping("/spin")
     public String spinPage() {
         return "spin";
+    }
+
+    @GetMapping("/favourites")
+    public String favouritesPage() {
+        return "favourites";
+    }
+
+    @GetMapping("/orders")
+    public String ordersPage() {
+        return "orders";
+    }
+
+    @GetMapping("/messages")
+    public String messagesPage() {
+        return "messages";
+    }
+
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "profile";
     }
 
     @GetMapping("/payment")
