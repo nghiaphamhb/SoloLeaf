@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Settings</title>
+    <title>Profile</title>
     <!-- <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
     <link rel="stylesheet" th:href="@{/css/reset.css}" href="/static/css/reset.css">
     <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" th:href="@{/css/general.css}" href="../static/css/general.css">
     <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="../static/css/sidebar.css">
     <link rel="stylesheet" th:href="@{/css/cart.css}" href="../static/css/cart.css">
-    <link rel="stylesheet" th:href="@{/css/settings.css}" href="../static/css/settings.css">
+    <link rel="stylesheet" th:href="@{/css/profile.css}" href="../static/css/profile.css">
 </head>
 <body>
 <div class="layout">
@@ -46,7 +46,46 @@
     </aside>
 
     <main class="main">
-        
+        <!-- PROFILE SECTION -->
+    <section class="profile-section">
+      <div class="profile-avatar">
+        <!-- Đổi src thành ảnh của bạn -->
+        <img src="https://via.placeholder.com/260x260.png?text=Avatar" alt="Avatar">
+      </div>
+
+      <div class="profile-info-card">
+        <p class="profile-line">
+          <span class="profile-label">Full name:</span>
+          <span class="profile-value">Pham Dang Trung Nghia</span>
+        </p>
+        <p class="profile-line">
+          <span class="profile-label">Email:</span>
+          <span class="profile-value">phamdang@gmail.com</span>
+        </p>
+        <p class="profile-line">
+          <span class="profile-label">Phone:</span>
+          <span class="profile-value">1234566</span>
+        </p>
+        <p class="profile-line">
+          <span class="profile-label">Address:</span>
+          <span class="profile-value">Moscow</span>
+        </p>
+      </div>
+    </section>
+
+    <div class="profile-actions">
+      <button class="btn btn-save">Save</button>
+    </div>
+
+    <!-- SHOPS SECTION -->
+    <section class="shops-section">
+      <h2 class="section-title">My shops</h2>
+
+      <div class="shops-card">
+        <div class="shop-item">KFC</div>
+        <div class="shop-item">Hanoi Restaurant</div>
+      </div>
+    </section>
     </main>
 </div>
 
