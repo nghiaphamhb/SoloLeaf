@@ -1,21 +1,5 @@
 $(document).ready(function () {
-    const $cartFab = $("#cartFab");
-    const $cartPanel = $("#cartPanel");
-    const $cartCloseBtn = $("#cartCloseBtn");
-    const $cartBackdrop = $("#cartBackdrop");
     let appliedCoupon  = null;
-    const LS_COUPONS = "SPIN_COUPONS";
-    let discountHintTimeout = null;
-
-    function openCart() {
-        $cartPanel.addClass("is-open");
-        $cartBackdrop.addClass("is-active");
-    }
-
-    function closeCart() {
-        $cartPanel.removeClass("is-open");
-        $cartBackdrop.removeClass("is-active");
-    }
 
     function getCurrentUserId() {
         var uid = localStorage.getItem("userId");
@@ -118,9 +102,6 @@ $(document).ready(function () {
         return cartState.find(function(p){ return p.id===id && String(p.restId)===String(rid); });
     }
 
-    // ====== State ====== (Add feat section)
-    function normalizeCode(s){ return (s||"").trim().toUpperCase(); }
-
     function formatRuble(n){
         const v = Number(n)||0;
         return v.toLocaleString('ru-RU') + " ₽";
@@ -135,26 +116,6 @@ $(document).ready(function () {
         return cartState
             .filter(it => String(it.restId) === rid)
             .reduce((s, it) => s + (Number(it.price)||0) * (Number(it.qty)||0), 0);
-    }
-
-    // chuyển chuỗi json lấy ra từ localStor -> list
-    function loadCoupons() {
-        try { return JSON.parse(localStorage.getItem(LS_COUPONS) || "[]"); }
-        catch { return []; }
-    }
-
-    // Tìm coupon theo code
-    function findCouponByCode(code){
-        const coupons = loadCoupons();
-        const now = Date.now();
-        return coupons.find(c =>
-            normalizeCode(c.code) === code &&
-            (!c.endDate || new Date(c.endDate).getTime() >= now)
-        );
-    }
-
-    function saveCoupons(list) {
-        localStorage.setItem(LS_COUPONS, JSON.stringify(Array.isArray(list) ? list : []));
     }
 
     // Cập nhật tổng tiền khi discount thay đổi
@@ -178,120 +139,9 @@ $(document).ready(function () {
         $("#total-price").text(formatRuble(Math.max(0, initial - discount).toFixed(2)));
     }
 
-    // ====== UI Swap: State A (input) → State B (đã áp mã) ======
-    function showDiscountApplied(code, amount){
-        $("#discount-cell").html(`
-        <button id="btn-remove-discount" class="linklike" 
-        type="button" aria-label="Change discount code">[Change]</button>
-        <span id="discount-amount" data-code="${code}">- ${formatRuble(amount)}</span>
-      `);
-    }
-
-    // ====== UI Swap: Back về State A (nhập mã) ======
-    function showDiscountInput(){
-        $("#discount-cell").html(`
-    <input id="discount-input" placeholder="Enter code" inputmode="text" />
-    <button id="btn-apply-discount" type="button">Apply</button>
-    <small id="discount-help" class="muted"></small>
-  `);
-    }
-
-    function showDiscountHint(message) {
-        const $hint = $("#discount-help");
-
-        if (!message) {
-            $hint.removeClass("discount-help--visible").text("");
-            return;
-        }
-
-        $hint.text(message).addClass("discount-help--visible");
-
-        if (discountHintTimeout) {
-            clearTimeout(discountHintTimeout);
-        }
-
-        discountHintTimeout = setTimeout(function() {
-            $hint.removeClass("discount-help--visible");
-        }, 2000); // 2s rồi tự ẩn
-    }
-
-    // ====== Apply handler ======
-    function applyDiscount() {
-        const code = normalizeCode($("#discount-input").val());
-        showDiscountHint("");
-
-        if (!code) {
-            showDiscountHint("Please enter code");
-            return;
-        }
-
-        const coupon = findCouponByCode(code);
-        if (!coupon) {
-            showDiscountHint("Invalid code. Try again");
-            return;
-        }
-
-        // Mã chỉ áp cho 1 cửa hàng theo coupon.resId
-        if (!coupon.resId) {
-            showDiscountHint("This promo must bind to a store (resId missing).");
-            return;
-        }
-
-        const subtotal = getSubtotalByRest(coupon.resId);
-        if (subtotal <= 0) {
-            // Giỏ không có món của cửa hàng đó -> không cho áp
-            showDiscountHint("This promo applies only to a specific store in your cart.");
-            return;
-        }
-
-        // Tính tiền giảm trên subtotal của đúng cửa hàng
-        const amount = Math.min(
-            Math.round(subtotal * (Number(coupon.percent) || 0) / 100),
-            subtotal
-        );
-
-        // Lưu coupon đã áp — lần sau tăng/giảm qty sẽ tự tính lại
-        appliedCoupon = coupon;
-
-        // Hiển thị UI đã áp mã
-        showDiscountApplied(code, amount);
-
-        // Cập nhật tổng
-        updateTotals();
-    }
-
-    // ====== Remove/Change handler ======
-    function removeDiscount() {
-            appliedCoupon = null;
-            showDiscountInput();
-            updateTotals();
-    }
-
     const cartState = loadCart();
     renderCartPanel();
     updateTotals();
-
-    // // Lắng nghe sự kiện 'cart:return'
-    // $(document).on("cart:return", function (e, item) {
-    //     console.log("cart:return event triggered");  // Debug log
-    //     renderCartPanel();
-    //     updateTotals();
-    //     openCart();
-    // });
-
-    // Sự kiện click
-    $cartFab.on("click", openCart);
-
-    $cartCloseBtn.on("click", closeCart);
-
-    $cartBackdrop.on("click", closeCart);
-
-    // Esc để đóng
-    $(document).on("keydown", function (e) {
-            if (e.key === "Escape") {
-                closeCart();
-            }
-        });
 
     $(document).on("auth:ready", function (e, data) {
         // Khi userId được set (sau /me), nạp lại giỏ theo key mới và render
@@ -324,38 +174,6 @@ $(document).ready(function () {
         updateTotals();
     });
 
-    // Lắng nghe sự kiện 'cart:add'
-    $(document).on("cart:add", function (e, item) {
-        const id = item.id;
-        const rid = String(item.restId);
-        let found = findByKey(id, rid);
-
-        if (found) {
-            found.qty += Number(item.qty) || 1;
-        } else {
-            cartState.push({
-                id: id,
-                title: String(item.title || ""),
-                image: String(item.image || ""),
-                price: Number(item.price) || 0,
-                qty: Number(item.qty) || 1,
-                restId: rid,
-                restName: String(item.restName || "")
-            });
-        }
-        saveCart();
-        renderCartPanel();
-        updateTotals();
-    });
-
-    $(document).on("click", "#btn-apply-discount", applyDiscount);
-
-    $(document).on("keydown", "#discount-input", function (e) {
-        if (e.key === "Enter") applyDiscount();
-    });
-
-    $(document).on("click", "#btn-remove-discount", removeDiscount);
-
     $(document).on("click", ".cart-checkout-btn", function (e) {
         // delete applied coupon
         try{
@@ -368,7 +186,22 @@ $(document).ready(function () {
             console.log("No coupon code to remove.");
         }
 
+        // Xoá toàn bộ giỏ hàng hiện tại (RAM + localStorage) rồi render lại
+        cartState.length = 0;
+        saveCart();
+        renderCartPanel();
+        updateTotals();
+
         window.location.href = "/payment";
     });
+
+    $(document).on("click", ".cart-cancel-btn", function (e) {
+        // console.log("Triggering cart:return event...");  // Debug log
+        // $(document).trigger("cart:return", null);
+        setTimeout(function() {
+            window.location.href = "/home";
+        }, 100);
+    });
+
 });
 

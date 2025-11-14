@@ -271,6 +271,14 @@ $(document).ready(function () {
     renderCartPanel();
     updateTotals();
 
+    // // Lắng nghe sự kiện 'cart:return'
+    // $(document).on("cart:return", function (e, item) {
+    //     console.log("cart:return event triggered");  // Debug log
+    //     renderCartPanel();
+    //     updateTotals();
+    //     openCart();
+    // });
+
     // Sự kiện click
     $cartFab.on("click", openCart);
 
@@ -359,12 +367,6 @@ $(document).ready(function () {
         } catch (e) {
             console.log("No coupon code to remove.");
         }
-
-        // Xoá toàn bộ giỏ hàng hiện tại (RAM + localStorage) rồi render lại
-        cartState.length = 0;
-        saveCart();
-        renderCartPanel();
-        updateTotals();
 
         window.location.href = "/payment";
     });

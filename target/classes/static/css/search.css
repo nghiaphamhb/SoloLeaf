@@ -42,7 +42,7 @@
   padding: 0 12px;
   border-radius: 99px;
   border: 1px solid #bbb;
-  outline: none;
+  outline: none; /* need to show focus style later */
 }
 
 .search-box .search-input:focus {
