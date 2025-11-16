@@ -3,3 +3,5 @@ target/classes/templates/wrapper.htm
 src/main/resources/application.yaml
 target/classes/application.yaml
 *.yaml
+src/main/resources/application.yaml
+target/classes/application.yaml
