@@ -26,5 +26,8 @@ logging:
 jwt:
   privateKey: YMHSmjBxy968154aoc9c1Q4imkJd4hRwgs3fpkWNe/w=
 
+stripe:
+  secret-key: sk_test_51ST1qkIwREZvDqNKoOUUsTbFHRpcPA4fadEx8Umqr4zCX2IUmsFYebWwVtXpPLCddLslBD2diCZnXxZIL637yXut00bij2nMbs
+
 fileUpload:
   rootPath: src/main/resources/static/images
