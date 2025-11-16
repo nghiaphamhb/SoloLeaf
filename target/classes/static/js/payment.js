@@ -139,6 +139,15 @@ $(document).ready(function () {
         $("#total-price").text(formatRuble(Math.max(0, initial - discount).toFixed(2)));
     }
 
+    function getCurrentUserId() {
+        var uid = localStorage.getItem("userId");
+        return uid ? String(uid) : "GUEST";
+    }
+
+    function getCartKey() {
+        return "CART_STATE__U_" + getCurrentUserId() + "__R_GLOBAL";
+    }
+
     const cartState = loadCart();
     renderCartPanel();
     updateTotals();
@@ -175,24 +184,34 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".cart-checkout-btn", function (e) {
-        // delete applied coupon
-        try{
-            const code = appliedCoupon.code || null;
-            const coupons = loadCoupons();
-            const updated = coupons.filter(c => normalizeCode(c.code) !== code);
-            saveCoupons(updated);
-            console.log("Coupons after removal:", updated);
-        } catch (e) {
-            console.log("No coupon code to remove.");
-        }
+        const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
 
-        // Xoá toàn bộ giỏ hàng hiện tại (RAM + localStorage) rồi render lại
-        cartState.length = 0;
-        saveCart();
-        renderCartPanel();
-        updateTotals();
+        // for debug
+        // cart.forEach(function(item) {
+        //     console.log("Item ID: " + item.id + ", Title: " + item.title + ", Quantity: " + item.qty);
+        // });
 
-        window.location.href = "/payment";
+        // Stripe public key của bạn (lấy từ Stripe Dashboard)
+        const stripe = Stripe('pk_test_51ST1qkIwREZvDqNKcDMEAHyFRiRx512nSoBCuRAJfAtcU3rGbsvlzfTKvbCD5OqcUpxK58ElTGcEbnDJJTFV48Qr00PNdFR1fj'); // Thay bằng key của bạn
+        // Gửi yêu cầu đến backend để tạo Checkout session
+        $.ajax({
+            url: '/create-checkout-session',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(cart),
+            success: function(sessionId) {
+                // Khi nhận được sessionId từ backend, chuyển hướng đến Stripe Checkout
+                stripe.redirectToCheckout({ sessionId: sessionId }).then(function(result) {
+                    if (result.error) {
+                        alert(result.error.message); // Xử lý nếu có lỗi khi chuyển hướng
+                    }
+                });
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+
     });
 
     $(document).on("click", ".cart-cancel-btn", function (e) {

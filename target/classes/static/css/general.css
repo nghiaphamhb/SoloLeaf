@@ -28,3 +28,11 @@
     --ease:cubic-bezier(0.3,0.7,0.4,1);
     --dur:220ms;
 }
+
+html, body {
+    overflow: auto; /* Hiển thị thanh trượt khi cần */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Ẩn thanh trượt trong Webkit browsers (Chrome, Safari, Edge) */
+}
