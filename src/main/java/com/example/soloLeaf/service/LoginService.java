@@ -5,6 +5,8 @@ import com.example.soloLeaf.entity.Users;
 import com.example.soloLeaf.payload.request.SignUpRequest;
 import com.example.soloLeaf.repository.UserRepository;
 import com.example.soloLeaf.service.imp.LoginServiceImp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,12 @@ public class LoginService implements LoginServiceImp {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    Logger logger = LoggerFactory.getLogger(LoginService.class);
+
     @Override
     public boolean checkLogin(String username,  String password) {
         Users user = userRepository.findByUsername(username);
-        System.out.println("[Server] Found user: " + user.toString());
+        logger.info("[Server] Found user: {}", user.toString());
         return passwordEncoder.matches(password, user.getPassword());
     }
 
