@@ -68,6 +68,11 @@ public class MainController {
         return "payment";
     }
 
+    @GetMapping("/successPayment")
+    public String successPaymentPage() {
+        return "successPayment";
+    }
+
     @GetMapping("/error")
     public String errorPage() {
         return "error";
