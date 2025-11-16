@@ -225,3 +225,34 @@ body{
     font-weight: 600;
     color: var(--brand-2);
 }
+
+/* successful payment */
+.payment-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+    margin-bottom: 1rem;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--brand-3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.checkmark {
+  font-size: 24px;
+  color: white;
+}
+
+.status-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--brand-2);
+}
