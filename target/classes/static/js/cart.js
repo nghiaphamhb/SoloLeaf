@@ -50,7 +50,6 @@ $(document).ready(function () {
                         image: String(it.image || ""),
                         price: Number(it.price) || 0,
                         qty: Number(it.qty) || 0,
-                        // GIỮ LẠI 2 TRƯỜNG NÀY
                         restId: it.restId != null ? String(it.restId) : undefined,
                         restName: it.restName != null ? String(it.restName) : ""
                     };
@@ -98,10 +97,10 @@ $(document).ready(function () {
             // Header cửa hàng
             $body.append(
                 `<div class="cart-store">
-         <div class="cart-store__header">
-           <span class="cart-store__name">${g.name}</span>
-         </div>
-       </div>`
+                     <div class="cart-store__header">
+                       <span class="cart-store__name">${g.name}</span>
+                     </div>
+                   </div>`
             );
             const $store = $body.children().last();
 
