@@ -4,6 +4,8 @@ import com.example.soloLeaf.dto.FoodDTO;
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +16,14 @@ import java.util.List;
 @RestController
 public class PaymentController {
 
-    static {
-        Stripe.apiKey = "sk_test_51ST1qkIwREZvDqNKoOUUsTbFHRpcPA4fadEx8Umqr4zCX2IUmsFYebWwVtXpPLCddLslBD2diCZnXxZIL637yXut00bij2nMbs";  // Thay bằng Secret Key của bạn
+    @Value("${stripe.secret-key}")
+    private String stripeSecretKey;
+
+    // Stripe API yêu cầu key phải được thiết lập tĩnh
+    @PostConstruct
+    public void init() {
+        // Gán giá trị cho Stripe.apiKey sau khi inject từ Spring
+        Stripe.apiKey = stripeSecretKey;
     }
 
     @PostMapping("/create-checkout-session")
