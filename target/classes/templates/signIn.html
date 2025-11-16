@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng nhập</title>
+    <title>Sign in</title>
     <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
     <link rel="stylesheet" th:href="@{/css/reset.css}" href="/static/css/reset.css">
     <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css">
@@ -11,27 +11,27 @@
 </head>
 <body>
 <header>
-    <h3>Đăng nhập ngay để đặt hàng và thưởng thức các món ăn nóng hổi!</h3>
+    <h3>Log in now to order and enjoy hot dishes!</h3>
 </header>
 
 <main class="wrap">
     <div>
-        <h1>Đăng nhập</h1>
+        <h1>Sign in form</h1>
         <form id="form-signin">
             <label for="username">Email</label>
-            <input id="username" type="email" required placeholder="Nhập email của bạn" />
+            <input id="username" type="email" required placeholder="Enter your email" />
 <!--            vua sua tu type = text -> email-->
 
-            <label for="password">Mật khẩu</label>
-            <input id="password" type="password" required minlength="6" placeholder="Nhập mật khẩu" />
+            <label for="password">Password</label>
+            <input id="password" type="password" required minlength="6" placeholder="Enter password" />
 
-            <button id="btn-signin" type="submit">Đăng nhập</button>
+            <button id="btn-signin" type="submit">Sign in</button>
         </form>
     </div>
 </main>
 
 <footer>
-    <p>Chưa có tài khoản? <a href="/signUp" th:href="@{/signUp}">Đăng ký ngay</a></p>
+    <p>No account yet? <a href="/signUp" th:href="@{/signUp}">Sign up now</a></p>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
