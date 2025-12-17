@@ -10,6 +10,7 @@ public class FoodDTO {
     private double rating;
     private String timeShip;
     private double price;
+    private int qty;  // quantity
 
     public int getId() {
         return id;
@@ -66,4 +67,24 @@ public class FoodDTO {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    @Override
+    public String toString() {
+        return "FoodDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                ", qty=" + qty +
+                '}';
+    }
 }
+

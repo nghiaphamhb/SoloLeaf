@@ -29,43 +29,10 @@
     --dur:220ms;
 }
 
-/* ===== CSS RESET ===== */
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{
-    background: radial-gradient(1200px 600px at 50% -10%, #fff 0%, var(--bg) 60%);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-    color:var(--fg);
-    line-height:1.6;
+html, body {
+    overflow: auto; /* Hiển thị thanh trượt khi cần */
 }
 
-/* ===== Format Link ===== */
-a{color:var(--brand-2);text-decoration:none;}  /* ko gach chan link */
-a:hover{color:var(--accent);}
-
-.layout { height: 100vh; display: grid; grid-template-columns: 280px 1fr; }
-.main { overflow-y: auto; }
-
-/* WebKit (Chrome/Edge/Safari) */
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-.main::-webkit-scrollbar,
-.cart-panel__body::-webkit-scrollbar {
-    width: 8px;              /* giống mẫu */
-    height: 8px;             /* cho trục ngang nếu có */
-}
-
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-.main::-webkit-scrollbar-thumb,
-.cart-panel__body::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,.2);
-    border-radius: 8px;
-}
-
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track,
-.main::-webkit-scrollbar-track,
-.cart-panel__body::-webkit-scrollbar-track {
-    background: transparent;
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Ẩn thanh trượt trong Webkit browsers (Chrome, Safari, Edge) */
 }

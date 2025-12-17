@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng ký</title>
+    <title>Sign up</title>
     <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
     <link rel="stylesheet" th:href="@{/css/reset.css}" href="/static/css/reset.css">
     <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css">
@@ -12,34 +12,34 @@
 </head>
 <body>
 <header>
-    <h3>Đăng ký ngay để đặt hàng và thưởng thức các món ăn nóng hổi!</h3>
+    <h3>Sign up now to order and enjoy hot dishes!</h3>
 </header>
 
 <main class="wrap">
     <div>
-        <h1>Đăng ký</h1>
+        <h1>Sign up form</h1>
 
         <form id="form-signup">
-            <label for="fullname">Họ tên</label>
-            <input id="fullname" type="text" required placeholder="Nhập họ và tên của bạn" />
+            <label for="fullname">Full name</label>
+            <input id="fullname" type="text" required placeholder="Enter your full name" />
 
             <label for="email">Email</label>
-            <input id="email" type="email" required placeholder="Nhập email của bạn" />
+            <input id="email" type="email" required placeholder="Enter your email" />
 
-            <label for="password">Mật khẩu</label>
-            <input id="password" type="password" required minlength="6" placeholder="Nhập mật khẩu" />
+            <label for="password">Password</label>
+            <input id="password" type="password" required minlength="6" placeholder="Enter your password" />
 
-            <label for="confirm">Xác nhận mật khẩu</label>
-            <input id="confirm" type="password" required minlength="6" placeholder="Xác nhận mật khẩu" />
+            <label for="confirm">Password confirmation</label>
+            <input id="confirm" type="password" required minlength="6" placeholder="Enter your password again" />
 
-            <button id="btn-signup" type="submit">Tạo tài khoản</button>
+            <button id="btn-signup" type="submit">Sign up</button>
         </form>
     </div>
 
 </main>
 
 <footer>
-    <p>Đã có tài khoản? <a href="/signIn" th:href="@{/signIn}">Đăng nhập ngay</a></p>
+    <p>Already have an account? <a href="/signIn" th:href="@{/signIn}">Sign in now</a></p>
 </footer>
 
 <!-- jQuery CDN -->

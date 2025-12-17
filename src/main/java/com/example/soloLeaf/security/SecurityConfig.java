@@ -52,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/signIn", "/signUp", "/login/**", "/home", "/restaurant/**", "/error", "/spin", "/payment", "/**").permitAll()  // Cho phép tất cả phương thức GET cho các URL này
                         .requestMatchers("/js/**", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/favicon.png").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/create-checkout-session").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/login/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/file/**").permitAll()
                         .requestMatchers("/api/**").authenticated()

@@ -4,7 +4,10 @@ import com.example.soloLeaf.payload.ResponseData;
 import com.example.soloLeaf.payload.request.SignUpRequest;
 import com.example.soloLeaf.service.imp.LoginServiceImp;
 import com.example.soloLeaf.utils.JwtUtilsHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.logging.LoggersEndpoint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,8 @@ public class LoginController {
 
     @Autowired
     private JwtUtilsHelper jwtUtilsHelper;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/signIn")
     public ResponseEntity<?> signIn(
@@ -35,7 +40,7 @@ public class LoginController {
 
             responseData.setTrue(true);
             responseData.setData(token);
-            System.out.println("[Server] Return token: " + token);
+            logger.info("[Server] Return token: {}", token);
         } else {
             responseData.setTrue(false);
             responseData.setData("");
