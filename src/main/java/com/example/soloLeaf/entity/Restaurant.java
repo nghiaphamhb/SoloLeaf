@@ -25,7 +25,7 @@ public class Restaurant {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "is_freeship")
+    @Column(name = "is_free_ship")
     private boolean isFreeShip;
 
     @Column(name = "address")

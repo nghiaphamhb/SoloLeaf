@@ -138,7 +138,7 @@ $(function () {
     function updateDailyState() {
         const last = localStorage.getItem(LS_LAST);
         const today = todayKey();
-        // BTN_SPIN.prop("disabled", false).text("Spin now"); // Bật lên để test
+        // BTN_SPIN.prop("disabled", false).text("Spin now"); // Bật lên để dev
 
         if (last === today) {
             BTN_SPIN.prop("disabled", true).text("End of today");

@@ -20,7 +20,7 @@ public class Food {
     @Column(name = "time_ship")
     private String timeShip;
 
-    @Column(name = "isFreeShip")
+    @Column(name = "is_free_ship")
     private boolean isFreeShip;
 
     @Column(name = "price")

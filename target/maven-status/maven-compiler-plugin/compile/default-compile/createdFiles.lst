@@ -2,9 +2,11 @@ com\example\soloLeaf\controller\LoginController.class
 com\example\soloLeaf\payload\request\SignUpRequest.class
 com\example\soloLeaf\entity\Roles.class
 com\example\soloLeaf\service\OrderService.class
+com\example\soloLeaf\controller\PaymentController.class
 com\example\soloLeaf\entity\keys\IdOrderItem.class
 com\example\soloLeaf\entity\OrderItem.class
 com\example\soloLeaf\entity\RatingRestaurant.class
+com\example\soloLeaf\repository\PromoRepository.class
 com\example\soloLeaf\repository\UserRepository.class
 com\example\soloLeaf\service\imp\RestaurantServiceImp.class
 com\example\soloLeaf\controller\RestaurantController.class
@@ -19,7 +21,9 @@ com\example\soloLeaf\service\imp\LoginServiceImp.class
 com\example\soloLeaf\service\RestaurantService.class
 com\example\soloLeaf\entity\RatingFood.class
 com\example\soloLeaf\security\CustomJwtFilter.class
+com\example\soloLeaf\controller\CategoryMenuController.class
 com\example\soloLeaf\repository\OrderRepository.class
+com\example\soloLeaf\dto\PromoDTO.class
 com\example\soloLeaf\entity\Users.class
 com\example\soloLeaf\controller\MainController.class
 com\example\soloLeaf\service\FoodService.class
@@ -37,12 +41,14 @@ com\example\soloLeaf\service\imp\OrderServiceImp.class
 com\example\soloLeaf\service\LoginService.class
 com\example\soloLeaf\controller\UserController.class
 com\example\soloLeaf\dto\UserDTO.class
+com\example\soloLeaf\service\PromoService.class
 com\example\soloLeaf\service\UserService.class
 com\example\soloLeaf\controller\FileController.class
 com\example\soloLeaf\service\imp\UserServiceImp.class
+com\example\soloLeaf\controller\PromoController.class
 com\example\soloLeaf\service\imp\FileServiceImp.class
+com\example\soloLeaf\service\imp\PromoServiceImp.class
 com\example\soloLeaf\service\FileService.class
-com\example\soloLeaf\controller\CategoryFoodsController.class
 com\example\soloLeaf\entity\keys\IdMenuRestaurant.class
 com\example\soloLeaf\payload\ResponseData.class
 com\example\soloLeaf\dto\CategoryDTO.class
