@@ -5,3 +5,5 @@ target/classes/application.yaml
 src/main/resources/application_deploy.yaml
 target/classes/application_deploy.yaml
 log/**
+src/main/resources/application.yaml
+target/classes/application.yaml
