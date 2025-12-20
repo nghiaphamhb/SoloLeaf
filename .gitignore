@@ -1,9 +1,11 @@
 .idea/
 .env
+soloLeaf.iml
 
 # backend
 backend/javaspring/target/
 backend/javaspring/.idea/
+backend/log/
 
 # frontend
 frontend/react-frontend/node_modules/
