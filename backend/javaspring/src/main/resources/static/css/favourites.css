@@ -1,0 +1,99 @@
+#tabs-rest{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+#tabs-rest .tab-rest{
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-rest input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+} 
+
+.tab-rest label{
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: gray;
+
+    font-size: .9rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+
+.tab-rest input[type="radio"]:checked + label{
+    background: var(--brand-2);
+}
+
+.list-foods{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+}
+
+.list-foods .food-card{
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm, 0 2px 10px rgba(0,0,0,.08));
+    transition: transform .2s ease, box-shadow .2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+.food-card img{
+    width: 90%;
+    border-radius: 12px;
+}
+
+.food-card .food-info{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.food-info p{
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+.food-info .food-badget{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.food-badget span{
+    padding: 2px 6px;
+    border-radius: 8px;
+    color: #0a7a0a;
+    background: #e6f6e6;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.food-info .food-action{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.food-action .btn-add, .btn-remove{
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: none;
+    background: var(--brand-2);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}

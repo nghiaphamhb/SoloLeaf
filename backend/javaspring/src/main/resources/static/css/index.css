@@ -1,0 +1,79 @@
+/* ===== Header ===== */
+header{
+     padding:40px 20px;
+
+     background:linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+     box-shadow:var(--shadow-md);
+
+     color:#fff;
+     text-align:center;
+ }
+header h1{
+    margin-bottom:.4rem;
+
+    font-family:"Playfair Display", Georgia, "Times New Roman", serif;  /* import source: general.css */
+    font-weight:700;
+    letter-spacing:.3px;
+    font-size:clamp(2.2rem, 3.5vw + 1rem, 3.25rem);
+    line-height:1.15;
+}
+header p{
+    font-size:clamp(1rem, .6vw + .8rem, 1.2rem);
+    opacity:.95;
+}
+
+/* ===== Khung nội dung ===== */
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width:840px;
+    margin:48px auto;
+    padding:0 20px;
+    text-align:center;
+}
+
+/* ===== buttons ===== */
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:16px;
+    margin-top:28px;
+}
+.buttons a{
+    display:inline-block;
+    padding:12px 22px;
+
+    background:var(--brand-2);
+    box-shadow:var(--shadow-sm);
+    border-radius:999px;
+
+    color:#fff;
+    font-weight:600;
+    letter-spacing:.2px;
+
+    transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.buttons a:hover{
+    background:var(--accent);
+    box-shadow:var(--shadow-md);
+
+    transform:translateY(-2px);
+}
+.buttons a:active{
+    box-shadow:var(--shadow-sm);
+    transform:translateY(-1px);
+}
+
+/* ===== Footer ===== */
+footer{
+    margin-top:20px;
+    padding:16px 0 28px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--fg-muted);
+    font-size:.95rem;
+}

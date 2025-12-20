@@ -1,0 +1,168 @@
+.main{
+    display: flex;
+    justify-content: center;
+}
+
+#search-card{
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#search-card h1{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#search-card .search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.search-box, .search-button {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  font-size: 0.95rem;
+}
+
+.search-box .search-input {
+  width: 400px;
+  height: 100%;
+  padding: 0 12px;
+  border-radius: 99px;
+  border: 1px solid #bbb;
+  outline: none; /* need to show focus style later */
+}
+
+.search-box .search-input:focus {
+  border: 2px solid var(--brand-2);
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+.search-box .search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Ẩn mặc định */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.search-input:not(:placeholder-shown) + .search-clear {
+  opacity: 1;
+  pointer-events: auto;
+  color: var(--brand-2);
+}
+
+.search-form .search-button {
+  padding: 0 16px;
+  border-radius: 999px;
+  border: none;
+  background: var(--brand-2);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.search-form .search-button:hover {
+  background: var(--brand);
+}
+
+#search-card .info-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    width: 90%;
+}
+
+.sort-dropdown .sort-select {
+  padding: 6px 28px 6px 10px;  
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  /* Bỏ style mặc định (cho webkit) để nhìn đồng bộ hơn */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%),
+                    linear-gradient(135deg, #6b7280 50%, transparent 50%);
+  background-position: calc(100% - 12px) 50%, calc(100% - 8px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.sort-dropdown .sort-select:focus {
+  outline: none;
+  border-color: var(--brand-2);
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+.result-list{
+    width: 90%;
+    padding: 0 20px 20px 20px;
+    box-sizing: border-box;
+    max-height: 1vm;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Chrome, Edge, Safari */
+.result-list::-webkit-scrollbar {
+    display: none;
+}
+
+.result-list .result-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 12px;
+    border: 1px solid var(--brand);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.result-list .result-card:hover {
+    border: 2px solid var(--brand-2);
+}
+
+.result-card img{
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;  
+    border-radius: 6px; 
+    flex-shrink: 0;     
+}
+

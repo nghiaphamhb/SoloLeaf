@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Restaurant</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="/static/css/reset.css">
+    <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css"/>
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" href="/css/sidebar.css"/>
+    <link rel="stylesheet" th:href="@{/css/cart.css}" href="/css/cart.css"/>
+    <link rel="stylesheet" th:href="@{/css/restaurant.css}" href="/css/restaurant.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- Logo -->
+        <div class="brand-logo">
+            <img th:src="@{/favicon.png}" src="/favicon.png" alt="App logo">
+        </div>
+
+        <!-- Sidebar content -->
+        <div class="sidebar-content">
+            <h3>Menu</h3>
+            <a href="/home">🏠 Home</a>
+            <a href="/search">🔍 Search</a>
+            <a href="/spin">🎁 Lucky Spin</a>
+            <a href="/favourites">⭐️ Favourites</a>
+            <a href="/orders">🚴 Orders</a>
+            <a href="/messages">✉️ Messages</a>
+            <a href="/profile">⚙️ Profile</a>
+        </div>
+
+        <!-- User panel (dưới cùng) -->
+        <div class="user-panel">
+            <div class="user-info">
+            </div>
+            <!-- Nút logout/icon -->
+            <button class="logout" title="Sign out">Log out</button>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main>
+        <!-- 🏠 Restaurant header -->
+        <section id="restaurant-header">
+            <!-- logo -->
+            <div class="restaurant-header__logo">
+                <img id="rest-logo" src="" alt="Restaurant logo" />
+            </div>
+
+            <!-- info -->
+            <div class="restaurant-header__info">
+                <div>
+                    <h3 id="rest-name" class="restaurant-header__name">—</h3>
+                    <span id="rest-cuisines" class="restaurant-header__cuisines">—</span> <!-- restaurant's type -->
+                </div>
+
+                <div class="restaurant-header__badges" id="rest-badges">
+                    <!-- Ví dụ: Free delivery | 65% OFF | Opens at 12 PM -->
+                </div>
+
+                <p class="restaurant-header__desc" id="rest-desc"></p>
+
+                <div class="restaurant-header__meta">
+                    <span class="restaurant-header__rating">
+                        <span id="rest-rating">—</span> ratings
+                    </span>
+                    <span class="restaurant-header__address">
+                              <span id="rest-address">—</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🧩 Subnav (categories) -->
+        <nav class="menu-subnav">
+            <ul id="menu-subnav__tabs"></ul>
+        </nav>
+
+        <!-- 🍽️ Menu grid -->
+        <section id="menu-section">
+            <div id="menu-grid">
+                <!-- Các thẻ món ăn (menu-card) render tại đây -->
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<!-- Floating Cart Button -->
+<button class="cart-fab" id="cartFab">
+    🛒
+    <span class="cart-fab__badge" id="cartCount">-</span>
+</button>
+
+<!-- Cart Side Panel -->
+<aside class="cart-panel" id="cartPanel">
+    <header class="cart-panel__header">
+        <h2 class="cart-panel__title">Shopping cart</h2>
+        <button class="cart-panel__close" id="cartCloseBtn">✕</button>
+    </header>
+
+    <div class="cart-panel__body"></div>
+
+    <footer class="cart-panel__footer">
+        <div class="cart-summary">
+            <div class="cart-summary__row">
+                <span>Initial price</span>
+                <span id="initial-price">0 ₽</span>
+            </div>
+            <div class="cart-summary__row">
+                <span>Discount</span>
+                <span id="discount-cell">
+                    <small id="discount-help" class="discount-help"></small>
+                    <!-- State A: nhập mã -->
+                    <input id="discount-input" placeholder="Enter code" inputmode="text" />
+                    <button id="btn-apply-discount" type="button">Apply</button>
+                </span>
+            </div>
+            <div class="cart-summary__row cart-summary__row--total">
+                <span>Total price</span>
+                <span id="total-price">0 ₽</span>
+            </div>
+        </div>
+        <button class="cart-checkout-btn">Order</button>
+    </footer>
+</aside>
+
+<!-- Backdrop (nền tối mờ khi cart mở) -->
+<div class="cart-backdrop" id="cartBackdrop"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/sidebar.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/restaurant.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* ===== Fonts (Playfair cho tiêu đề) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+:root{  /* Khai báo các biến màu và kích thước */
+    /* Màu nền & chữ */
+    --brand:#8a1538;
+    --paper:#fff;
+    --fg:#2b2b2b;
+    --fg-muted:#666;
+    --bg:#faf7f2;
+
+    /* Màu thương hiệu/CTA */
+    --brand-2:#b45309;
+    --accent:#d97706;
+    --brand-3: linear-gradient(to right, #e11d48, #fb923c);
+
+    /* Gradient header (3 màu, đồng bộ với button palette) */
+    --g1:#d97706;  /* hổ phách */
+    --g2:#c2410c;  /* đất nung đậm */
+    --g3:#8a1538;  /* đỏ vang */
+
+    /* Viền & bóng cho footer/cta */
+    --border:#e9e2d9;
+    --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+    --shadow-md:0 8px 24px rgba(0,0,0,.08);
+
+    /* Motion */
+    --ease:cubic-bezier(0.3,0.7,0.4,1);
+    --dur:220ms;
+}
+
+html, body {
+    overflow: auto; /* Hiển thị thanh trượt khi cần */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Ẩn thanh trượt trong Webkit browsers (Chrome, Safari, Edge) */
+}

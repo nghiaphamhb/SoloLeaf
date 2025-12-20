@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Payment</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" href="/favicon.png" sizes="32x32">
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="/css/reset.css"/>
+    <link rel="stylesheet" th:href="@{/css/general.css}" href="/css/general.css"/>
+    <link rel="stylesheet" th:href="@{/css/payment.css}" href="/css/payment.css"/>
+</head>
+<body>
+
+<main class="cart-panel" id="cartPanel">
+    <header class="cart-panel__header">
+        <h1 class="cart-panel__title">Bill payment</h1>
+        <p>(Scroll the food list below)</p>
+    </header>
+
+    <div class="cart-panel__body"></div>
+
+    <footer class="cart-panel__footer">
+        <div class="cart-summary">
+            <div class="cart-summary__row">
+                <span>Initial price</span>
+                <span id="initial-price">0 ₽</span>
+            </div>
+            <div class="cart-summary__row">
+                <span>Discount</span>
+                <span id="discount-cell">0 ₽</span>
+            </div>
+            <div class="cart-summary__row cart-summary__row--total">
+                <span>Total price</span>
+                <span id="total-price">0 ₽</span>
+            </div>
+        </div>
+        <div class="bill-button">
+            <button class="cart-checkout-btn buttons">Order</button>
+            <button class="cart-cancel-btn buttons">Cancel</button>
+        </div>
+    </footer>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/js/payment.js"></script>
+</body>
+</html>
