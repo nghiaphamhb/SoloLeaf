@@ -1,6 +1,9 @@
-src/main/resources/templates/wrapper.html
-target/classes/templates/wrapper.htm
-target/classes/templates/wrapper.html
-log/*.log
-src/main/resources/.env
-target/classes/.env
+.idea/
+.env
+
+# backend
+backend/javaspring/target/
+backend/javaspring/.idea/
+
+# frontend
+frontend/react-frontend/node_modules/
