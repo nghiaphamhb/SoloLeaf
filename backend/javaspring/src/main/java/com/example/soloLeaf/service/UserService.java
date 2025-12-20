@@ -28,7 +28,7 @@ public class UserService implements UserServiceImp {
         for (Users user : listUser) {
             UserDTO userDTO = new UserDTO(
                     user.getId(),
-                    user.getUsername(),
+                    user.getEmail(),
                     user.getFullname(),
                     user.getCreateDate()
             );
@@ -44,9 +44,9 @@ public class UserService implements UserServiceImp {
             throw new AccessDeniedException("Unauthenticated");
         }
         //  principal là username
-        String username = ud.getUsername();
+        String email = ud.getUsername();
         try{
-            return userRepository.findByUsername(username);
+            return userRepository.findByEmail(email);
         } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -55,7 +55,7 @@ public class UserService implements UserServiceImp {
     public UserDTO getMyProfile() {
         Users currentUser = getCurrentUser();
         return new UserDTO(currentUser.getId(),
-                currentUser.getUsername(),
+                currentUser.getEmail(),
                 currentUser.getFullname(),
                 currentUser.getCreateDate());
     }

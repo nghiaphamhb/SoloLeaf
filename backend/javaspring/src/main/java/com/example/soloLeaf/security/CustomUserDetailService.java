@@ -21,11 +21,11 @@ public class CustomUserDetailService implements UserDetailsService {
     UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new User(username, user.getPassword(), new ArrayList<>());  //User - class impl interface UserDetail
+        return new User(email, user.getPassword(), new ArrayList<>());  //User - class impl interface UserDetail
     }
 }

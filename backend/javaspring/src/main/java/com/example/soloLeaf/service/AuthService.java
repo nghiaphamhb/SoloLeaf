@@ -2,9 +2,9 @@ package com.example.soloLeaf.service;
 
 import com.example.soloLeaf.entity.Roles;
 import com.example.soloLeaf.entity.Users;
-import com.example.soloLeaf.payload.request.SignUpRequest;
+import com.example.soloLeaf.payload.request.AuthRequest;
 import com.example.soloLeaf.repository.UserRepository;
-import com.example.soloLeaf.service.imp.LoginServiceImp;
+import com.example.soloLeaf.service.imp.AuthServiceImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,42 +14,47 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class LoginService implements LoginServiceImp {
+public class AuthService implements AuthServiceImp {
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    Logger logger = LoggerFactory.getLogger(LoginService.class);
+    Logger logger = LoggerFactory.getLogger(AuthService.class);
 
     @Override
-    public boolean checkLogin(String username,  String password) {
-        Users user = userRepository.findByUsername(username);
+    public boolean checkLogin(String email,  String password) {
+        Users user = userRepository.findByEmail(email);
         logger.info("[Server] Found user: {}", user.toString());
         return passwordEncoder.matches(password, user.getPassword());
     }
 
     @Override
-    public boolean signUp(SignUpRequest signUpRequest) {
+    public boolean register(AuthRequest authRequest) {
         Users user = new Users();
-        user.setUsername(signUpRequest.getUsername());
+        user.setEmail(authRequest.getEmail());
         user.setPassword(
-                passwordEncoder.encode(signUpRequest.getPassword())
+                passwordEncoder.encode(authRequest.getPassword())
         );
-        user.setFullname(signUpRequest.getFullname());
+        user.setFullname(authRequest.getFullname());
 
         Date createDate = new Date();
         user.setCreateDate(createDate);
 
         Roles role = new Roles();
-        role.setId(signUpRequest.getRoleId());
+        int roleId = authRequest.getRoleId();
+        if (roleId == 0){
+            roleId = 2;  // client
+        }
+        role.setId(roleId);
         user.setRole(role);
 
         try{
             userRepository.save(user);
             return true;
         } catch (Exception e) {
+            System.out.println("Service/AuthService" + e.getMessage());
             return false;
         }
     }

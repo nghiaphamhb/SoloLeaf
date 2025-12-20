@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UserDTO {
     private int id;
-    private String username;  // this is email
+    private String email;
     private String fullname;
     private Date createDate;
 
@@ -12,9 +12,9 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(int id, String username, String fullname, Date createDate) {
+    public UserDTO(int id, String email, String fullname, Date createDate) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.fullname = fullname;
         this.createDate = createDate;
     }
@@ -27,12 +27,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public String getFullname() {

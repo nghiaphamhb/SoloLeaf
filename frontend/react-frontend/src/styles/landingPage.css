@@ -49,6 +49,7 @@ main{
     background:var(--brand-2);
     box-shadow:var(--shadow-sm);
     border-radius:999px;
+    border:1px solid transparent;
 
     color:#fff;
     font-weight:600;
