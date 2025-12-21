@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { registerApi } from "../api/authApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/auth.css";
+import {Alert, Box, Button, Container, TextField, Typography} from "@mui/material";
 
 export default function RegisterPage() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function RegisterPage() {
 
         try {
             setLoading(true);
-            const data = await registerApi({
+            await registerApi({
                 fullname,
                 email,
                 password,
@@ -41,75 +42,80 @@ export default function RegisterPage() {
     };
 
     return (
-        <div>
-            <header>
-                <h3>Register now to order and enjoy hot dishes!</h3>
-            </header>
+        <Box>
+            <Box component="header" className="auth-header">
+                <Typography variant="h4" className="auth-title">Register now to order and enjoy hot dishes!</Typography>
+            </Box>
 
-            <main className="wrap">
-                <div>
-                    <h1>Register form</h1>
+            <Container className="auth-wrap">
+                <Box className="auth-card">
+                    <Typography variant="h4" className="auth-form-title">
+                        Register form
+                    </Typography>
 
-                    <form id="form-signup" onSubmit={onSubmit}>
-                        <label htmlFor="fullname">Full name</label>
-                        <input
-                            id="fullname"
+                    <Box component="form" className="auth-form" onSubmit={onSubmit}>
+                        <TextField
+                            className="auth-field"
                             type="text"
                             required
                             placeholder="Enter your full name"
+                            label="Full Name"
                             value={fullname}
                             onChange={(e) => setFullname(e.target.value)}
                         />
 
-                        <label htmlFor="email">Email</label>
-                        <input
-                            id="email"
+                        <TextField
+                            className="auth-field"
                             type="email"
                             required
                             placeholder="Enter your email"
+                            label="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
 
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
+                        <TextField
+                            className="auth-field"
                             type="password"
                             required
-                            minLength="6"
                             placeholder="Enter your password"
+                            minLength="6"
+                            label="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        <label htmlFor="confirm">Password confirmation</label>
-                        <input
-                            id="confirm"
+                        <TextField
+                            className="auth-field"
                             type="password"
                             required
+                            placeholder="Confirm your password"
                             minLength="6"
-                            placeholder="Enter your password again"
+                            label="Confirm password"
                             value={password2}
                             onChange={(e) => setPassword2(e.target.value)}
                         />
 
-                        {error && <p style={{ color: "crimson" }}>{error}</p>}
+                        {error &&
+                            <Alert severity="error">{error}</Alert>}
 
-                        <button id="btn-signup" type="submit" disabled={loading}>
+                        <Button
+                            className="auth-submit"
+                            type="submit"
+                            disabled={loading}>
                             {loading ? "Trying to register..." : "Register"}
-                        </button>
+                        </Button>
 
-                    </form>
-                </div>
+                    </Box>
+                </Box>
 
-            </main>
+            </Container>
 
-            <footer>
-                <p>
-                    Already have an account?
-                    <Link to="/login">Login now</Link>
-                </p>
-            </footer>
-        </div>
+            <Box className="auth-footer">
+                Already have an account?
+                <Link to="/login">Login now</Link>
+            </Box>
+            <Box className="auth-footer"><Link to="/">Go back</Link></Box>
+        </Box>
     );
 }

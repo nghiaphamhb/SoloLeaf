@@ -1,38 +1,70 @@
 /* ===== Fonts (Playfair cho tiêu đề) ===== */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap');
 
-:root{  /* Khai báo các biến màu và kích thước */
-    /* Màu nền & chữ */
-    --brand:#8a1538;
-    --paper:#fff;
-    --fg:#2b2b2b;
-    --fg-muted:#666;
-    --bg:#faf7f2;
+/* ===== Design tokens (dùng chung cho MUI + CSS) ===== */
+:root {
+    /* Brand colors */
+    --brand: #8a1538;
+    --brand-2: #b45309;
+    --accent: #d97706;
 
-    /* Màu thương hiệu/CTA */
-    --brand-2:#b45309;
-    --accent:#d97706;
+    /* Text colors */
+    --fg: #2b2b2b;
+    --fg-muted: #666;
+
+    /* Backgrounds (warm – không trắng gắt) */
+    --bg: #f6f3ef;          /* nền page */
+    --paper: #faf7f3;       /* nền card / container */
+
+    /* Gradients */
     --brand-3: linear-gradient(to right, #e11d48, #fb923c);
 
-    /* Gradient header (3 màu, đồng bộ với button palette) */
-    --g1:#d97706;  /* hổ phách */
-    --g2:#c2410c;  /* đất nung đậm */
-    --g3:#8a1538;  /* đỏ vang */
+    /* Header gradient */
+    --g1: #d97706;
+    --g2: #c2410c;
+    --g3: #8a1538;
 
-    /* Viền & bóng cho footer/cta */
-    --border:#e9e2d9;
-    --shadow-sm:0 2px 8px rgba(0,0,0,.06);
-    --shadow-md:0 8px 24px rgba(0,0,0,.08);
+    /* Borders & shadows */
+    --border: #e9e2d9;
+    --shadow-sm: 0 2px 8px rgb(0 0 0 / 6%);
+    --shadow-md: 0 8px 24px rgb(0 0 0 / 8%);
 
     /* Motion */
-    --ease:cubic-bezier(0.3,0.7,0.4,1);
-    --dur:220ms;
+    --ease: cubic-bezier(0.3, 0.7, 0.4, 1);
+    --dur: 220ms;
 }
 
-html, body {
-    overflow: auto; /* Hiển thị thanh trượt khi cần */
+/* ===== Base layout ===== */
+html,
+body {
+    height: 100%;
+    background-color: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
 }
 
-html::-webkit-scrollbar, body::-webkit-scrollbar {
-    display: none; /* Ẩn thanh trượt trong Webkit browsers (Chrome, Safari, Edge) */
+/* ===== Typography base ===== */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* Headings dùng Playfair (KHÔNG đè MUI Typography) */
+h1, h2, h3 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/* ===== Scrollbar (GIỮ – nhưng KHÔNG ẩn hoàn toàn) ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(0 0 0 / 15%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
 }

@@ -1,143 +1,145 @@
+/* authPages.css (MUI-friendly) */
+
+/* Motion tokens */
 :root{
     --ease: cubic-bezier(.2,.7,.3,1);
     --dur: 200ms;
 }
 
-/* ===== Header ===== */
-header{
+/* ===== Header (use on Box component="header") ===== */
+.auth-header{
     padding: 18px 12px;
-
-    background:linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
-    box-shadow:var(--shadow-md);
-
-    color:#fff;
-    text-align:center;
-}
-header h1{
-    margin-bottom:.4rem;
-
-    font-family:"Playfair Display", Georgia, "Times New Roman", serif;  /* import source: general.css */
-    font-weight:700;
-    letter-spacing:.3px;
-    font-size:clamp(2.2rem, 3.5vw + 1rem, 3.25rem);
-    line-height:1.15;
-}
-header p{
-    font-size:clamp(1rem, .6vw + .8rem, 1.2rem);
-    opacity:.95;
+    background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+    box-shadow: var(--shadow-md);
+    color: #fff;
+    text-align: center;
 }
 
-/* === Main content === */
-main.wrap{
+.auth-header .auth-title{
+    margin-bottom: .4rem;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: .3px;
+    font-size: clamp(2.2rem, 3.5vw + 1rem, 3.25rem);
+    line-height: 1.15;
+}
+
+.auth-header .auth-subtitle{
+    font-size: clamp(1rem, .6vw + .8rem, 1.2rem);
+    opacity: .95;
+}
+
+/* ===== Page wrapper (use on Container / Box) ===== */
+.auth-wrap{
     display: grid;
-    margin:48px auto;
-    padding:0 20px;
+    margin: 48px auto;
+    padding: 0 20px;
     place-items: center;
 }
-/* Card chứa form  */
-main.wrap > div{
+
+/* ===== Card (use on Paper) ===== */
+.auth-card{
     width: 100%;
     max-width: 420px;
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 28px;
-
     background: var(--paper);
-
     text-align: left;
-
-    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
     transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
-main.wrap > div:hover{
-    box-shadow: 0 10px 30px rgba(0,0,0,.10);
+
+.auth-card:hover{
+    box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
     transform: translateY(-2px);
 }
-/* === Tiêu đề form === */
-main.wrap > div > h1{
-    margin-bottom: 18px;
+
+/* ===== Form heading (use on Typography) ===== */
+.auth-form-title{
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
     font-size: 1.75rem;
     line-height: 1.2;
     color: var(--fg);
 }
-/* === Form === */
-#form-signin,
-#form-signup{
+
+/* ===== Form layout (wrap a Stack/Form) ===== */
+.auth-form{
     display: grid;
     gap: 14px;
 }
-/* == Label == */
-#form-signin label,
-#form-signup label{
-    font-weight: 600;
-    font-size: .95rem;
+
+/* ===== Inputs =====
+   Note:
+   - With MUI TextField, input is inside .MuiOutlinedInput-input
+   - Border is on .MuiOutlinedInput-notchedOutline
+*/
+.auth-field .MuiInputLabel-root{
     color: var(--fg);
 }
 
-/* == Input == */
-#form-signin input[type="email"],
-#form-signin input[type="password"],
-#form-signup input[type="text"],
-#form-signup input[type="email"],
-#form-signup input[type="password"]{
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid var(--border);
+.auth-field .MuiOutlinedInput-root{
     border-radius: 12px;
     background: #fff;
-    color: var(--fg);
-    outline: none;
+}
+
+.auth-field .MuiOutlinedInput-notchedOutline{
+    border-color: var(--border);
     transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 
-#form-signin input::placeholder,
-#form-signup input::placeholder{
-    color: #9aa1a9;
-}
-
-#form-signin input:focus,
-#form-signup input:focus{
+.auth-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
     border-color: color-mix(in srgb, var(--brand) 70%, #0000);
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, #0000);
 }
 
-/* == Nút Đăng nhập == */
-#btn-signin,
-#btn-signup{
+.auth-field .MuiOutlinedInput-input::placeholder{
+    color: #9aa1a9;
+    opacity: 1;
+}
+
+/* ===== Submit button (use on MUI Button) ===== */
+.auth-submit{
     margin-top: 6px;
     width: 100%;
-    padding: 12px 16px;
-    border: 0;
-    border-radius: 999px;
-    color: #fff;
-    font-weight: 700;
+    border-radius: 999px !important; /* MUI sometimes overrides radius */
+    color: #fff !important;
+    font-weight: 700 !important;
     letter-spacing: .2px;
     background-image: linear-gradient(90deg, var(--brand-2), var(--accent), var(--brand));
     background-size: 200% 100%;
     cursor: pointer;
-    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-position var(--dur) var(--ease);
-    box-shadow: 0 6px 20px rgba(0,0,0,.12);
-}
-#btn-signin:hover,
-#btn-signup:hover{
-    transform: translateY(-1px);
-    background-position: 100% 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,.16);
-}
-#btn-signin:active,
-#btn-signup:active{
-    transform: translateY(0);
-    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
+    transition: transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    background-position var(--dur) var(--ease);
 }
 
-/* == Footer dưới form (link đăng ký) == */
-footer{
+.auth-submit:hover{
+    transform: translateY(-1px);
+    background-position: 100% 0;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 16%);
+}
+
+.auth-submit:active{
+    transform: translateY(0);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 12%);
+}
+
+/* ===== Footer below form ===== */
+.auth-footer{
     text-align: center;
     color: var(--fg-muted);
-    padding: 5px 0 24px;
+    padding: 5px 0;
 }
-footer a{
+
+.auth-footer a{
     color: var(--brand-2);
     font-weight: 600;
 }
-footer a:hover{ color: var(--accent); }
+
+.auth-footer a:hover{
+    color: var(--accent);
+}

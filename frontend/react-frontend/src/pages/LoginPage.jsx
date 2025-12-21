@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { loginApi } from "../api/authApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/auth.css";
+import {Box, Container, TextField, Typography, Alert , Button} from "@mui/material";
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -34,17 +35,20 @@ export default function LoginPage() {
     };
 
     return (
-        <div>
-            <header>
-                <h3>Log in now to order and enjoy hot dishes!</h3>
-            </header>
-            <main className="wrap">
-                <div>
-                    <h1>Login form</h1>
-                    <form id="form-signin" onSubmit={onSubmit}>
-                        <label htmlFor="email">Email</label>
-                        <input
-                            id="email"
+        <Box>
+            {/* header */}
+            <Box component="header" className="auth-header">
+                <Typography className="auth-title">
+                    Log in now to order and enjoy hot dishes!
+                </Typography>
+            </Box>
+            <Container className="auth-wrap">
+                <Box className="auth-card">
+                    <Typography variant="h4" className="auth-form-title">Login form</Typography>
+                    <Box component="form" onSubmit={onSubmit} className="auth-form">
+                        <TextField
+                            className="auth-field"
+                            label="Email"
                             type="email"
                             required
                             placeholder="Enter your email"
@@ -52,30 +56,37 @@ export default function LoginPage() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
 
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
+                        <TextField
+                            className="auth-field"
+                            label="Password"
                             type="password"
                             required
                             minLength="6"
-                            placeholder="Enter password"
+                            placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        {error && <p style={{ color: "crimson"}}>{error}</p>}
+                        {error &&
+                            <Alert severity="error">
+                                {error}
+                            </Alert>}
 
-                        <button id="btn-signin" type="submit" disabled={loading}>
+                        <Button
+                            className="auth-submit"
+                            type="submit"
+                            disabled={loading}
+                        >
                             {loading ? "Trying to login..." : "Login"}
-                        </button>
-                    </form>
-                </div>
-            </main>
-            <footer>
-                <p>
-                    No account yet? <Link to="/register">Register now</Link>
-                </p>
-            </footer>
-        </div>
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
+            <Box className="auth-footer">
+                No account yet?
+                <Link to="/register"> Register now </Link>
+            </Box>
+            <Box className="auth-footer"><Link to="/">Go back</Link></Box>
+        </Box>
     );
 }
