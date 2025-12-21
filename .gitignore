@@ -1,11 +1,13 @@
 .idea/
 .env
 soloLeaf.iml
+log/
 
 # backend
 backend/javaspring/target/
 backend/javaspring/.idea/
 backend/log/
+backend/sql/
 
 # frontend
 frontend/react-frontend/node_modules/
