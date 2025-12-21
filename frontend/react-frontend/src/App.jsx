@@ -5,10 +5,6 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage";
 
-function HomePage() {
-    return <div style={{ padding: 24 }}>Home (React) - logged in area</div>;
-}
-
 export default function App() {
     return (
         <BrowserRouter>

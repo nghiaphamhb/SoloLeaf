@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerApi } from "../api/authApi.js";
+import { registerApi } from "../apis/authApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/auth.css";
 import {Alert, Box, Button, Container, TextField, Typography} from "@mui/material";
