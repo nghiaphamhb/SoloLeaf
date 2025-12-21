@@ -5,15 +5,26 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage.jsx";
+import ProtectedRoute from "./components/Security/ProtectedRoute.jsx";
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
+                {/* that routes dont need authentication */}
                 <Route path="/" element={<LandingPage/>} />
                 <Route path="/login" element={<LoginPage/>} />
                 <Route path="/register" element={<RegisterPage/>} />
-                <Route path="/home" element={<HomePage/>} />
+
+                {/* authentication */}
+                <Route
+                    path="/home"
+                    element={
+                        <ProtectedRoute>
+                            <HomePage/>
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     );

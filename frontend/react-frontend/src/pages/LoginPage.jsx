@@ -21,14 +21,16 @@ export default function LoginPage() {
             setLoading(true);
             const data = await loginApi({email, password});
 
-            if(data?.token) {
-                localStorage.setItem("token", data.token);
+            const token = data?.data; /* token saved in res.?data */
+            if (!token) {
+                throw new Error("No token returned from server");
             }
+            localStorage.setItem("token", token);
 
             navigate("/home");
         } catch (err) {
-            setError("Login failed");
-            console.log(err.message);
+            if (err?.status === 404) setError("Account does not exist");
+            else setError(err.message || "Login failed");
         } finally {
             setLoading(false);
         }

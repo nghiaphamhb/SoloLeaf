@@ -1,27 +1,15 @@
-export async function loginApi({email, password}) {
-    const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
+import { apiRequest} from "./request/apiRequest.js";
 
-    if(!res.ok) {
-        const text = await res.text();
-        throw new Error("Login failed: " + text);
-    }
-    return res.json();
+export async function loginApi({email, password}) {
+    return await apiRequest("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+    });
 }
 
 export async function registerApi({ fullname, email, password, roleId }) {
-    const res = await fetch("/api/auth/register", {
+    return apiRequest("/api/auth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fullname, email, password, roleId }),
     });
-
-    if (!res.ok) {
-        const text = await res.text();
-        throw new Error("Register failed: " + text);
-    }
-    return res.json();
 }
