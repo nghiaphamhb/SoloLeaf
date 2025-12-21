@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage';
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage";
+import HomePage from "./pages/HomePage.jsx";
 
 export default function App() {
     return (
