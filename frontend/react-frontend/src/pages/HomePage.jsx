@@ -1,22 +1,29 @@
-import React from 'react';
-import {Box} from "@mui/material";
+import React from "react";
+import { Box, Typography } from "@mui/material";
 
-import FeaturesPanel from "../components/SidePanel/FeaturesPanel.jsx";
-import UserPanel from "../components/SidePanel/UserPanel.jsx";
-import CartWidget from "../components/ShoppingCart/CartWidget.jsx";
+import SideWidget from "../components/SidePanel/SideWidget.jsx";
+import CartWidget from "../components/Cart/CartWidget.jsx";
 
 import "../styles/sidePanel.css";
 import "../styles/cart.css";
 
 export default function HomePage() {
+    const onLogout = () => {
+        localStorage.removeItem("token");
+        // navigate("/login") nếu bạn muốn
+    };
+
     return (
         <Box className="layout">
-            <Box className="sidebar">
-                <FeaturesPanel/>
-                <UserPanel/>
-            </Box>
-            <CartWidget />
+            <SideWidget onLogout={onLogout} />
 
+            <Box className="main" sx={{ p: 3 }}>
+                <Typography variant="h4" fontWeight={800}>
+                    Home
+                </Typography>
+            </Box>
+
+            <CartWidget count={0} title="My cart" />
         </Box>
     );
 }

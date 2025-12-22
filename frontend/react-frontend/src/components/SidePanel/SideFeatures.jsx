@@ -1,49 +1,32 @@
-import React from 'react';
-import {Box, Button, Stack, Typography} from "@mui/material";
+import React from "react";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import leaf from "/leaf.png";
-import { Link } from "react-router-dom";
 
-export default function FeaturesPanel() {
-    // const navigate = useNavigate();
-    //
-    // // Optional: call backend when user clicks a menu item (for logging/analytics)
-    // const pingBackend = async (eventName) => {
-    //     try {
-    //         // NOTE: adjust endpoint to your backend
-    //         await fetch(`${import.meta.env.VITE_BACKEND_BASE}/api/ui-events`, {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ event: eventName, ts: Date.now() }),
-    //         });
-    //     } catch (_) {
-    //         // ignore logging errors
-    //     }
-    // };
-    //
-    // const onMenuClick = async (path, eventName) => {
-    //     // If you truly want a request on every click:
-    //     await pingBackend(eventName);
-    //     navigate(path);
-    // };
+export default function SideFeatures() {
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const go = (path) => navigate(path);
+
+    const isActive = (path) => pathname === path;
+
     return (
         <Box>
             <Box className="brand-logo">
-                <Box
-                    component="img"
-                    src={leaf}
-                    alt="App logo"/>
+                <Box component="img" src={leaf} alt="App logo" />
             </Box>
 
             <Box className="sidebar-content">
-                <Typography
-                    variant="h4"
-                    className="sidebar-title"
-                >Menu
+                <Typography variant="h4" className="sidebar-title">
+                    Menu
                 </Typography>
+
                 <Stack spacing={0.5}>
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/home", "menu_home")}
+                        onClick={() => go("/home")}
+                        data-active={isActive("/home")}
                     >
                         <span className="sidebar-icon">🏠</span>
                         <span className="sidebar-text">Home</span>
@@ -51,7 +34,8 @@ export default function FeaturesPanel() {
 
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/search", "menu_search")}
+                        onClick={() => go("/search")}
+                        data-active={isActive("/search")}
                     >
                         <span className="sidebar-icon">🔍</span>
                         <span className="sidebar-text">Search</span>
@@ -59,7 +43,8 @@ export default function FeaturesPanel() {
 
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/favourites", "menu_favourites")}
+                        onClick={() => go("/favourites")}
+                        data-active={isActive("/favourites")}
                     >
                         <span className="sidebar-icon">⭐️</span>
                         <span className="sidebar-text">Favourites</span>
@@ -67,7 +52,8 @@ export default function FeaturesPanel() {
 
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/orders", "menu_orders")}
+                        onClick={() => go("/orders")}
+                        data-active={isActive("/orders")}
                     >
                         <span className="sidebar-icon">🚴</span>
                         <span className="sidebar-text">Orders</span>
@@ -75,7 +61,8 @@ export default function FeaturesPanel() {
 
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/messages", "menu_messages")}
+                        onClick={() => go("/messages")}
+                        data-active={isActive("/messages")}
                     >
                         <span className="sidebar-icon">✉️</span>
                         <span className="sidebar-text">Messages</span>
@@ -83,7 +70,8 @@ export default function FeaturesPanel() {
 
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/spin", "menu_lucky_spin")}
+                        onClick={() => go("/spin")}
+                        data-active={isActive("/spin")}
                     >
                         <span className="sidebar-icon">🎁</span>
                         <span className="sidebar-text">Lucky Spin</span>
@@ -91,7 +79,8 @@ export default function FeaturesPanel() {
 
                     <Button
                         className="sidebar-item-btn"
-                        // onClick={() => onMenuClick("/profile", "menu_profile")}
+                        onClick={() => go("/profile")}
+                        data-active={isActive("/profile")}
                     >
                         <span className="sidebar-icon">⚙️</span>
                         <span className="sidebar-text">Profile</span>
@@ -99,5 +88,5 @@ export default function FeaturesPanel() {
                 </Stack>
             </Box>
         </Box>
-        );
+    );
 }

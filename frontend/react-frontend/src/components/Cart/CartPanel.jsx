@@ -18,13 +18,16 @@ export default function CartPanel(
         children,
         initialPrice = 0,
         totalPrice = 0,
-        onApplyDiscount,
+        // onApplyDiscount,
         onCheckout,
     }
 ) {
     const [discountCode, setDiscountCode] = useState("");
     const [discountHelp, setDiscountHelp] = useState("");
 
+    const handleApply = () => {
+        setDiscountHelp("Applied!");
+    };
 
     return (
         <Drawer anchor="right" open={open} onClose={onClose}>
@@ -86,7 +89,7 @@ export default function CartPanel(
                                 <Button
                                     type="button"
                                     variant="contained"
-                                    // onClick={handleApply}
+                                    onClick={handleApply}
                                     className="btn-apply-discount"
                                 >
                                     Apply
