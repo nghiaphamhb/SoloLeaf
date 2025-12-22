@@ -8,11 +8,14 @@ import HomeContent from "../components/HomePage/HomeContent.jsx";
 import "../styles/sidePanel.css";
 import "../styles/cart.css";
 import "../styles/home.css";
+import {useNavigate} from "react-router-dom";
 
 export default function HomePage() {
+    const navigate = useNavigate();
+
     const onLogout = () => {
         localStorage.removeItem("token");
-        // navigate("/login") nếu bạn muốn
+        navigate("/login");
     };
 
     return (

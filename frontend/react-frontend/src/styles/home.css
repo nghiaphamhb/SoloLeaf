@@ -121,11 +121,11 @@
 
 /* =========================================================
    MENU / FOODS
-   Works with: CategorySection + FoodItemCard
+   Works with: CategoryMenu + FoodItemCard
 ========================================================= */
 
 .menu-section {
-    margin-block: 18px;
+    /*margin-block: 18px;*/
 }
 
 .menu-section__title {

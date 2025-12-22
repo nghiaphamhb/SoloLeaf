@@ -3,7 +3,7 @@ import { Box, Typography, Alert, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import RestaurantCard from "./RestaurantCard";
-import CategorySection from "./CategorySection";
+import CategoryMenu from "./CategoryMenu.jsx";
 
 export default function HomeContent() {
     const navigate = useNavigate();
@@ -19,11 +19,6 @@ export default function HomeContent() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if (!token) {
-            alert("Bạn chưa đăng nhập!");
-            navigate("/login", { replace: true });
-            return;
-        }
 
         // Restaurants
         (async () => {
@@ -102,7 +97,7 @@ export default function HomeContent() {
                     <Typography sx={{ opacity: 0.8 }}>No menu data.</Typography>
                 ) : (
                     menuCategories.map((cat, idx) => (
-                        <CategorySection key={cat?.id ?? idx} category={cat} />
+                        <CategoryMenu key={cat?.id ?? idx} category={cat} />
                     ))
                 )}
             </Box>

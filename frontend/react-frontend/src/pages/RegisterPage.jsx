@@ -29,7 +29,7 @@ export default function RegisterPage() {
             await registerApi({
                 fullname,
                 email,
-                password,
+                password
             });
 
             navigate("/login");

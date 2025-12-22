@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 
 export default function RestaurantCard({ restaurant, onClick }) {
     const img = restaurant?.image
-        ? `${import.meta.env.VITE_BACKEND_BASE}${restaurant.image.startsWith("/") ? "" : "/"}${restaurant.image}`
-        : "/images/placeholder.png";
+        ? `${import.meta.env.VITE_BACKEND_BASE}${restaurant.image}`
+        : "";
 
     const title = restaurant?.title ?? "No title";
     const subtitle = restaurant?.subtitle ?? "";

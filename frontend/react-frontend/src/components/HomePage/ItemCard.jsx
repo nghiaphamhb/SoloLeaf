@@ -2,9 +2,11 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 export default function ItemCard({ food }) {
-    const img = food?.image ?? "No image";
+    const img = food?.image
+        ? `${import.meta.env.VITE_BACKEND_BASE}${food.image}`
+        : "";
     const title = food?.title ?? "No title";
-    const freeShip = !!food?.is_free_ship;
+    const freeShip = !!food?.freeShip;
 
     return (
         <Box className="food-card"
