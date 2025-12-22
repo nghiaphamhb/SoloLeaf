@@ -1,0 +1,201 @@
+/* =========================================================
+   HOME MAIN LAYOUT
+========================================================= */
+
+.home-main {
+    padding: 20px;
+}
+
+/* Title spacing */
+.home-section-title {
+    margin: 0 0 12px;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+/* =========================================================
+   RESTAURANTS GRID
+   Works with: <Box id="feature-restaurant"> + RestaurantCard root class
+========================================================= */
+
+#feature-restaurant {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* Responsive */
+@media (width <= 1100px) {
+    #feature-restaurant { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (width <= 680px) {
+    #feature-restaurant { grid-template-columns: 1fr; }
+}
+
+/* Restaurant card root */
+.restaurant-card {
+    background: var(--paper, #fff);
+    border: 1px solid var(--border, #e9e2d9);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+    transition: transform 180ms cubic-bezier(.2,.7,.3,1),
+    box-shadow 180ms cubic-bezier(.2,.7,.3,1);
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: stretch;
+    height: 150px;
+    background: #ffffff;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
+}
+
+/* Left image container */
+.restaurant-card__img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: 50% 30%;
+    border-right: 3px solid var(--border, #e9e2d9);
+    border-radius: 5px;
+}
+
+/* Right info */
+.restaurant-card__info {
+    padding: 12px 14px;
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    border-left: 3px solid var(--border, #e9e2d9);
+    border-radius: 5px;
+}
+
+.restaurant-card__title {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--fg, #2b2b2b);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.restaurant-card__subtitle {
+    color: var(--fg-muted, #666);
+    font-size: .95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.restaurant-card__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--fg, #2b2b2b);
+}
+
+.restaurant-card__rating::before {
+    content: "⭐";
+    color: #eab308;
+    font-size: .95rem;
+    line-height: 1;
+}
+
+.badge-freeship {
+    justify-self: start;
+    font-size: .8rem;
+    font-weight: 700;
+    color: #0a7a0a;
+    background: #e6f6e6;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+/* =========================================================
+   MENU / FOODS
+   Works with: CategorySection + FoodItemCard
+========================================================= */
+
+.menu-section {
+    margin-block: 18px;
+}
+
+.menu-section__title {
+    margin: 0 0 10px;
+    font-weight: 800;
+    color: var(--fg, #2b2b2b);
+}
+
+/* Horizontal scroll row */
+.menu-items {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(180px, 22vw, 240px);
+    gap: 16px;
+    overflow-x: auto;
+    padding: 6px 6px 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.menu-items::-webkit-scrollbar {
+    height: 10px;
+}
+
+.menu-items::-webkit-scrollbar-thumb {
+    background: rgb(0 0 0 / 18%);
+    border-radius: 999px;
+}
+
+/* Food card */
+.food-card {
+    background: var(--paper, #fff);
+    border: 1px solid var(--border, #eee);
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 6%);
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
+}
+
+.food-card__img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    background: #333;
+}
+
+.food-card__info {
+    padding: 10px 12px;
+}
+
+.food-card__title {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--fg, #2b2b2b);
+}
+
+.badge-menu {
+    justify-self: start;
+    font-size: .8rem;
+    font-weight: 700;
+    color: #0a7a0a;
+    background: #e6f6e6;
+    padding: 2px 8px;
+    border-radius: 999px;
+}

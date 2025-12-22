@@ -3,9 +3,11 @@ import { Box, Typography } from "@mui/material";
 
 import SideWidget from "../components/SidePanel/SideWidget.jsx";
 import CartWidget from "../components/Cart/CartWidget.jsx";
+import HomeContent from "../components/HomePage/HomeContent.jsx";
 
 import "../styles/sidePanel.css";
 import "../styles/cart.css";
+import "../styles/home.css";
 
 export default function HomePage() {
     const onLogout = () => {
@@ -16,13 +18,7 @@ export default function HomePage() {
     return (
         <Box className="layout">
             <SideWidget onLogout={onLogout} />
-
-            <Box className="main" sx={{ p: 3 }}>
-                <Typography variant="h4" fontWeight={800}>
-                    Home
-                </Typography>
-            </Box>
-
+            <HomeContent />
             <CartWidget count={0} title="My cart" />
         </Box>
     );

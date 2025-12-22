@@ -16,17 +16,14 @@
 .sidebar {
     flex: 0 0 220px;
     padding: 16px 14px;
-    border-right: 1px solid rgba(255,255,255,.12);
-
+    border-right: 1px solid rgb(255 255 255 / 12%);
     position: sticky;
     top: 0;
     height: 100vh;
     overflow-y: auto;
-
     background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
     color: #fff;
-    box-shadow: inset 0 10px 30px rgba(0,0,0,.18);
-
+    box-shadow: inset 0 10px 30px rgb(0 0 0 / 18%);
     display: flex;
     flex-direction: column;
 }
@@ -36,19 +33,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     height: 72px;
     margin: 4px 4px 10px;
     border-radius: 12px;
-
-    background: rgba(255,255,255,.06);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+    background: rgb(255 255 255 / 6%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 12%);
 }
 
 .brand-logo img {
     max-width: 44px;
     max-height: 44px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,.35));
+    filter: drop-shadow(0 2px 4px rgb(0 0 0 / 35%));
 }
 
 /* ===== Sidebar title ===== */
@@ -56,7 +51,7 @@
     margin: 6px 8px 12px;
     font-weight: 800;
     letter-spacing: .2px;
-    text-shadow: 0 1px 0 rgba(0,0,0,.25);
+    text-shadow: 0 1px 0 rgb(0 0 0 / 25%);
     text-align: center;
 }
 
@@ -69,7 +64,6 @@
     border-radius: 12px !important;
     color: #fff !important;
     opacity: .92;
-
     transition:
             transform .18s cubic-bezier(.2,.7,.3,1),
             box-shadow .18s cubic-bezier(.2,.7,.3,1),
@@ -79,11 +73,16 @@
 
 .sidebar-item-btn:hover{
     transform: translateX(6px);
-    background: rgba(255,255,255,.12) !important;
+    background: rgb(255 255 255 / 12%) !important;
     box-shadow:
-            0 6px 16px rgba(0,0,0,.25),
-            inset 0 0 0 1px rgba(255,255,255,.18);
+            0 6px 16px rgb(0 0 0 / 25%),
+            inset 0 0 0 1px rgb(255 255 255 / 18%);
     opacity: 1;
+}
+
+.sidebar-item-btn[data-active="true"] {
+    background: rgb(207 102 8 / 56%) !important;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%);
 }
 
 /* icon + text */
@@ -136,22 +135,17 @@
 .logout-btn {
     align-self: center;
     margin-top: 10px;
-
     padding: 6px 14px !important;
     font-size: 12px !important;
     line-height: 1;
     white-space: nowrap;
-
     border-radius: 999px !important;
-    border: 1px solid rgba(255,255,255,.25) !important;
-
-    background: rgba(255,255,255,.06) !important;
+    border: 1px solid rgb(255 255 255 / 25%) !important;
+    background: rgb(255 255 255 / 6%) !important;
     color: #fff !important;
-
     text-transform: uppercase;
     letter-spacing: .3px;
     font-weight: 600;
-
     transition:
             transform .16s cubic-bezier(.2,.7,.3,1),
             background-color .16s,
@@ -161,9 +155,9 @@
 
 .logout-btn:hover {
     transform: translateY(-1px);
-    background: rgba(255,255,255,.16) !important;
-    border-color: rgba(255,255,255,.38) !important;
+    background: rgb(255 255 255 / 16%) !important;
+    border-color: rgb(255 255 255 / 38%) !important;
     box-shadow:
-            0 4px 14px rgba(0,0,0,.25),
-            inset 0 0 0 1px rgba(255,255,255,.12);
+            0 4px 14px rgb(0 0 0 / 25%),
+            inset 0 0 0 1px rgb(255 255 255 / 12%);
 }
