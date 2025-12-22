@@ -30,7 +30,6 @@ public class CustomJwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getTokenFromHeader(request);
-        System.out.println("[Server] From request (header) get token: " + token); // ẩn đi sau khi dự án hoàn thiện
 
         if (token != null) {
             if (jwtUtilsHelper.verifyJwtToken(token)) {
