@@ -67,8 +67,10 @@ public class FoodService implements FoodServiceImp {
             List<FoodDTO> foodList = new ArrayList<>();
             for (Food food : category.getFoods()) { //trong jpa se query toan bo du lieu duoc moc noi
                 FoodDTO foodDTO = new FoodDTO();
+                foodDTO.setId(food.getId());
                 foodDTO.setImage(food.getImage());
                 foodDTO.setTitle(food.getTitle());
+                foodDTO.setTimeShip(food.getTimeShip());
                 foodDTO.setFreeShip(food.isFreeShip());
 
                 foodList.add(foodDTO);
