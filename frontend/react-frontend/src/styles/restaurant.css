@@ -1,0 +1,387 @@
+:root {
+    --text: #111;
+    --muted: #6b7280;
+    --ring: #ff4d4f;
+    --brand: #cc3200;
+    --chip-bg: #f3f4f6;
+    --chip-text: #374151;
+
+    --shadow: 0 8px 24px rgba(0,0,0,.08);
+    --shadow-sm: 0 2px 10px rgba(0,0,0,.08);
+    --shadow-md: 0 6px 20px rgba(0,0,0,.12);
+}
+
+main.restaurant-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    main.restaurant-page {
+        max-width: 100%;
+        padding: 12px;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    main.restaurant-page {
+        padding: 10px;
+        gap: 10px;
+    }
+}
+/* =========================================================
+   RESTAURANT HEADER (MUI Card)
+========================================================= */
+#restaurant-header.restaurant-header{
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: #fff;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Logo */
+.restaurant-header__logo{
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+
+.restaurant-header__avatar{
+    width: 150px !important;
+    height: 150px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Info */
+.restaurant-header__info{
+    flex: 1;
+    padding: 0 !important; /* MUI CardContent has padding by default */
+}
+
+.restaurant-header__name{
+    font-weight: 800 !important;
+    color: var(--text);
+    margin: 0;
+}
+
+.restaurant-header__subtitle{
+    color: var(--muted);
+    font-weight: 500;
+}
+
+/* Badges (MUI Chip) */
+.restaurant-header__badges{
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Base chip */
+.rest-badge.MuiChip-root{
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 999px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.05) inset;
+}
+
+/* Variants */
+.rest-badge--promo.MuiChip-root{
+    color: #b34700;
+    background: #fff1e6;
+}
+
+.rest-badge--freeship.MuiChip-root{
+    color: #0a7a0a;
+    background: #e6f6e6;
+}
+
+.rest-badge--default.MuiChip-root{
+    color: var(--chip-text);
+    background: var(--chip-bg);
+}
+
+/* Description clamp */
+.restaurant-header__desc{
+    margin-top: 6px;
+    color: var(--muted);
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Meta: rating + address */
+.restaurant-header__meta{
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.restaurant-header__rating,
+.restaurant-header__address{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+}
+
+.restaurant-header__rating::before{ content:"⭐"; }
+.restaurant-header__address::before{ content:"📍"; }
+
+/* =========================================================
+   SUBNAV (MUI Tabs)
+========================================================= */
+/* ===== Subnav container (sticky bar) ===== */
+.menu-subnav{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: saturate(1.2) blur(8px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    padding: 10px 0;
+}
+
+/* Tabs root */
+.menu-subnav__tabs.MuiTabs-root{
+    min-height: 48px;
+    padding: 0 12px;
+}
+
+/* Remove indicator */
+.menu-subnav__tabs .MuiTabs-indicator{
+    display: none;
+}
+
+/* Make the whole tabs look like ONE rounded bar */
+.menu-subnav__tabs .MuiTabs-flexContainer{
+    display: inline-flex;                /* không kéo full width */
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 999px;
+    background: #f3f4f6;                 /* nền chung */
+    box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+}
+
+/* Scroll buttons nicer (optional) */
+.menu-subnav__tabs .MuiTabs-scrollButtons{
+    border-radius: 999px;
+    opacity: .7;
+}
+.menu-subnav__tabs .MuiTabs-scrollButtons:hover{
+    opacity: 1;
+}
+
+/* Each tab = pill */
+.menu-subnav__tabs .menu-subnav__tab.MuiTab-root{
+    text-transform: none;
+    min-height: 34px;
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    font-weight: 750;
+    font-size: .95rem;
+
+    color: #374151 !important;           /* ✅ chặn màu xanh default */
+    background: transparent;
+    transition: background-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+/* Hover */
+.menu-subnav__tabs .menu-subnav__tab.MuiTab-root:hover{
+    background: rgba(17,24,39,.06);
+}
+
+/* Selected = nổi lên + brand */
+.menu-subnav__tabs .menu-subnav__tab.MuiTab-root.Mui-selected{
+    background: var(--brand) !important;
+    color: #fff !important;
+    box-shadow: 0 6px 16px rgba(204,50,0,.22);
+}
+
+/* Focus visible (đẹp + rõ) */
+.menu-subnav__tabs .menu-subnav__tab.MuiTab-root:focus-visible{
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   MENU GRID
+========================================================= */
+.menu-section{
+    padding: 10px 6px;
+}
+
+.menu-grid{
+    padding: 10px;
+}
+
+/* =========================================================
+   MENU CARD (MUI Card)
+========================================================= */
+/* ===== GRID: ép các item trong cùng 1 hàng cao bằng nhau ===== */
+.menu-grid__container > .MuiGrid-item{
+    display: flex;
+    min-width: 0;
+}
+.menu-grid__container > .MuiGrid-item > .menu-card{
+    width: 100%;
+}
+
+/* ===== CARD: cố định chiều cao ===== */
+.menu-card.MuiCard-root{
+    width: 100%; !important;
+    min-width: 0;
+    height: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s ease, box-shadow .2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-card__action.MuiCardActionArea-root{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.menu-card:hover{
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ===== MEDIA: cố định chiều cao ảnh (đừng dùng aspect-ratio nữa) ===== */
+.menu-card__media{
+    width: 100%;
+    height: 160px;
+    background: #fff;
+    overflow: hidden;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-card__img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
+    display: block;
+    transition: transform .2s ease;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.menu-card:hover .menu-card__img{
+    transform: scale(1.05);
+}
+
+/* ===== BODY: chiếm phần còn lại và đẩy footer xuống đáy ===== */
+.menu-card__body{
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 12px 14px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-card__header{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+/* Title clamp để card không bị cao thấp */
+.menu-card__title{
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    color: var(--text);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+}
+
+/* Meta không làm phình chiều cao */
+.menu-card__meta{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: .9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-card__dot{ opacity: .6; }
+
+/* Footer luôn nằm dưới cùng */
+.menu-card__footer{
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.menu-card__price{
+    font-weight: 650 !important;
+    font-size: 1.05rem !important;
+    color: var(--text);
+}
+
+/* Button giữ kích thước ổn định */
+.menu-card__btn.MuiButton-root{
+    border-radius: 999px;
+    font-weight: 800;
+    background: var(--brand);
+    padding: 8px 14px;
+    box-shadow: var(--shadow-sm);
+    text-transform: none;
+    min-width: 84px;
+}
+
+.menu-card__btn.MuiButton-root:hover{
+    background: #ef7d00;
+    box-shadow: var(--shadow-md);
+}
+
+.menu-card__btn.MuiButton-root:focus-visible{
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+}

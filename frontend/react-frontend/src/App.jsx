@@ -4,8 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage';
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage";
-import HomePage from "./pages/HomePage.jsx";
 import ProtectedRoute from "./components/Security/ProtectedRoute.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import RestaurantPage from "./pages/RestaurantPage.jsx";
 
 export default function App() {
     return (
@@ -22,6 +23,14 @@ export default function App() {
                     element={
                         <ProtectedRoute>
                             <HomePage/>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/restaurant/:id"
+                    element={
+                        <ProtectedRoute>
+                            <RestaurantPage/>
                         </ProtectedRoute>
                     }
                 />

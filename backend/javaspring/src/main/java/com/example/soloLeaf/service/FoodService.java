@@ -1,6 +1,6 @@
 package com.example.soloLeaf.service;
 
-import com.example.soloLeaf.dto.CategoryDTO;
+import com.example.soloLeaf.dto.CategoryMenuDTO;
 import com.example.soloLeaf.dto.FoodDTO;
 import com.example.soloLeaf.entity.Category;
 import com.example.soloLeaf.entity.Food;
@@ -55,14 +55,15 @@ public class FoodService implements FoodServiceImp {
     }
 
     @Override
-    public List<CategoryDTO> getMenuInHomePage() {
+    public List<CategoryMenuDTO> getMenuInHomePage() {
         PageRequest pageRequest = PageRequest.of(0, 3, Sort.by("id"));
         Page<Category> listCategory = categoryRepository.findAll(pageRequest);
-        List<CategoryDTO> listCategoryDTO = new ArrayList<>();
+        List<CategoryMenuDTO> listCategoryMenuDTO = new ArrayList<>();
 
         for (Category category : listCategory.getContent()) {
-            CategoryDTO categoryDTO = new CategoryDTO();
-            categoryDTO.setName(category.getNameCate());
+            CategoryMenuDTO categoryMenuDTO = new CategoryMenuDTO();
+            categoryMenuDTO.setId(category.getId());
+            categoryMenuDTO.setName(category.getNameCate());
 
             List<FoodDTO> foodList = new ArrayList<>();
             for (Food food : category.getFoods()) { //trong jpa se query toan bo du lieu duoc moc noi
@@ -76,10 +77,10 @@ public class FoodService implements FoodServiceImp {
                 foodList.add(foodDTO);
             }
 
-            categoryDTO.setFoodList(foodList);
-            listCategoryDTO.add(categoryDTO);
+            categoryMenuDTO.setFoodList(foodList);
+            listCategoryMenuDTO.add(categoryMenuDTO);
         }
 
-        return listCategoryDTO;
+        return listCategoryMenuDTO;
     }
 }

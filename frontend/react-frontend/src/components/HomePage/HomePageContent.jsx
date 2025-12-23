@@ -46,7 +46,7 @@ export default function HomePageContent() {
                 setLoadingMenu(true);
                 setErrorMenu("");
 
-                const res = await fetch(`/api/category-menu`, {
+                const res = await fetch(`/api/food/category-menu`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 

@@ -1,6 +1,6 @@
 package com.example.soloLeaf.controller;
 
-import com.example.soloLeaf.dto.CategoryDTO;
+import com.example.soloLeaf.dto.CategoryMenuDTO;
 import com.example.soloLeaf.payload.ResponseData;
 import com.example.soloLeaf.service.imp.FoodServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/category-menu")
-public class CategoryMenuController {
+@RequestMapping("/api/food")
+public class FoodController {
     @Autowired
     FoodServiceImp foodServiceImp;
 
@@ -33,10 +33,10 @@ public class CategoryMenuController {
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
-    @GetMapping()
-    public ResponseEntity<?> getCategoryWithFoods() {
+    @GetMapping("/category-menu")
+    public ResponseEntity<?> getCategoryMenu() {
         ResponseData responseData = new ResponseData();
-        List<CategoryDTO> menu = foodServiceImp.getMenuInHomePage();
+        List<CategoryMenuDTO> menu = foodServiceImp.getMenuInHomePage();
         responseData.setData(menu);
 
         return new ResponseEntity<>(responseData, HttpStatus.OK);

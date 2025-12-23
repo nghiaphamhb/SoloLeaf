@@ -1,6 +1,6 @@
 package com.example.soloLeaf.service;
 
-import com.example.soloLeaf.dto.CategoryDTO;
+import com.example.soloLeaf.dto.CategoryMenuDTO;
 import com.example.soloLeaf.dto.FoodDTO;
 import com.example.soloLeaf.dto.RestaurantDTO;
 import com.example.soloLeaf.entity.*;
@@ -84,6 +84,7 @@ public class RestaurantService implements RestaurantServiceImp {
 
         if (restaurant.isPresent()) {
             Restaurant res = restaurant.get();
+            dto.setId(res.getId());
             dto.setImage(res.getImage());
             dto.setTitle(res.getTitle());
             dto.setSubtitle(res.getSubtitle());
@@ -106,15 +107,16 @@ public class RestaurantService implements RestaurantServiceImp {
             dto.setFreeship(res.isFreeShip());
 
             // tao list categoryDTO
-            List<CategoryDTO> categories = new ArrayList<>();
+            List<CategoryMenuDTO> categories = new ArrayList<>();
             List<MenuRestaurant> menus = res.getMenuRestaurantList();
             for (MenuRestaurant menuRestaurant : menus) {
-                // == set categoryDTO ==
-                CategoryDTO categoryDTO = new CategoryDTO();
+                // == set categoryMenuDTO ==
+                CategoryMenuDTO categoryMenuDTO = new CategoryMenuDTO();
                 Category category = menuRestaurant.getCategory();
 
-                // -- nhap du lieu cho categoryDTO tu database
-                categoryDTO.setName(category.getNameCate());
+                // -- nhap du lieu cho categoryMenuDTO tu database
+                categoryMenuDTO.setId(category.getId());
+                categoryMenuDTO.setName(category.getNameCate());
                 List<FoodDTO> foodListDTO = new ArrayList<>();
                 for (Food food : category.getFoods()) {
                     FoodDTO foodDTO = new FoodDTO();
@@ -136,10 +138,10 @@ public class RestaurantService implements RestaurantServiceImp {
 
                     foodListDTO.add(foodDTO);
                 }
-                categoryDTO.setFoodList(foodListDTO);
+                categoryMenuDTO.setFoodList(foodListDTO);
 
-                //add categoryDTO vao list
-                categories.add(categoryDTO);
+                //add categoryMenuDTO vao list
+                categories.add(categoryMenuDTO);
             }
             dto.setCategories(categories);
         }

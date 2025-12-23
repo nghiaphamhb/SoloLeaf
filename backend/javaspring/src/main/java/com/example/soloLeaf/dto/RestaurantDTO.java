@@ -12,7 +12,7 @@ public class RestaurantDTO {
     private double rating;
     private String address;
     private boolean isFreeship;
-    List<CategoryDTO> categories;
+    List<CategoryMenuDTO> categories;
 
     public int getId() {
         return id;
@@ -86,11 +86,11 @@ public class RestaurantDTO {
         this.address = address;
     }
 
-    public List<CategoryDTO> getCategories() {
+    public List<CategoryMenuDTO> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<CategoryDTO> categories) {
+    public void setCategories(List<CategoryMenuDTO> categories) {
         this.categories = categories;
     }
 }
