@@ -245,7 +245,7 @@ main.restaurant-page {
 
 /* ===== CARD: cố định chiều cao ===== */
 .menu-card.MuiCard-root{
-    width: 100%; !important;
+    width: 100%;
     min-width: 0;
     height: 320px;
     border-radius: 16px;

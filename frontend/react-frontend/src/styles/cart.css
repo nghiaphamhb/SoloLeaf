@@ -1,44 +1,51 @@
 /* ========== Floating Button (MUI Fab + Badge) ========== */
-.cart-fab {
+.cart-fab{
     position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    z-index: 1301; /* > default drawer (1200) */
+    right: 16px;
+    bottom: 16px;
+    z-index: 1200;
 }
 
-/* Style the MUI Fab root */
-.cart-fab .MuiFab-root {
+/* Fab */
+.cart-fab .MuiFab-root{
     width: 56px;
     height: 56px;
     border-radius: 999px;
     border: none;
     background: var(--brand-3);
     color: #fff;
-    box-shadow: 0 5px 12px rgb(0 0 0 / 40%);
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
     transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
 }
 
-.cart-fab .MuiFab-root:hover {
-    box-shadow: 0 16px 32px rgb(0 0 0 / 50%);
-    transform: translateY(-1px);
+.cart-fab .MuiFab-root:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0,0,0,.45);
     filter: brightness(1.03);
 }
 
-/* Style the MUI Badge */
-.cart-fab .MuiBadge-badge {
-    top: 6px;
-    right: 6px;
-    transform: translate(50%, -50%);
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
+/* Badge: nổi hẳn ra ngoài góc */
+.cart-fab .MuiBadge-badge{
+    top: 2px;
+    right: 2px;
+    transform: translate(55%, -55%);
+
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
     border-radius: 999px;
+
     font-size: 0.75rem;
-    line-height: 20px;
-    font-weight: 700;
+    line-height: 22px;
+    font-weight: 800;
+
     background: var(--brand);
     color: #fff;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 40%);
+
+    border: 2px solid #fff;
+    box-shadow: 0 10px 18px rgba(0,0,0,.25);
+
+    pointer-events: none;
 }
 
 /* ========== Drawer Panel (remove fixed/transform; Drawer handles open/close) ========== */
@@ -126,7 +133,6 @@
     border-radius: .75rem;
     padding: .75rem;
     border: 1px solid rgb(255 255 255 / 7%);
-    max-height: 80px;
 }
 
 .cart-item__img {
@@ -207,7 +213,7 @@
     color: #bbb;
     display: flex;
     align-items: baseline;
-    gap: .5rem;
+    gap: 6rem;
     margin-top: .4rem;
 }
 

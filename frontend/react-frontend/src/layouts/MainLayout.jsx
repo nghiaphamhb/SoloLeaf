@@ -8,6 +8,7 @@ import "../styles/sidePanel.css";
 import "../styles/cart.css";
 import "../styles/home.css";
 import "../styles/restaurant.css";
+import CartItemsList from "../components/Cart/CartItemList.jsx";
 
 // component layout
 export default function MainLayout( {children} ) {
@@ -15,7 +16,9 @@ export default function MainLayout( {children} ) {
         <Box className="layout">
             <SideWidget/>
             {children}
-            <CartWidget count={0} title="My cart" />
+            <CartWidget title="My cart">
+                <CartItemsList />
+            </CartWidget>
         </Box>
     );
 }

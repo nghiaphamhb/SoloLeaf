@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import CartButton from "./CartButton";
 import CartPanel from "./CartPanel";
+import {useSelector} from "react-redux";
+import {selectCartCount, selectCartInitialPrice, selectCartTotalPrice} from "../../store/cartSelector.js";
 
 export default function CartWidget({
-                                       count = 0,
                                        title = "My cart",
                                        children,
-                                       initialPrice = 0,
-                                       totalPrice = 0,
                                        onApplyDiscount,
                                        onCheckout,
                                    }) {
     const [open, setOpen] = useState(false);
+
+    // get state from the store
+    const count = useSelector(selectCartCount);
+    const initialPrice = useSelector(selectCartInitialPrice);
+    const totalPrice = useSelector(selectCartTotalPrice);
 
     return (
         <>

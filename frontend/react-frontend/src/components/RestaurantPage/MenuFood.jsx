@@ -2,7 +2,6 @@ import React from 'react';
 import {Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Grid, Typography} from "@mui/material";
 
 export default function MenuFood( {items, onAddToCart} ) {
-    console.log(items);
     return (
         <Box id="menu-section" className="menu-section">
             <Box id="menu-grid" className="menu-grid">

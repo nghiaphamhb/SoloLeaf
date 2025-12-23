@@ -4,14 +4,20 @@ import SideFeatures from "./SideFeatures";
 import SideUser from "./SideUser";
 import {useNavigate} from "react-router-dom";
 import {apiRequest} from "../../apis/request/apiRequest.js";
+import {clearCartStorage} from "../../store/cartPersist.js";
+import {clearCart} from "../../store/cartSlice.js";
+import {useDispatch} from "react-redux";
 
 export default function SideWidget() {
     const [ user, setUser] = useState(null);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onLogout = () => {
         localStorage.removeItem("token");
+        dispatch(clearCart());
+        clearCartStorage();
         navigate("/login");
     };
 

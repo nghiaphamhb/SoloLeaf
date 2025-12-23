@@ -5,11 +5,22 @@ import RestaurantInfo from "./RestaurantInfo.jsx";
 import CategorySubnav from "./CategorySubnav.jsx";
 import MenuFood from "./MenuFood.jsx";
 import {apiRequest} from "../../apis/request/apiRequest.js";
+import {useDispatch} from "react-redux";
+import {addItem} from "../../store/cartSlice.js";
 
-export default function RestaurantPageContent({
-                                                  resId,
-                                                  onAddToCart,
-                                              }) {
+export default function RestaurantPageContent({ resId }) {
+    // send action to the reducer of store
+    const dispatch = useDispatch();
+    const handleAddToCart = (food) => {
+        if (!food) return;
+
+        dispatch(addItem({
+            ...food,
+            restId: restaurant?.id ?? "UNKNOWN",
+            restName: restaurant?.title ?? restaurant?.name ?? "UNKNOWN",
+        }));
+    };
+
     const [restaurant, setRestaurant] = useState(null);
     const [activeTab, setActiveTab] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -26,7 +37,6 @@ export default function RestaurantPageContent({
                 setError("");
 
                 const { data } = await apiRequest(`/api/restaurant/detail/${resId}`, { "method" : "GET" });
-                console.log(data);
 
                 if (!cancelled) {
                     setRestaurant(data ?? null);
@@ -67,7 +77,7 @@ export default function RestaurantPageContent({
                         onTabChange={setActiveTab}
                     />
 
-                    <MenuFood items={items} onAddToCart={onAddToCart} />
+                    <MenuFood items={items} onAddToCart={handleAddToCart} />
                 </>
             ) : null}
         </Box>
