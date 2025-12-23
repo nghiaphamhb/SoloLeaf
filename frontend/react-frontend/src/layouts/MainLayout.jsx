@@ -9,6 +9,7 @@ import "../styles/cart.css";
 import "../styles/home.css";
 import "../styles/restaurant.css";
 
+// component layout
 export default function MainLayout( {children} ) {
     return (
         <Box className="layout">

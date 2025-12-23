@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/Security/ProtectedRoute.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import RestaurantPage from "./pages/RestaurantPage.jsx";
+import ProtectedLayout from "./layouts/ProtectedLayout.jsx";
 
 export default function App() {
     return (
@@ -18,22 +19,10 @@ export default function App() {
                 <Route path="/register" element={<RegisterPage/>} />
 
                 {/* authentication */}
-                <Route
-                    path="/home"
-                    element={
-                        <ProtectedRoute>
-                            <HomePage/>
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/restaurant/:id"
-                    element={
-                        <ProtectedRoute>
-                            <RestaurantPage/>
-                        </ProtectedRoute>
-                    }
-                />
+                <Route element={<ProtectedLayout/>}>
+                    <Route path="/home" element={<HomePage/>}/>
+                    <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
+                </Route>
             </Routes>
         </BrowserRouter>
     );
