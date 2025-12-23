@@ -19,6 +19,7 @@ public class UserController {
     public ResponseEntity<?> me() {
         ResponseData responseData = new ResponseData();
         responseData.setData(userServiceImp.getMyProfile());
+        responseData.setSuccess(true);
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 

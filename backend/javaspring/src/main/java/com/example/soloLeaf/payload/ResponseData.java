@@ -4,14 +4,14 @@ package com.example.soloLeaf.payload;
  * {
  *     status: 200
  *     description: OK
- *     isTrue: True
+ *     success: True
  *     data: {}
  * }
  */
 public class ResponseData {
     private int status;
     private String description;
-    private boolean isTrue;
+    private boolean sucess;
     private Object data;   //chi dung toi data
 
     public int getStatus() {
@@ -38,11 +38,11 @@ public class ResponseData {
         this.data = data;
     }
 
-    public boolean isTrue() {
-        return isTrue;
+    public boolean getSuccess() {
+        return sucess;
     }
 
-    public void setTrue(boolean aTrue) {
-        isTrue = aTrue;
+    public void setSuccess(boolean success) {
+        this.sucess = success;
     }
 }

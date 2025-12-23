@@ -8,11 +8,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.time.Instant;
+import java.util.Date;
 
 @Component
 public class JwtUtilsHelper {
     @Value("${jwt.privateKey}")
     private String secret;  //  Đừng commit lên git. Secret độc quyền của project
+
+    @Value("${jwt.expirationSeconds}")
+    private long expirationSeconds;
 
     /** Tạo SecretKey từ secret */
     private SecretKey key() {
@@ -21,8 +26,13 @@ public class JwtUtilsHelper {
 
     /** Sinh token theo username và secret */
     public String generateJwtToken(String username) {
+        Instant now = Instant.now();
+        Instant exp = now.plusSeconds(expirationSeconds);
+
         String jws = Jwts.builder()
                 .subject(username) // token sinh ra theo username
+                .issuedAt(Date.from(now))  // init time
+                .expiration(Date.from(exp))  // expire time
                 .signWith(key())
                 .compact();
         return jws;

@@ -35,11 +35,11 @@ public class AuthController {
         if (check) {
             String token = jwtUtilsHelper.generateJwtToken(authRequest.getEmail());
 
-            responseData.setTrue(true);
+            responseData.setSuccess(true);
             responseData.setData(token);
             logger.info("[Server] Return token: {}", token);
         } else {
-            responseData.setTrue(false);
+            responseData.setSuccess(false);
             responseData.setData("");
         }
 

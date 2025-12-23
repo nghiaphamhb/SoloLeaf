@@ -23,6 +23,7 @@ logging:
 
 jwt:
   privateKey: ${JWT_PRIVATE_KEY}
+  expirationSeconds: ${EXPIRATION_TIME}
 
 fileUpload:
   rootPath: ${FILE_UPLOAD_ROOT_PATH}

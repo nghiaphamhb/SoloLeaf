@@ -36,7 +36,6 @@
 
 /* Restaurant card root */
 .restaurant-card {
-    background: var(--paper, #fff);
     border: 1px solid var(--border, #e9e2d9);
     border-radius: 16px;
     overflow: hidden;
@@ -48,7 +47,7 @@
     grid-template-columns: 160px 1fr;
     align-items: stretch;
     height: 150px;
-    background: #ffffff;
+    background: #fff;
 }
 
 .restaurant-card:hover {
@@ -125,7 +124,7 @@
 ========================================================= */
 
 .menu-section {
-    /*margin-block: 18px;*/
+    /* margin-block: 18px; */
 }
 
 .menu-section__title {
