@@ -15,7 +15,7 @@ export async function apiRequest(url, options = {}) {
     const res = await fetch(url, {...options, headers});
 
     // Handle common auth failure
-    if (res.status === 401) {
+    if (res.status === 401 || res.status === 403) {
         localStorage.removeItem("token");
         throw new Error("Unauthorized");
     }
