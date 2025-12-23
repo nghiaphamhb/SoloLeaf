@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import CategoryMenu from "./CategoryMenu.jsx";
 
-export default function HomeContent() {
+export default function HomePageContent() {
     const navigate = useNavigate();
 
     const [restaurants, setRestaurants] = useState([]);

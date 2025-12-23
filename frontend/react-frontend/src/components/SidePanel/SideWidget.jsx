@@ -2,9 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import SideFeatures from "./SideFeatures";
 import SideUser from "./SideUser";
+import {useNavigate} from "react-router-dom";
 
-export default function SideWidget({ onLogout }) {
+export default function SideWidget() {
     const [ user, setUser] = useState(null);
+
+    const navigate = useNavigate();
+
+    const onLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
 
     useEffect(() => {
         let cancelled = false;
