@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import RestaurantCard from "./RestaurantCard";
 import CategoryMenu from "./CategoryMenu.jsx";
+import {apiRequest} from "../../apis/request/apiRequest.js";
 
 export default function HomePageContent() {
     const navigate = useNavigate();
@@ -18,21 +19,14 @@ export default function HomePageContent() {
     const [errorMenu, setErrorMenu] = useState("");
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-
         // Restaurants
         (async () => {
             try {
                 setLoadingRestaurants(true);
                 setErrorRestaurants("");
 
-                const res = await fetch(`/api/restaurant`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const json = await res.json();
-                setRestaurants(Array.isArray(json?.data) ? json.data : []);
+                const { data }  = await apiRequest(`/api/restaurant`, { "method": "GET" });
+                setRestaurants(Array.isArray(data) ? data : []);
             } catch (e) {
                 setErrorRestaurants("Errors when downloading restaurant lists: " + e.message);
             } finally {
@@ -46,13 +40,8 @@ export default function HomePageContent() {
                 setLoadingMenu(true);
                 setErrorMenu("");
 
-                const res = await fetch(`/api/food/category-menu`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const json = await res.json();
-                setMenuCategories(Array.isArray(json?.data) ? json.data : []);
+                const { data } = await apiRequest(`/api/food/category-menu`, { "method": "GET" });
+                setMenuCategories(Array.isArray(data) ? data : []);
             } catch (e) {
                 setErrorMenu("Error when loading menu list: " + e.message);
             } finally {

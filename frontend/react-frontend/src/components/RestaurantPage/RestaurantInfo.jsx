@@ -59,7 +59,9 @@ export default function RestaurantInfo( { restaurant } ) {
 
                     <Box className="restaurant-header__meta">
                         <Typography variant="body2" className="restaurant-header__rating">
-                            <span id="rest-rating">{!isNaN(restaurant.rating) ?? "-"}</span> ratings
+                            <span id="rest-rating">
+                                {Number.isFinite(Number(restaurant?.rating)) ? restaurant.rating : "-"}
+                            </span> ratings
                         </Typography>
 
                         <Typography variant="body2" className="restaurant-header__address">

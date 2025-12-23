@@ -5,10 +5,9 @@
     --brand: #cc3200;
     --chip-bg: #f3f4f6;
     --chip-text: #374151;
-
-    --shadow: 0 8px 24px rgba(0,0,0,.08);
-    --shadow-sm: 0 2px 10px rgba(0,0,0,.08);
-    --shadow-md: 0 6px 20px rgba(0,0,0,.12);
+    --shadow: 0 8px 24px rgb(0 0 0 / 8%);
+    --shadow-sm: 0 2px 10px rgb(0 0 0 / 8%);
+    --shadow-md: 0 6px 20px rgb(0 0 0 / 12%);
 }
 
 main.restaurant-page {
@@ -22,7 +21,7 @@ main.restaurant-page {
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (width <= 900px) {
     main.restaurant-page {
         max-width: 100%;
         padding: 12px;
@@ -30,12 +29,13 @@ main.restaurant-page {
     }
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
     main.restaurant-page {
         padding: 10px;
         gap: 10px;
     }
 }
+
 /* =========================================================
    RESTAURANT HEADER (MUI Card)
 ========================================================= */
@@ -59,7 +59,7 @@ main.restaurant-page {
 .restaurant-header__avatar{
     width: 150px !important;
     height: 150px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
 }
 
 /* Info */
@@ -92,7 +92,7 @@ main.restaurant-page {
     font-size: 0.8rem;
     font-weight: 700;
     border-radius: 999px;
-    box-shadow: 0 1px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 5%) inset;
 }
 
 /* Variants */
@@ -116,7 +116,6 @@ main.restaurant-page {
     margin-top: 6px;
     color: var(--muted);
     line-height: 1.4;
-
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -147,14 +146,15 @@ main.restaurant-page {
 /* =========================================================
    SUBNAV (MUI Tabs)
 ========================================================= */
+
 /* ===== Subnav container (sticky bar) ===== */
 .menu-subnav{
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(255,255,255,.92);
+    background: rgb(255 255 255 / 92%);
     backdrop-filter: saturate(1.2) blur(8px);
-    border-bottom: 1px solid rgba(0,0,0,.06);
+    border-bottom: 1px solid rgb(0 0 0 / 6%);
     padding: 10px 0;
 }
 
@@ -177,7 +177,7 @@ main.restaurant-page {
     padding: 6px;
     border-radius: 999px;
     background: #f3f4f6;                 /* nền chung */
-    box-shadow: 0 1px 0 rgba(0,0,0,.04) inset;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 4%) inset;
 }
 
 /* Scroll buttons nicer (optional) */
@@ -185,6 +185,7 @@ main.restaurant-page {
     border-radius: 999px;
     opacity: .7;
 }
+
 .menu-subnav__tabs .MuiTabs-scrollButtons:hover{
     opacity: 1;
 }
@@ -195,10 +196,8 @@ main.restaurant-page {
     min-height: 34px;
     padding: 6px 14px;
     border-radius: 999px;
-
     font-weight: 750;
     font-size: .95rem;
-
     color: #374151 !important;           /* ✅ chặn màu xanh default */
     background: transparent;
     transition: background-color .18s ease, color .18s ease, transform .18s ease;
@@ -206,14 +205,14 @@ main.restaurant-page {
 
 /* Hover */
 .menu-subnav__tabs .menu-subnav__tab.MuiTab-root:hover{
-    background: rgba(17,24,39,.06);
+    background: rgb(17 24 39 / 6%);
 }
 
 /* Selected = nổi lên + brand */
 .menu-subnav__tabs .menu-subnav__tab.MuiTab-root.Mui-selected{
     background: var(--brand) !important;
     color: #fff !important;
-    box-shadow: 0 6px 16px rgba(204,50,0,.22);
+    box-shadow: 0 6px 16px rgb(204 50 0 / 22%);
 }
 
 /* Focus visible (đẹp + rõ) */
@@ -237,13 +236,11 @@ main.restaurant-page {
 /* =========================================================
    MENU CARD (MUI Card)
 ========================================================= */
+
 /* ===== GRID: ép các item trong cùng 1 hàng cao bằng nhau ===== */
 .menu-grid__container > .MuiGrid-item{
     display: flex;
     min-width: 0;
-}
-.menu-grid__container > .MuiGrid-item > .menu-card{
-    width: 100%;
 }
 
 /* ===== CARD: cố định chiều cao ===== */
@@ -313,7 +310,6 @@ main.restaurant-page {
     align-items: flex-start;
     justify-content: space-between;
     gap: 8px;
-
     flex-wrap: wrap;
 }
 
@@ -323,15 +319,12 @@ main.restaurant-page {
     font-weight: 700 !important;
     line-height: 1.2 !important;
     color: var(--text);
-
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-
     white-space: normal;
     overflow-wrap: anywhere;
-    word-break: break-word;
     min-width: 0;
 }
 

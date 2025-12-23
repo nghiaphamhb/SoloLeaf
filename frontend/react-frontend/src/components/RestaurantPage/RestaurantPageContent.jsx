@@ -4,6 +4,7 @@ import "../../styles/restaurant.css";
 import RestaurantInfo from "./RestaurantInfo.jsx";
 import CategorySubnav from "./CategorySubnav.jsx";
 import MenuFood from "./MenuFood.jsx";
+import {apiRequest} from "../../apis/request/apiRequest.js";
 
 export default function RestaurantPageContent({
                                                   resId,
@@ -17,7 +18,6 @@ export default function RestaurantPageContent({
     useEffect(() => {
         if (!resId) return;
 
-        const token = localStorage.getItem("token");
         let cancelled = false;
 
         (async () => {
@@ -25,15 +25,11 @@ export default function RestaurantPageContent({
                 setLoading(true);
                 setError("");
 
-                const res = await fetch(`/api/restaurant/detail/${resId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const json = await res.json();
+                const { data } = await apiRequest(`/api/restaurant/detail/${resId}`, { "method" : "GET" });
+                console.log(data);
 
                 if (!cancelled) {
-                    setRestaurant(json?.data ?? null);
+                    setRestaurant(data ?? null);
                     setActiveTab(0);
                 }
             } catch (e) {
@@ -51,8 +47,6 @@ export default function RestaurantPageContent({
     const categories = restaurant?.categories ?? [];
     const currentCategory = categories[activeTab] ?? null;
     const items = currentCategory?.foodList ?? [];
-
-    console.log(categories);
 
     return (
         <Box component="main" className="restaurant-page">
