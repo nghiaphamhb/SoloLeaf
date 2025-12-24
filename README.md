@@ -9,57 +9,57 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 ## Features
 ### User
-- Register / Login / log out
-- Order foods
-- Pay the bills (support discount)
-- View orders history
-- Search foods / restaurants (_**in progress**_)
-- Mark favorite dishes (_**in progress**_)
-- Messaging with restaurant management (_**in progress**_)
-- Get free discount per day (_**in progress**_)
-- Edit profile (_**in progress**_)
+- [x] Register / Login / log out
+- [x] Order foods
+- [x] Pay the bills (support discount)
+- [x] View orders history
+- [ ] Search foods / restaurants (_**in progress**_)
+- [ ] Mark favorite dishes (_**in progress**_)
+- [ ] Messaging with restaurant management (_**in progress**_)
+- [ ] Get free discount per day (_**in progress**_)
+- [ ] Edit profile (_**in progress**_)
 
 ### Admin (_**in progress**_)
-- CRUD restaurant / food
-- Order management
+- [ ] CRUD restaurant / food
+- [ ] Order management
 
 ## Tech Stack
 ### Frontend
 
-- Language: `JavaScript`
-- Framework: `React`
-- State Management: `Redux Toolkit`
-- Build Tool: `Vite`
-- Linters: `ESLint` + `StyleLint`
-- Testing:
+- [x] Language: `JavaScript`
+- [x] Framework: `React`
+- [x] State Management: `Redux Toolkit`
+- [x] Build Tool: `Vite`
+- [x] Linters: `ESLint` + `StyleLint`
+- [ ] Testing:
     - Unit &  Integration Testing: `Jest` (_**in progress**_)
     - 2E2 Testing: `Cypress` (_**in progress**_)
-- Component Libraries: `Material UI`
-- Web APIs: ?
-- Web Worker: ?
-- Analytics: `Google Analytics` (_**in progress**_)
-- Deployment: ?
-- Cross-Platform: ?
+- [x] Component Libraries: `Material UI`
+- [ ] Web APIs: ?
+- [ ] Web Worker: ?
+- [ ] Analytics: `Google Analytics` (_**in progress**_)
+- [ ] Deployment: ?
+- [ ] Cross-Platform: ?
 
 ### Backend
 
 #### Main
-- `Java Spring Boot`
-- `Spring Security` + `JWT`
-- `JPA/Hibernate`
-- Docker: ?
+- [x] `Java Spring Boot`
+- [x] `Spring Security` + `JWT`
+- [x] `JPA/Hibernate`
+- [ ] Docker: ?
 
 #### Microservices
-- `Node.js` (_**in progress**_)
-- Framework: `Express.js`  (_**in progress**_)
+- [ ] `Node.js` (_**in progress**_)
+- [ ] Framework: `Express.js`  (_**in progress**_)
 
 ### Database
-- `PostgreSQL`
+- [x] `PostgreSQL`
 
 ### DevOps 
-- `Docker` + `Docker Compose` (_**in progress**_)
-- `CI/CD GitHub Actions` (_**in progress**_)
+- [ ] `Docker` + `Docker Compose` (_**in progress**_)
+- [ ] `CI/CD GitHub Actions` (_**in progress**_)
 
 ### Integrations / API
-- **Integrated Stripe API for payment**: create `Checkout Session`and
+- [ ] **Integrated Stripe API for payment**: create `Checkout Session`and
   handle `Webhook Events` to confirm payment and update orders.
