@@ -30,3 +30,6 @@ fileUpload:
 
 stripe:
   secret-key: ${STRIPE_SECRET_KEY}
+
+frontend:
+  base-url: ${FRONTEND_BASE_URL}

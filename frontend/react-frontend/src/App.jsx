@@ -24,6 +24,7 @@ export default function App() {
                     <Route element={<ProtectedLayout/>}>
                         <Route path="/home" element={<HomePage/>}/>
                         <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
+                        <Route path="/checkout" element={<CheckoutConfirmPage/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

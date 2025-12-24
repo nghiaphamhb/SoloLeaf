@@ -14,13 +14,13 @@
     border: none;
     background: var(--brand-3);
     color: #fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 35%);
     transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
 }
 
 .cart-fab .MuiFab-root:hover{
     transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(0,0,0,.45);
+    box-shadow: 0 14px 32px rgb(0 0 0 / 45%);
     filter: brightness(1.03);
 }
 
@@ -29,22 +29,17 @@
     top: 2px;
     right: 2px;
     transform: translate(55%, -55%);
-
     min-width: 22px;
     height: 22px;
     padding: 0 7px;
     border-radius: 999px;
-
     font-size: 0.75rem;
     line-height: 22px;
     font-weight: 800;
-
     background: var(--brand);
     color: #fff;
-
     border: 2px solid #fff;
-    box-shadow: 0 10px 18px rgba(0,0,0,.25);
-
+    box-shadow: 0 10px 18px rgb(0 0 0 / 25%);
     pointer-events: none;
 }
 

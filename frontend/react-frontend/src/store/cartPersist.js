@@ -24,5 +24,7 @@ export function saveCartToStorage(cartState) {
 export function clearCartStorage() {
     try {
         localStorage.removeItem(KEY);
-    } catch {}
+    } catch(e) {
+        console.error(e);
+    }
 }

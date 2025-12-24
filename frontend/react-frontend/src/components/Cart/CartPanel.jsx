@@ -8,6 +8,7 @@ import {
     Button,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import {useNavigate} from "react-router-dom";
 
 export default function CartPanel(
     {
@@ -19,14 +20,19 @@ export default function CartPanel(
         initialPrice = 0,
         totalPrice = 0,
         // onApplyDiscount,
-        onCheckout,
     }
 ) {
     const [discountCode, setDiscountCode] = useState("");
     const [discountHelp, setDiscountHelp] = useState("");
+    const navigate = useNavigate();
 
     const handleApply = () => {
         setDiscountHelp("Applied!");
+    };
+
+    const handleGoCheckout = () => {
+        onClose?.();          // close drawer
+        navigate("/checkout"); // go confirm page
     };
 
     return (
@@ -106,7 +112,7 @@ export default function CartPanel(
                     <Button
                         variant="contained"
                         fullWidth
-                        onClick={onCheckout}
+                        onClick={handleGoCheckout}
                         className="cart-checkout-btn"
                     >
                         Order

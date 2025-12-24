@@ -8,16 +8,21 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/payment")
 public class PaymentController {
 
     @Value("${stripe.secret-key}")
     private String stripeSecretKey;
+
+    @Value("${frontend.base-url}")
+    private String frontendBaseUrl;
 
     // Stripe API yêu cầu key phải được thiết lập tĩnh
     @PostConstruct
@@ -27,45 +32,45 @@ public class PaymentController {
     }
 
     @PostMapping("/create-checkout-session")
-    public String createCheckoutSession(@RequestBody List<FoodDTO> cartItems) {
+    public java.util.Map<String, String> createCheckoutSession(@RequestBody List<FoodDTO> cartItems) {
         try {
-
-//            System.out.println("Cart items received: " + cartItems.toString()); // for debug
-            // Tạo Checkout session với các tham số
             SessionCreateParams.Builder sessionBuilder = SessionCreateParams.builder()
-                    .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD) //  phương thức thanh toán là "card"
-                    .setMode(SessionCreateParams.Mode.PAYMENT)  // Chế độ thanh toán
-                    .setSuccessUrl("http://localhost:8080/successPayment")  // URL khi thanh toán thành công
-                    .setCancelUrl("http://localhost:8080/home");    // URL khi thanh toán bị hủy
+                    .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+                    .setMode(SessionCreateParams.Mode.PAYMENT)
+                    .setSuccessUrl(frontendBaseUrl + "/payment/success?session_id={CHECKOUT_SESSION_ID}")
+                    .setCancelUrl(frontendBaseUrl + "/checkout?canceled=1");
 
-            // Thêm các mặt hàng vào `lineItems`
             for (FoodDTO item : cartItems) {
+                long unitAmount = Math.max((long) item.getPrice() * 100L, 50L);
+
                 SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
                         .setPriceData(
                                 SessionCreateParams.LineItem.PriceData.builder()
                                         .setCurrency("rub")
-                                        .setUnitAmount(Math.max((long) item.getPrice() * 100, 50L))  // Giá của mặt hàng
+                                        .setUnitAmount(unitAmount)
                                         .setProductData(
                                                 SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                                        .setName(item.getTitle())  // Tên sản phẩm
+                                                        .setName(item.getTitle())
                                                         .build()
                                         )
                                         .build()
                         )
-                        .setQuantity(((long) item.getQty()))   // Số lượng sản phẩm
+                        .setQuantity((long) item.getQty())
                         .build();
 
-                sessionBuilder.addLineItem(lineItem);  // Thêm mặt hàng vào giỏ hàng
+                sessionBuilder.addLineItem(lineItem);
             }
 
-            // Tạo session thanh toán và trả về sessionId
-            SessionCreateParams params = sessionBuilder.build();
-            Session session = Session.create(params);
+            Session session = Session.create(sessionBuilder.build());
 
-            return session.getId(); // Trả về sessionId cho frontend
+            return java.util.Map.of(
+                    "id", session.getId(),
+                    "url", session.getUrl()
+            );
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new RuntimeException("Failed to create checkout session: " + e.getMessage());
         }
     }
+
 }

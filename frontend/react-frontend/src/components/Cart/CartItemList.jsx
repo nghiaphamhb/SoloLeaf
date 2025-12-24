@@ -18,7 +18,6 @@ export default function CartItemsList() {
     // Group items by restaurant: groups[restId] = { name, items[] }
     const groups = useMemo(() => {
         const g = {};
-        console.log(cartItems);
         for (const it of cartItems) {
             const rid = String(it.restId ?? "UNKNOWN");
             if (!g[rid]) g[rid] = { name: it.restName ?? "UNKNOWN", items: [] };

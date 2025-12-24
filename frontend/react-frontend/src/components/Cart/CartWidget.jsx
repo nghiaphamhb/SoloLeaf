@@ -8,7 +8,6 @@ export default function CartWidget({
                                        title = "My cart",
                                        children,
                                        onApplyDiscount,
-                                       onCheckout,
                                    }) {
     const [open, setOpen] = useState(false);
 
@@ -29,7 +28,6 @@ export default function CartWidget({
                 initialPrice={initialPrice}
                 totalPrice={totalPrice}
                 onApplyDiscount={onApplyDiscount}
-                onCheckout={onCheckout}
             >
                 {children}
             </CartPanel>
