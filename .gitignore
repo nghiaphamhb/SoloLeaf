@@ -1,7 +1,7 @@
 .idea/
 .env
 soloLeaf.iml
-log/
+
 
 # backend
 backend/javaspring/target/
