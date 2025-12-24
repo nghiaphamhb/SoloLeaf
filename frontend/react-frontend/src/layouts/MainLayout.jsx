@@ -11,12 +11,12 @@ import "../styles/restaurant.css";
 import "../styles/orders.css";
 
 // component layout
-export default function MainLayout( {children} ) {
-    return (
-        <Box className="layout">
-            <SideWidget/>
-            {children}
-            <CartWidget title="My cart"/>
-        </Box>
-    );
+export default function MainLayout({ children }) {
+  return (
+    <Box className="layout">
+      <SideWidget />
+      {children}
+      <CartWidget title="My cart" />
+    </Box>
+  );
 }

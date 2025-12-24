@@ -1,74 +1,76 @@
 /* authPages.css (MUI-friendly) */
 
 /* Motion tokens */
-:root{
-    --ease: cubic-bezier(.2,.7,.3,1);
-    --dur: 200ms;
+:root {
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --dur: 200ms;
 }
 
 /* ===== Header (use on Box component="header") ===== */
-.auth-header{
-    padding: 18px 12px;
-    background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
-    box-shadow: var(--shadow-md);
-    color: #fff;
-    text-align: center;
+.auth-header {
+  padding: 18px 12px;
+  background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+  box-shadow: var(--shadow-md);
+  color: #fff;
+  text-align: center;
 }
 
-.auth-header .auth-title{
-    margin-bottom: .4rem;
-    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-weight: 700;
-    letter-spacing: .3px;
-    font-size: clamp(2.2rem, 3.5vw + 1rem, 3.25rem);
-    line-height: 1.15;
+.auth-header .auth-title {
+  margin-bottom: 0.4rem;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-size: clamp(2.2rem, 3.5vw + 1rem, 3.25rem);
+  line-height: 1.15;
 }
 
-.auth-header .auth-subtitle{
-    font-size: clamp(1rem, .6vw + .8rem, 1.2rem);
-    opacity: .95;
+.auth-header .auth-subtitle {
+  font-size: clamp(1rem, 0.6vw + 0.8rem, 1.2rem);
+  opacity: 0.95;
 }
 
 /* ===== Page wrapper (use on Container / Box) ===== */
-.auth-wrap{
-    display: grid;
-    margin: 48px auto;
-    padding: 0 20px;
-    place-items: center;
+.auth-wrap {
+  display: grid;
+  margin: 48px auto;
+  padding: 0 20px;
+  place-items: center;
 }
 
 /* ===== Card (use on Paper) ===== */
-.auth-card{
-    width: 100%;
-    max-width: 420px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    background: var(--paper);
-    text-align: left;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
-    transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  background: var(--paper);
+  text-align: left;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+  transition:
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
 }
 
-.auth-card:hover{
-    box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
-    transform: translateY(-2px);
+.auth-card:hover {
+  box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
+  transform: translateY(-2px);
 }
 
 /* ===== Form heading (use on Typography) ===== */
-.auth-form-title{
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    font-size: 1.75rem;
-    line-height: 1.2;
-    color: var(--fg);
+.auth-form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: var(--fg);
 }
 
 /* ===== Form layout (wrap a Stack/Form) ===== */
-.auth-form{
-    display: grid;
-    gap: 14px;
+.auth-form {
+  display: grid;
+  gap: 14px;
 }
 
 /* ===== Inputs =====
@@ -76,70 +78,73 @@
    - With MUI TextField, input is inside .MuiOutlinedInput-input
    - Border is on .MuiOutlinedInput-notchedOutline
 */
-.auth-field .MuiInputLabel-root{
-    color: var(--fg);
+.auth-field .MuiInputLabel-root {
+  color: var(--fg);
 }
 
-.auth-field .MuiOutlinedInput-root{
-    border-radius: 12px;
-    background: #fff;
+.auth-field .MuiOutlinedInput-root {
+  border-radius: 12px;
+  background: #fff;
 }
 
-.auth-field .MuiOutlinedInput-notchedOutline{
-    border-color: var(--border);
-    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+.auth-field .MuiOutlinedInput-notchedOutline {
+  border-color: var(--border);
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
 }
 
-.auth-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-    border-color: color-mix(in srgb, var(--brand) 70%, #0000);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, #0000);
+.auth-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: color-mix(in srgb, var(--brand) 70%, #0000);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, #0000);
 }
 
-.auth-field .MuiOutlinedInput-input::placeholder{
-    color: #9aa1a9;
-    opacity: 1;
+.auth-field .MuiOutlinedInput-input::placeholder {
+  color: #9aa1a9;
+  opacity: 1;
 }
 
 /* ===== Submit button (use on MUI Button) ===== */
-.auth-submit{
-    margin-top: 6px;
-    width: 100%;
-    border-radius: 999px !important; /* MUI sometimes overrides radius */
-    color: #fff !important;
-    font-weight: 700 !important;
-    letter-spacing: .2px;
-    background-image: linear-gradient(90deg, var(--brand-2), var(--accent), var(--brand));
-    background-size: 200% 100%;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
-    transition: transform var(--dur) var(--ease),
+.auth-submit {
+  margin-top: 6px;
+  width: 100%;
+  border-radius: 999px !important; /* MUI sometimes overrides radius */
+  color: #fff !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px;
+  background-image: linear-gradient(90deg, var(--brand-2), var(--accent), var(--brand));
+  background-size: 200% 100%;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
+  transition:
+    transform var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease),
     background-position var(--dur) var(--ease);
 }
 
-.auth-submit:hover{
-    transform: translateY(-1px);
-    background-position: 100% 0;
-    box-shadow: 0 10px 30px rgb(0 0 0 / 16%);
+.auth-submit:hover {
+  transform: translateY(-1px);
+  background-position: 100% 0;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 16%);
 }
 
-.auth-submit:active{
-    transform: translateY(0);
-    box-shadow: 0 6px 18px rgb(0 0 0 / 12%);
+.auth-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 12%);
 }
 
 /* ===== Footer below form ===== */
-.auth-footer{
-    text-align: center;
-    color: var(--fg-muted);
-    padding: 5px 0;
+.auth-footer {
+  text-align: center;
+  color: var(--fg-muted);
+  padding: 5px 0;
 }
 
-.auth-footer a{
-    color: var(--brand-2);
-    font-weight: 600;
+.auth-footer a {
+  color: var(--brand-2);
+  font-weight: 600;
 }
 
-.auth-footer a:hover{
-    color: var(--accent);
+.auth-footer a:hover {
+  color: var(--accent);
 }

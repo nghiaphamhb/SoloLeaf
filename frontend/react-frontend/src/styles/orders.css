@@ -1,379 +1,385 @@
 /* ======================
    Page container
 ====================== */
-.main{
-    padding: 0 5% 2rem;
+.main {
+  padding: 0 5% 2rem;
 }
 
 .css-9g9pc9-MuiPaper-root-MuiAccordion-root {
-    background-color: #fff;
-    color: rgb(0 0 0 / 87%);
-    box-shadow: var(--bg);
-    background-image: var(--bg);
-    position: relative;
-    transition: margin 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    overflow-anchor: none;
-    border-radius: 1rem;
-    margin-bottom: 15px;
+  background-color: #fff;
+  color: rgb(0 0 0 / 87%);
+  box-shadow: var(--bg);
+  background-image: var(--bg);
+  position: relative;
+  transition: margin 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  overflow-anchor: none;
+  border-radius: 1rem;
+  margin-bottom: 15px;
 }
 
-
-#root > div > div.MuiBox-root.css-19midj6{
-    width: 80%;
-    margin: 0 60px;
+#root > div > div.MuiBox-root.css-19midj6 {
+  width: 80%;
+  margin: 0 60px;
 }
 
 /* Center the content area */
-#list-orders{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+#list-orders {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-    /* center + max width for nice look */
-    max-width: 920px;
-    margin: 0 auto;
+  /* center + max width for nice look */
+  max-width: 920px;
+  margin: 0 auto;
 }
 
 /* ======================
    Status filter (MUI ToggleButtonGroup)
 ====================== */
-#status{
-    display: flex;
-    justify-content: center; /* ✅ centered */
-    margin: 0 auto 1.25rem;
-    max-width: 920px;
+#status {
+  display: flex;
+  justify-content: center; /* ✅ centered */
+  margin: 0 auto 1.25rem;
+  max-width: 920px;
 }
 
-#status .MuiToggleButtonGroup-root{
-    background: #fff;
-    border-radius: 999px;
-    padding: 0.3rem;
-    box-shadow: 0 0.5rem 1.4rem rgb(0 0 0 / 8%);
-    border: 1px solid rgb(0 0 0 / 6%);
+#status .MuiToggleButtonGroup-root {
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.3rem;
+  box-shadow: 0 0.5rem 1.4rem rgb(0 0 0 / 8%);
+  border: 1px solid rgb(0 0 0 / 6%);
 }
 
-#status .MuiToggleButton-root{
-    border: none !important;
-    border-radius: 999px !important;
-    padding: 0.55rem 1.2rem;
-    font-size: .95rem;
-    font-weight: 800;
-    text-transform: none;
-    color: #4b5563;
-    background: transparent;
-    transition: transform .12s ease, background .12s ease;
+#status .MuiToggleButton-root {
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: none;
+  color: #4b5563;
+  background: transparent;
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
 }
 
-#status .MuiToggleButton-root:hover{
-    background: rgb(0 0 0 / 4%);
-    transform: translateY(-1px);
+#status .MuiToggleButton-root:hover {
+  background: rgb(0 0 0 / 4%);
+  transform: translateY(-1px);
 }
 
-#status .MuiToggleButton-root.Mui-selected{
-    background: var(--brand-2);
-    color: #fff;
+#status .MuiToggleButton-root.Mui-selected {
+  background: var(--brand-2);
+  color: #fff;
 }
 
-#status .MuiToggleButton-root.Mui-selected:hover{
-    background: var(--brand-2);
-    transform: translateY(-1px);
+#status .MuiToggleButton-root.Mui-selected:hover {
+  background: var(--brand-2);
+  transform: translateY(-1px);
 }
 
 /* ======================
    Order card (Accordion)
 ====================== */
-.order-card{
-    background: #fff;
-    border-radius: 1.8rem;              /* ✅ smooth round */
-    overflow: hidden;
-    border: 1px solid rgb(0 0 0 / 6%);
-    box-shadow: 0 0.7rem 2.2rem rgb(0 0 0 / 7%);
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+.order-card {
+  background: #fff;
+  border-radius: 1.8rem; /* ✅ smooth round */
+  overflow: hidden;
+  border: 1px solid rgb(0 0 0 / 6%);
+  box-shadow: 0 0.7rem 2.2rem rgb(0 0 0 / 7%);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
 /* remove default accordion line */
-.order-card.MuiAccordion-root::before{
-    display: none;
+.order-card.MuiAccordion-root::before {
+  display: none;
 }
 
-.order-card:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 1.1rem 2.8rem rgb(0 0 0 / 10%);
-    border-color: rgb(0 0 0 / 10%);
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1.1rem 2.8rem rgb(0 0 0 / 10%);
+  border-color: rgb(0 0 0 / 10%);
 }
 
-.order-card .MuiAccordionSummary-root{
-    padding: 0 !important;
+.order-card .MuiAccordionSummary-root {
+  padding: 0 !important;
 }
 
-.order-card .MuiAccordionSummary-content{
-    margin: 0 !important;
+.order-card .MuiAccordionSummary-content {
+  margin: 0 !important;
 }
 
 /* ======================
    Header
 ====================== */
-.order-card .order-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* ✅ vertical center */
-    padding: 1.05rem 1.25rem;
-    border-bottom: 1px solid rgb(0 0 0 / 6%);
-    gap: 1rem;
+.order-card .order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* ✅ vertical center */
+  padding: 1.05rem 1.25rem;
+  border-bottom: 1px solid rgb(0 0 0 / 6%);
+  gap: 1rem;
 }
 
-.order-header .header-left{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    min-width: 0;
+.order-header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
 }
 
-.header-left img{
-    width: 60px;
-    height: 60px;
-    border-radius: 1.2rem; /* ✅ rounder */
-    object-fit: cover;
-    border: 1px solid rgb(0 0 0 / 6%);
-    box-shadow: 0 0.35rem 0.9rem rgb(0 0 0 / 6%);
-    flex: 0 0 auto;
+.header-left img {
+  width: 60px;
+  height: 60px;
+  border-radius: 1.2rem; /* ✅ rounder */
+  object-fit: cover;
+  border: 1px solid rgb(0 0 0 / 6%);
+  box-shadow: 0 0.35rem 0.9rem rgb(0 0 0 / 6%);
+  flex: 0 0 auto;
 }
 
 /* restaurant info */
-.rest-info h3{
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 950;
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 520px;
+.rest-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 950;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 520px;
 }
 
-.rest-info p{
-    margin: 0.15rem 0 0;
-    font-size: 0.92rem;
-    opacity: 0.78;
+.rest-info p {
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+  opacity: 0.78;
 }
 
 /* Right side */
-.order-header .header-right{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 0.5rem;
-    white-space: nowrap;
+.order-header .header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
-.header-right .total-price{
-    font-size: 1.1rem;
-    font-weight: 950;
+.header-right .total-price {
+  font-size: 1.1rem;
+  font-weight: 950;
 }
 
 /* STATUS base */
-.header-right .status{
-    padding: 0.36rem 0.85rem;
-    border-radius: 999px;
-    font-weight: 900;
-    font-size: 0.86rem;
-    letter-spacing: 0.2px;
-    border: 1px solid transparent;
+.header-right .status {
+  padding: 0.36rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.86rem;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
 }
 
 /* Delivering = vàng */
-.header-right .status.status--delivering{
-    color: #8a5b00;
-    background: #fff3cf;
-    border-color: rgb(138 91 0 / 18%);
+.header-right .status.status--delivering {
+  color: #8a5b00;
+  background: #fff3cf;
+  border-color: rgb(138 91 0 / 18%);
 }
 
 /* Done = xanh */
-.header-right .status.status--done{
-    color: #0a7a0a;
-    background: #e9f9ea;
-    border-color: rgb(10 122 10 / 16%);
+.header-right .status.status--done {
+  color: #0a7a0a;
+  background: #e9f9ea;
+  border-color: rgb(10 122 10 / 16%);
 }
 
 /* ======================
    Preview row
 ====================== */
-.order-card .order-body{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.25rem 1.15rem;
-    gap: 1rem;
+.order-card .order-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem 1.15rem;
+  gap: 1rem;
 }
 
-.order-body .body-item{
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-    overflow-x: auto;
-    padding-bottom: 0.15rem;
+.order-body .body-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
 }
 
-.order-body .body-item::-webkit-scrollbar{
-    height: 6px;
+.order-body .body-item::-webkit-scrollbar {
+  height: 6px;
 }
 
-.order-body .body-item::-webkit-scrollbar-thumb{
-    background: rgb(0 0 0 / 15%);
-    border-radius: 999px;
+.order-body .body-item::-webkit-scrollbar-thumb {
+  background: rgb(0 0 0 / 15%);
+  border-radius: 999px;
 }
 
-.order-body .body-item::-webkit-scrollbar-track{
-    background: transparent;
+.order-body .body-item::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.body-item img{
-    width: 50px;
-    height: 50px;
-    border-radius: 1.05rem; /* ✅ rounder */
-    border: 1px solid rgb(0 0 0 / 8%);
-    object-fit: cover;
-    flex: 0 0 auto;
-    box-shadow: 0 0.3rem 0.9rem rgb(0 0 0 / 5%);
-    transition: transform .12s ease;
+.body-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 1.05rem; /* ✅ rounder */
+  border: 1px solid rgb(0 0 0 / 8%);
+  object-fit: cover;
+  flex: 0 0 auto;
+  box-shadow: 0 0.3rem 0.9rem rgb(0 0 0 / 5%);
+  transition: transform 0.12s ease;
 }
 
-.body-item img:hover{
-    transform: scale(1.04);
+.body-item img:hover {
+  transform: scale(1.04);
 }
 
 /* Repeat button */
-.order-body .repeat{
-    height: 44px;
-    padding: 0 1.2rem;
-    border-radius: 999px;
-    border: none;
-    font-size: 0.95rem;
-    font-weight: 900;
-    cursor: pointer;
-    background: var(--brand-2);
-    color: #fff;
-    box-shadow: 0 0.6rem 1.4rem rgb(0 0 0 / 12%);
-    transition: transform .12s ease, filter .12s ease;
-    white-space: nowrap;
+.order-body .repeat {
+  height: 44px;
+  padding: 0 1.2rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 900;
+  cursor: pointer;
+  background: var(--brand-2);
+  color: #fff;
+  box-shadow: 0 0.6rem 1.4rem rgb(0 0 0 / 12%);
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease;
+  white-space: nowrap;
 }
 
-.order-body .repeat:hover{
-    filter: brightness(0.97);
-    transform: translateY(-1px);
+.order-body .repeat:hover {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
 }
 
-.order-body .repeat:active{
-    transform: translateY(0);
+.order-body .repeat:active {
+  transform: translateY(0);
 }
 
 /* ======================
    Dropdown details
 ====================== */
-.order-details{
-    padding: 1.05rem 1.25rem 1.25rem;
-    background: linear-gradient(180deg, rgb(0 0 0 / 2%), rgb(0 0 0 / 0%));
-    border-top: 1px solid rgb(0 0 0 / 6%);
+.order-details {
+  padding: 1.05rem 1.25rem 1.25rem;
+  background: linear-gradient(180deg, rgb(0 0 0 / 2%), rgb(0 0 0 / 0%));
+  border-top: 1px solid rgb(0 0 0 / 6%);
 }
 
-.order-details__title{
-    font-size: 1rem;
-    font-weight: 950;
-    margin-bottom: 0.9rem;
+.order-details__title {
+  font-size: 1rem;
+  font-weight: 950;
+  margin-bottom: 0.9rem;
 }
 
 /* item rows */
-.order-item-row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.7rem 0;
-    border-bottom: 1px dashed rgb(0 0 0 / 12%);
+.order-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed rgb(0 0 0 / 12%);
 }
 
-.order-item-row:last-child{
-    border-bottom: none;
+.order-item-row:last-child {
+  border-bottom: none;
 }
 
-.order-item-left{
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    min-width: 0;
+.order-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
 }
 
-.order-item-img{
-    width: 52px;
-    height: 52px;
-    border-radius: 1.1rem; /* ✅ rounder */
-    object-fit: cover;
-    border: 1px solid rgb(0 0 0 / 8%);
-    box-shadow: 0 0.35rem 0.9rem rgb(0 0 0 / 5%);
-    flex: 0 0 auto;
+.order-item-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 1.1rem; /* ✅ rounder */
+  object-fit: cover;
+  border: 1px solid rgb(0 0 0 / 8%);
+  box-shadow: 0 0.35rem 0.9rem rgb(0 0 0 / 5%);
+  flex: 0 0 auto;
 }
 
-.order-item-name{
-    font-weight: 950;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 520px;
+.order-item-name {
+  font-weight: 950;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 520px;
 }
 
-.order-item-meta{
-    opacity: 0.8;
-    font-size: 0.92rem;
-    margin-top: 0.1rem;
+.order-item-meta {
+  opacity: 0.8;
+  font-size: 0.92rem;
+  margin-top: 0.1rem;
 }
 
-.order-item-right{
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    white-space: nowrap;
+.order-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
 }
 
-.order-item-price{
-    font-weight: 950;
+.order-item-price {
+  font-weight: 950;
 }
 
 /* ======================
    Responsive
 ====================== */
-@media (width <= 640px){
-    .main{
-        padding: 0 0 2rem;
-    }
+@media (width <= 640px) {
+  .main {
+    padding: 0 0 2rem;
+  }
 
-    #status{
-        justify-content: center;
-        padding: 0 0.5rem;
-    }
+  #status {
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
 
-    #list-orders{
-        padding: 0 0.5rem;
-    }
+  #list-orders {
+    padding: 0 0.5rem;
+  }
 
-    .rest-info h3{
-        max-width: 220px;
-    }
+  .rest-info h3 {
+    max-width: 220px;
+  }
 
-    .order-card .order-body{
-        flex-direction: column;
-        align-items: stretch;
-    }
+  .order-card .order-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    .order-body .repeat{
-        width: 100%;
-    }
+  .order-body .repeat {
+    width: 100%;
+  }
 
-    .order-header{
-        align-items: flex-start;
-    }
+  .order-header {
+    align-items: flex-start;
+  }
 
-    .header-right{
-        align-items: flex-start;
-    }
+  .header-right {
+    align-items: flex-start;
+  }
 }

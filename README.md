@@ -30,7 +30,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 - [x] Framework: `React`
 - [x] State Management: `Redux Toolkit`
 - [x] Build Tool: `Vite`
-- [x] Linters: `ESLint` + `StyleLint`
+- [x] Linters: `ESLint` + `StyleLint` + `Prettier`
 - [ ] Testing:
     - Unit &  Integration Testing: `Jest` (_**in progress**_)
     - 2E2 Testing: `Cypress` (_**in progress**_)

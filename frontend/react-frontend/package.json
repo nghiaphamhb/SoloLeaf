@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "npm run lint:eslint && npm run lint:style",
-    "lint:fix": "npm run lint:eslint:fix && npm run lint:style:fix",
+    "lint": "npm run lint:eslint && npm run lint:style && npm run format:check",
+    "lint:fix": "npm run lint:eslint:fix && npm run lint:style:fix && npm run format",
     "lint:eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:eslint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
     "lint:style": "stylelint \"src/**/*.{css,scss,sass,less}\"",
-    "lint:style:fix": "stylelint \"src/**/*.{css,scss,sass,less}\" --fix"
+    "lint:style:fix": "stylelint \"src/**/*.{css,scss,sass,less}\" --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -31,10 +33,14 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "prettier": "^3.7.4",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
     "vite": "^7.2.4"
