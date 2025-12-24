@@ -5,8 +5,8 @@
 :root {
     /* Brand colors */
     --brand: #8a1538;
-    --brand-2: #b45309;
-    --accent: #d97706;
+    --brand-2: #c0410b;
+    --accent: rgb(194 69 11 / 65%);
 
     /* Text colors */
     --fg: #2b2b2b;

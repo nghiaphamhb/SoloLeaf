@@ -3,10 +3,10 @@ import CartButton from "./CartButton";
 import CartPanel from "./CartPanel";
 import {useSelector} from "react-redux";
 import {selectCartCount, selectCartInitialPrice, selectCartTotalPrice} from "../../store/cartSelector.js";
+import CartItemsList from "./CartItemList.jsx";
 
 export default function CartWidget({
                                        title = "My cart",
-                                       children,
                                        onApplyDiscount,
                                    }) {
     const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function CartWidget({
                 totalPrice={totalPrice}
                 onApplyDiscount={onApplyDiscount}
             >
-                {children}
+                <CartItemsList/>
             </CartPanel>
         </>
     );

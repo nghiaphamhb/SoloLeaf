@@ -1,77 +1,79 @@
-import React from 'react';
-import {Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Grid, Typography} from "@mui/material";
+import React from "react";
+import {
+    Box,
+    Button,
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Chip,
+    Grid,
+    Typography,
+} from "@mui/material";
 
-export default function MenuFood( {items, onAddToCart} ) {
+export default function MenuFood({ items, onAddToCart }) {
     return (
         <Box id="menu-section" className="menu-section">
             <Box id="menu-grid" className="menu-grid">
                 <Grid container spacing={2} className="menu-grid__container">
-                    {items.map((it) => (
-                        <Grid key={it.id} item xs={12} sm={6} md={3} lg={3} xl={3} sx={{width:"200px"}} >
-                            <Card className="menu-card" elevation={0}>
-                                <CardActionArea className="menu-card__action">
-                                    <Box className="menu-card__media">
-                                        <CardMedia
-                                            component="img"
-                                            image={`${import.meta.env.VITE_BACKEND_BASE}${it.image}` || ""}
-                                            alt={it.title || "Food image"}
-                                            className="menu-card__img"
-                                        />
-                                    </Box>
+                    {items.map((it) => {
+                        const imgSrc = it?.image
+                            ? `${import.meta.env.VITE_BACKEND_BASE}${it.image}`
+                            : "";
 
-                                    <CardContent className="menu-card__body">
-                                        <Box className="menu-card__header">
-                                            <Typography
-                                                className="menu-card__title"
-                                                sx={{
-                                                    display: "block",
-                                                    whiteSpace: "nowrap",
-                                                    overflow: "hidden",
-                                                    textOverflow: "ellipsis",
-                                                    maxWidth: "100%",
-                                                    minWidth: 0,
-                                                }}
-                                            >
-                                                {it.title ?? "—"}
-                                            </Typography>
-
-                                            {it.badge ? (
-                                                <Chip
-                                                    size="small"
-                                                    label={it.badge}
-                                                    className="menu-card__badge"
-                                                />
-                                            ) : null}
+                        return (
+                            <Grid key={it.id} item xs={12} sm={6} md={3} lg={3} xl={3} sx={{ width: "200px" }}>
+                                <Card className="menu-card" elevation={0}>
+                                    {/* clickable area (button) BUT it does NOT contain the Add button anymore */}
+                                    <CardActionArea className="menu-card__action">
+                                        <Box className="menu-card__media">
+                                            <CardMedia
+                                                component="img"
+                                                image={imgSrc}
+                                                alt={it.title || "Food image"}
+                                                className="menu-card__img"
+                                            />
                                         </Box>
 
-                                        <Box className="menu-card__meta">
-                                            <span className="menu-card__star">⭐</span>
-                                            <span>{typeof it.rating === "number" ? it.rating.toFixed(1) : "—"}</span>
-                                            <span className="menu-card__dot">•</span>
-                                            <span>{it.timeShip ?? "—"}m</span>
-                                        </Box>
+                                        <CardContent className="menu-card__body">
+                                            <Box className="menu-card__header">
+                                                <Typography className="menu-card__title">
+                                                    {it.title ?? "—"}
+                                                </Typography>
 
-                                        <Box className="menu-card__footer">
+                                                {it.badge ? (
+                                                    <Chip size="small" label={it.badge} className="menu-card__badge" />
+                                                ) : null}
+                                            </Box>
+
+                                            <Box className="menu-card__meta">
+                                                <span className="menu-card__star">⭐</span>
+                                                <span>{typeof it.rating === "number" ? it.rating.toFixed(1) : "—"}</span>
+                                                <span className="menu-card__dot">•</span>
+                                                <span>{it.timeShip != null ? `${it.timeShip}m` : "—"}</span>
+                                            </Box>
+
                                             <Typography className="menu-card__price">
                                                 {it.price ?? "—"}₽
                                             </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
 
-                                            <Button
-                                                variant="contained"
-                                                className="menu-card__btn"
-                                                onClick={(e) => {
-                                                    e.preventDefault(); // stop CardActionArea click
-                                                    onAddToCart?.(it);
-                                                }}
-                                            >
-                                                Add
-                                            </Button>
-                                        </Box>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                    ))}
+                                    <CardActions className="menu-card__footer" sx={{ pt: 0, px: 2, pb: 2 }}>
+                                        <Button
+                                            fullWidth
+                                            variant="contained"
+                                            className="menu-card__btn"
+                                            onClick={() => onAddToCart?.(it)}
+                                        >
+                                            Add
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        );
+                    })}
                 </Grid>
             </Box>
         </Box>

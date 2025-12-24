@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import ProtectedRoute from "../components/Security/ProtectedRoute.jsx";
+import ProtectedRoute from "../security/ProtectedRoute.jsx";
 
 // route layout
 export default function ProtectedLayout() {

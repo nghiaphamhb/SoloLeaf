@@ -1,14 +1,14 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-import SideWidget from "../components/SidePanel/SideWidget.jsx";
-import CartWidget from "../components/Cart/CartWidget.jsx";
+import SideWidget from "../components/sidePanel/SideWidget.jsx";
+import CartWidget from "../components/cart/CartWidget.jsx";
 
 import "../styles/sidePanel.css";
 import "../styles/cart.css";
 import "../styles/home.css";
 import "../styles/restaurant.css";
-import CartItemsList from "../components/Cart/CartItemList.jsx";
+import "../styles/orders.css";
 
 // component layout
 export default function MainLayout( {children} ) {
@@ -16,9 +16,7 @@ export default function MainLayout( {children} ) {
         <Box className="layout">
             <SideWidget/>
             {children}
-            <CartWidget title="My cart">
-                <CartItemsList />
-            </CartWidget>
+            <CartWidget title="My cart"/>
         </Box>
     );
 }
