@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="LOGS" value="./log" />
+    <property name="LOGS" value="./backend/log" />
 
     <!-- cho phep xuat log console -->
     <appender name="Console"

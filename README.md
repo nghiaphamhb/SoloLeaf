@@ -1,37 +1,65 @@
-# 🍽️ Restaurant Food Ordering Project
+# 🚚 SoloLeaf — Food Ordering Web App
 
-The Restaurant Food Ordering project is a modern web application that allows users to browse restaurant menus, explore food categories, and place online orders with ease.
-It is designed to bring restaurant experiences closer to customers through an intuitive interface, fast navigation, and real-time interaction between menu data and the user’s selections.
+## Demo
 
-The system features:
+[Video demo](https://drive.google.com/file/d/15AkF5bdbGzmWW6DOpli2NOHvw-HJnUYu/view?usp=sharing)
 
-* 🏪 Dynamic restaurant pages with categorized menus (e.g., burgers, drinks, desserts).
+## Overview
+SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **frontend + backend + database**.
 
-* ⚡ Interactive navigation tabs built with JavaScript/jQuery for instant category switching.
+## Features
+### User
+- Register / Login / log out
+- Order foods
+- Pay the bills (support discount)
+- View orders history
+- Search foods / restaurants (_**in progress**_)
+- Mark favorite dishes (_**in progress**_)
+- Messaging with restaurant management (_**in progress**_)
+- Get free discount per day (_**in progress**_)
+- Edit profile (_**in progress**_)
 
-* 📦 Integration with backend APIs to load menu data, promotions, and delivery information dynamically.
+### Admin (_**in progress**_)
+- CRUD restaurant / food
+- Order management
 
-* 💳 Future scalability for adding cart, checkout, and order-tracking features.
+## Tech Stack
+### Frontend
 
-Built with HTML, CSS, and JavaScript (jQuery) on the frontend and a Spring Boot / Node.js backend, the project focuses on clean UI, reusable components, and secure rendering (XSS-safe HTML) to ensure both aesthetics and safety.
+- Language: `JavaScript`
+- Framework: `React`
+- State Management: `Redux Toolkit`
+- Build Tool: `Vite`
+- Linters: `ESLint` + `StyleLint`
+- Testing:
+    - Unit &  Integration Testing: `Jest` (_**in progress**_)
+    - 2E2 Testing: `Cypress` (_**in progress**_)
+- Component Libraries: `Material UI`
+- Web APIs: ?
+- Web Worker: ?
+- Analytics: `Google Analytics` (_**in progress**_)
+- Deployment: ?
+- Cross-Platform: ?
 
-### 🧠 Goal: To simulate a real online restaurant experience where users can explore, choose, and enjoy — all from one responsive, lightweight, and secure web interface.
+### Backend
 
-## Index page
-![1](https://i.postimg.cc/6qHDKW7M/1.png)
+#### Main
+- `Java Spring Boot`
+- `Spring Security` + `JWT`
+- `JPA/Hibernate`
+- Docker: ?
 
-## Sign in page
-![2](https://i.postimg.cc/5NTRSk8N/2.png)
+#### Microservices
+- `Node.js` (_**in progress**_)
+- Framework: `Express.js`  (_**in progress**_)
 
-## Home page
-![3](https://i.postimg.cc/YCFynfxy/3.png)
+### Database
+- `PostgreSQL`
 
-## Restaurant page
-![4](https://i.postimg.cc/JhWY9D6W/4.png)
+### DevOps 
+- `Docker` + `Docker Compose` (_**in progress**_)
+- `CI/CD GitHub Actions` (_**in progress**_)
 
-## Shopping cart
-![5](https://i.postimg.cc/0NdXxkFx/5.png)
-
-## Spin page
-![6](https://i.postimg.cc/zBztfmYW/6.png)
-![7](https://i.postimg.cc/V6K7r7YN/7.png)
+### Integrations / API
+- **Integrated Stripe API for payment**: create `Checkout Session`and
+  handle `Webhook Events` to confirm payment and update orders.
