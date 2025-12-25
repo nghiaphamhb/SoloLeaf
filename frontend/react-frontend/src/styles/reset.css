@@ -1,0 +1,50 @@
+/* reset.css — MUI safe version */
+
+/* 1. Box-sizing & bỏ margin/padding mặc định */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Chiều cao cơ bản */
+html,
+body {
+  height: 100%;
+}
+
+/* 3. Typography nền */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 4. Media co giãn */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 5. Form elements */
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 6. List */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 7. Link */
+a {
+  text-decoration: none;
+}

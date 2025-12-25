@@ -1,0 +1,227 @@
+/* =========================================================
+   CHECKOUT CONFIRM PAGE — Cream background + Gradient invoice
+========================================================= */
+
+.checkout-page {
+  min-height: 100vh;
+  padding: 20px;
+
+  /* NEW: cream background */
+  background: linear-gradient(135deg, #ff8a00 0%, #fff 35%, #ef8ba3 100%);
+  color: #1f1f1f; /* default text on cream */
+}
+
+/* Title on cream */
+.checkout-page h5,
+.checkout-page .MuiTypography-h5 {
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  margin-bottom: 10px;
+  color: var(--bg);
+}
+
+/* Invoice panel keeps the warm gradient */
+.checkout-page__panel {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 16px;
+  border-radius: 22px;
+
+  /* Keep the warm gradient like your sidebar style */
+  background: linear-gradient(135deg, #ff8a00 0%, #f05a28 35%, #b31237 100%);
+  border: 1px solid rgb(255 255 255 / 18%);
+  box-shadow:
+    0 18px 40px rgb(0 0 0 / 22%),
+    inset 0 1px 0 rgb(255 255 255 / 14%);
+}
+
+/* Alert on cream background */
+.checkout-page .MuiAlert-root {
+  border-radius: 14px;
+  background: rgb(255 255 255 / 95%);
+  color: #2b2b2b;
+}
+
+/* =========================================================
+   Cart blocks stay "invoice" theme (white-ish glass on gradient)
+========================================================= */
+
+.cart-store {
+  margin-top: 14px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 10%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 18%);
+}
+
+.cart-store__header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(255 255 255 / 8%);
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.cart-store__name {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 16px;
+  color: rgb(255 255 255 / 95%);
+}
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgb(255 255 255 / 6%);
+}
+
+.cart-item + .cart-item {
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+.cart-item__img {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 80%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  box-shadow: 0 8px 18px rgb(0 0 0 / 20%);
+}
+
+.cart-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cart-item__name {
+  font-weight: 750;
+  font-size: 14.5px;
+  color: rgb(255 255 255 / 95%);
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cart-item__meta {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(255 255 255 / 86%);
+  font-size: 13px;
+}
+
+.cart-item__price {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* =========================================================
+   Footer totals + buttons (inside invoice)
+========================================================= */
+
+.checkout-footer {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgb(255 255 255 / 18%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.checkout-total {
+  font-weight: 850;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  color: rgb(255 255 255 / 96%);
+}
+
+.checkout-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.checkout-page .MuiButton-root {
+  border-radius: 999px;
+  text-transform: none;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  padding: 10px 16px;
+}
+
+/* Back */
+.checkout-page .MuiButton-outlined {
+  color: rgb(255 255 255 / 95%);
+  border-color: rgb(255 255 255 / 45%);
+  background: rgb(255 255 255 / 6%);
+}
+
+.checkout-page .MuiButton-outlined:hover {
+  border-color: rgb(255 255 255 / 65%);
+  background: rgb(255 255 255 / 10%);
+}
+
+/* Pay */
+.checkout-page .MuiButton-contained {
+  background: rgb(255 255 255 / 92%);
+  color: #8a1f2d;
+  box-shadow: 0 10px 22px rgb(0 0 0 / 22%);
+}
+
+.checkout-page .MuiButton-contained:hover {
+  background: rgb(255 255 255 / 98%);
+}
+
+.checkout-page .MuiButton-contained.Mui-disabled {
+  opacity: 0.7;
+  color: rgb(138 31 45 / 65%);
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media (width <= 480px) {
+  .checkout-page {
+    padding: 14px;
+  }
+
+  .checkout-page__panel {
+    padding: 14px 12px;
+    border-radius: 18px;
+  }
+
+  .cart-item__img {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .checkout-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .checkout-actions {
+    justify-content: space-between;
+  }
+
+  .checkout-page .MuiButton-root {
+    width: 100%;
+  }
+}
