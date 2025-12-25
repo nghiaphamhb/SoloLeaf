@@ -31,9 +31,9 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 - [x] State Management: `Redux Toolkit`
 - [x] Build Tool: `Vite`
 - [x] Linters: `ESLint` + `StyleLint` + `Prettier`
-- [ ] Testing:
-    - Unit &  Integration Testing: `Jest` (_**in progress**_)
-    - 2E2 Testing: `Cypress` (_**in progress**_)
+- [x] Testing:
+    - Unit &  Integration Testing: `Jest`
+    - 2E2 Testing: `Cypress`
 - [x] Component Libraries: `Material UI`
 - [ ] Web APIs: ?
 - [ ] Web Worker: ?
@@ -50,7 +50,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 - [ ] Docker: ?
 
 #### Microservices
-- [ ] `Node.js` (_**in progress**_)
+- [x] `Node.js`
 - [ ] Framework: `Express.js`  (_**in progress**_)
 
 ### Database
@@ -58,8 +58,8 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 ### DevOps 
 - [ ] `Docker` + `Docker Compose` (_**in progress**_)
-- [ ] `CI/CD GitHub Actions` (_**in progress**_)
+- [x] `CI/CD GitHub Actions`
 
 ### Integrations / API
-- [ ] **Integrated Stripe API for payment**: create `Checkout Session`and
+- [x] **Integrated Stripe API for payment**: create `Checkout Session`and
   handle `Webhook Events` to confirm payment and update orders.
