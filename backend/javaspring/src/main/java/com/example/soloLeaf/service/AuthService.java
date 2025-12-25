@@ -26,7 +26,7 @@ public class AuthService implements AuthServiceImp {
     @Override
     public boolean checkLogin(String email,  String password) {
         Users user = userRepository.findByEmail(email);
-        logger.info("[Server] Found user: {}", user.toString());
+//        logger.info("[Server] Found user: {}", user.toString());
         return passwordEncoder.matches(password, user.getPassword());
     }
 

@@ -37,7 +37,7 @@ public class AuthController {
 
             responseData.setSuccess(true);
             responseData.setData(token);
-            logger.info("[Server] Return token: {}", token);
+//            logger.info("[Server] Return token: {}", token);
         } else {
             responseData.setSuccess(false);
             responseData.setData("");
