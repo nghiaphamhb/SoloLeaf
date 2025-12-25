@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # cant use cypress in the higher version
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint (ESLint + Stylelint + Prettier check)
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Unit test coverage (>= 80% enforced by jest config)
+        run: npm run test:coverage
+
+      - name: Build
+        run: npm run build
+
+      - name: E2E (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          start: npm run dev -- --host 0.0.0.0 --port 5173
+          wait-on: http://localhost:5173
+          command: npm run e2e
