@@ -36,7 +36,7 @@ describe("cartSelector", () => {
       cart: {
         items: [
           { id: 1, qty: 2, price: 100 }, // 200
-          { id: 2, qty: 3, price: 50 },  // 150
+          { id: 2, qty: 3, price: 50 }, // 150
         ],
       },
     };

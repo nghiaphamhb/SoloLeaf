@@ -1,12 +1,6 @@
 // Tests for Redux Toolkit cart slice reducer/actions
 
-import cartReducer, {
-  addItem,
-  removeItem,
-  incQty,
-  decQty,
-  clearCart,
-} from "./cartSlice";
+import cartReducer, { addItem, removeItem, incQty, decQty, clearCart } from "./cartSlice";
 
 describe("cartSlice reducer", () => {
   test("should return initial state when passed an unknown action", () => {
@@ -106,9 +100,7 @@ describe("cartSlice reducer", () => {
 
   test("incQty should increment qty for matching id", () => {
     const initial = {
-      items: [
-        { id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" },
-      ],
+      items: [{ id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" }],
     };
 
     const next = cartReducer(initial, incQty(1));
@@ -117,9 +109,7 @@ describe("cartSlice reducer", () => {
 
   test("incQty should do nothing if id not found", () => {
     const initial = {
-      items: [
-        { id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" },
-      ],
+      items: [{ id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" }],
     };
 
     const next = cartReducer(initial, incQty(999));
@@ -128,9 +118,7 @@ describe("cartSlice reducer", () => {
 
   test("decQty should decrement qty (but keep item if qty > 0)", () => {
     const initial = {
-      items: [
-        { id: 1, title: "A", price: 100, image: "", qty: 2, restId: 10, restName: "R" },
-      ],
+      items: [{ id: 1, title: "A", price: 100, image: "", qty: 2, restId: 10, restName: "R" }],
     };
 
     const next = cartReducer(initial, decQty(1));
@@ -140,9 +128,7 @@ describe("cartSlice reducer", () => {
 
   test("decQty should remove item when qty becomes 0", () => {
     const initial = {
-      items: [
-        { id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" },
-      ],
+      items: [{ id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" }],
     };
 
     const next = cartReducer(initial, decQty(1));
@@ -151,9 +137,7 @@ describe("cartSlice reducer", () => {
 
   test("decQty should do nothing if id not found", () => {
     const initial = {
-      items: [
-        { id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" },
-      ],
+      items: [{ id: 1, title: "A", price: 100, image: "", qty: 1, restId: 10, restName: "R" }],
     };
 
     const next = cartReducer(initial, decQty(999));

@@ -107,6 +107,7 @@
   background: rgb(255 255 255 / 3%);
   box-shadow: 0 6px 16px rgb(0 0 0 / 15%);
 }
+
 .cart-store + .cart-store {
   margin-top: 0.9rem;
 }

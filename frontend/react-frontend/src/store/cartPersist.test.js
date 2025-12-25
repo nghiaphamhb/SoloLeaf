@@ -1,10 +1,6 @@
 // Unit tests for localStorage cart persistence helpers
 
-import {
-  loadCartFromStorage,
-  saveCartToStorage,
-  clearCartStorage,
-} from "./cartPersist";
+import { loadCartFromStorage, saveCartToStorage, clearCartStorage } from "./cartPersist";
 
 describe("cartPersist", () => {
   beforeEach(() => {
