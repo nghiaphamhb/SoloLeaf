@@ -11,3 +11,4 @@ backend/sql/
 
 # frontend
 frontend/react-frontend/node_modules/
+frontend/react-frontend/coverage/
