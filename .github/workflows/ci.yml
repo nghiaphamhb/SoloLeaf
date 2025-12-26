@@ -2,10 +2,12 @@ name: CI
 
 on:
   pull_request:
+    branches: [ "main" ]
   push:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
+  # Frontend (existing)
   frontend:
     runs-on: ubuntu-latest
     defaults:
@@ -46,3 +48,26 @@ jobs:
           wait-on: http://localhost:5173
           command: npm run e2e
 
+  # Backend branch (Java/Maven)
+  backend_maven:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Build backend (Maven)
+        working-directory: backend/javaspring
+        run: mvn -B -DskipTests package
+
+  # Backend branch (Docker build)
+  backend_docker_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker build backend image
+        run: docker build -t sololeaf-backend:ci ./backend/javaspring
