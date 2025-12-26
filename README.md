@@ -38,8 +38,8 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 - ⏳ Web APIs: ?
 - ⏳ Web Worker: ?
 - ⏳ Analytics: `Google Analytics` (_**in progress**_)
-- ⏳ Deployment: ?
-- ⏳ Cross-Platform: ?
+- ✅ Deployment: `Vercel`
+- ⏳ Cross-Platform: `Docker Compose` ?
 
 ### Backend
 
@@ -47,7 +47,8 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 - ✅ `Java Spring Boot`
 - ✅ `Spring Security` + `JWT`
 - ✅ `JPA/Hibernate`
-- ⏳ Docker: ?
+- ✅ Testing: `Maven build` + `Docker image build`
+- ✅ Deployment: `Render (Docker Web Service)`
 
 #### Microservices
 - ✅ `Node.js`
@@ -55,11 +56,14 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 ### Database
 - ✅ `PostgreSQL`
+- ✅ Deployment: `Render PostgreSQL`
+
 
 ### DevOps 
 - ⏳ `Docker` + `Docker Compose` (_**in progress**_)
 - ✅ `CI/CD GitHub Actions`
 
-### Integrations / API
+### Integrations / API / Utils
 - ✅ **Integrated Stripe API for payment**: create `Checkout Session`and
   handle `Webhook Events` to confirm payment and update orders.
+- ✅ **Image Store**: `Supabase (Buckets)`
