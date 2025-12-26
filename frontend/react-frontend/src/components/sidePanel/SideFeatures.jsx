@@ -32,23 +32,23 @@ export default function SideFeatures() {
             <span className="sidebar-text">Home</span>
           </Button>
 
-          <Button
-            className="sidebar-item-btn"
-            onClick={() => go("/search")}
-            data-active={isActive("/search")}
-          >
-            <span className="sidebar-icon">🔍</span>
-            <span className="sidebar-text">Search</span>
-          </Button>
+          {/*<Button*/}
+          {/*  className="sidebar-item-btn"*/}
+          {/*  onClick={() => go("/search")}*/}
+          {/*  data-active={isActive("/search")}*/}
+          {/*>*/}
+          {/*  <span className="sidebar-icon">🔍</span>*/}
+          {/*  <span className="sidebar-text">Search</span>*/}
+          {/*</Button>*/}
 
-          <Button
-            className="sidebar-item-btn"
-            onClick={() => go("/favourites")}
-            data-active={isActive("/favourites")}
-          >
-            <span className="sidebar-icon">⭐️</span>
-            <span className="sidebar-text">Favourites</span>
-          </Button>
+          {/*<Button*/}
+          {/*  className="sidebar-item-btn"*/}
+          {/*  onClick={() => go("/favourites")}*/}
+          {/*  data-active={isActive("/favourites")}*/}
+          {/*>*/}
+          {/*  <span className="sidebar-icon">⭐️</span>*/}
+          {/*  <span className="sidebar-text">Favourites</span>*/}
+          {/*</Button>*/}
 
           <Button
             className="sidebar-item-btn"
@@ -59,14 +59,14 @@ export default function SideFeatures() {
             <span className="sidebar-text">Orders</span>
           </Button>
 
-          <Button
-            className="sidebar-item-btn"
-            onClick={() => go("/messages")}
-            data-active={isActive("/messages")}
-          >
-            <span className="sidebar-icon">✉️</span>
-            <span className="sidebar-text">Messages</span>
-          </Button>
+          {/*<Button*/}
+          {/*  className="sidebar-item-btn"*/}
+          {/*  onClick={() => go("/messages")}*/}
+          {/*  data-active={isActive("/messages")}*/}
+          {/*>*/}
+          {/*  <span className="sidebar-icon">✉️</span>*/}
+          {/*  <span className="sidebar-text">Messages</span>*/}
+          {/*</Button>*/}
 
           <Button
             className="sidebar-item-btn"
@@ -77,14 +77,14 @@ export default function SideFeatures() {
             <span className="sidebar-text">Lucky Spin</span>
           </Button>
 
-          <Button
-            className="sidebar-item-btn"
-            onClick={() => go("/profile")}
-            data-active={isActive("/profile")}
-          >
-            <span className="sidebar-icon">⚙️</span>
-            <span className="sidebar-text">Profile</span>
-          </Button>
+          {/*<Button*/}
+          {/*  className="sidebar-item-btn"*/}
+          {/*  onClick={() => go("/profile")}*/}
+          {/*  data-active={isActive("/profile")}*/}
+          {/*>*/}
+          {/*  <span className="sidebar-icon">⚙️</span>*/}
+          {/*  <span className="sidebar-text">Profile</span>*/}
+          {/*</Button>*/}
         </Stack>
       </Box>
     </Box>

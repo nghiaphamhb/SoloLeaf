@@ -5,6 +5,7 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../store/cartSlice.js";
 import "../../styles/checkout.css";
+import Bugsnag from "../../bugsnag.js";
 
 export default function PaymentProcessingPage() {
   const [params] = useSearchParams();
@@ -42,7 +43,7 @@ export default function PaymentProcessingPage() {
           return;
         }
       } catch (e) {
-        console.error(e);
+        Bugsnag.notify(new Error(e.message));
       }
 
       setAttempts((a) => {

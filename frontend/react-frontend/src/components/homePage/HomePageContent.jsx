@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import CategoryMenu from "./CategoryMenu.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
+import Bugsnag from "../../bugsnag.js";
 
 export default function HomePageContent() {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export default function HomePageContent() {
         setRestaurants(Array.isArray(data) ? data : []);
       } catch (e) {
         setErrorRestaurants("Errors when downloading restaurant lists: " + e.message);
+        Bugsnag.notify(new Error(e.message));
       } finally {
         setLoadingRestaurants(false);
       }
@@ -44,6 +46,7 @@ export default function HomePageContent() {
         setMenuCategories(Array.isArray(data) ? data : []);
       } catch (e) {
         setErrorMenu("Error when loading menu list: " + e.message);
+        Bugsnag.notify(new Error(e.message));
       } finally {
         setLoadingMenu(false);
       }

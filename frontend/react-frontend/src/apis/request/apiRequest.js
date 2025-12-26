@@ -1,5 +1,7 @@
 /* Generic async request helper that attaches Bearer token automatically (if token exists). */
 /* Return JSON data */
+import Bugsnag from "../../bugsnag.js";
+
 export async function apiRequest(url, options = {}) {
   const headers = {
     "Content-Type": "application/json",
@@ -17,7 +19,7 @@ export async function apiRequest(url, options = {}) {
   // Handle common auth failure
   if (res.status === 401 || res.status === 403) {
     localStorage.removeItem("token");
-    throw new Error("Unauthorized");
+    Bugsnag.notify(new Error("Unauthorized"));
   }
 
   const text = await res.text(); // res & res.text are promises
@@ -33,7 +35,7 @@ export async function apiRequest(url, options = {}) {
     const err = new Error(msg);
     err.status = res.status;
     err.data = data;
-    throw err;
+    Bugsnag.notify(err);
   }
 
   return data;

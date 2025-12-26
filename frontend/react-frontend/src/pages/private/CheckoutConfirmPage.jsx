@@ -5,6 +5,7 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import "../../styles/checkout.css";
 import { useCartGroups } from "../../hooks/useCartGroups";
 import CartItemRow from "../../components/cart/CartItemRow.jsx";
+import Bugsnag from "../../bugsnag.js";
 
 function formatRuble(n) {
   const v = Number(n || 0);
@@ -53,7 +54,7 @@ export default function CheckoutConfirmPage() {
       });
 
       const url = data?.url;
-      if (!url) throw new Error("Missing checkout URL from server.");
+      if (!url) Bugsnag.notify(new Error("Missing checkout URL from server."));
 
       window.location.assign(url);
     } catch (e) {
