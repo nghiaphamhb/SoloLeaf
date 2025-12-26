@@ -11,6 +11,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import {toImageUrl} from "../../utils/imageUrl.js";
 
 export default function MenuFood({ items, onAddToCart }) {
   return (
@@ -18,7 +19,7 @@ export default function MenuFood({ items, onAddToCart }) {
       <Box id="menu-grid" className="menu-grid">
         <Grid container spacing={2} className="menu-grid__container">
           {items.map((it) => {
-            const imgSrc = it?.image ? `${import.meta.env.VITE_BACKEND_BASE}${it.image}` : "";
+            const imgSrc = it?.image ? toImageUrl(it.image) : "";
 
             return (
               <Grid key={it.id} item xs={12} sm={6} md={3} lg={3} xl={3} sx={{ width: "200px" }}>

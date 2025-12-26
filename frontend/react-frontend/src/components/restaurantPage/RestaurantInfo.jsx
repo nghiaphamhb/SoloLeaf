@@ -1,8 +1,9 @@
 import React from "react";
 import { Avatar, Box, Card, CardContent, Chip, Typography } from "@mui/material";
+import {toImageUrl} from "../../utils/imageUrl.js";
 
 export default function RestaurantInfo({ restaurant }) {
-  const img = restaurant?.image ? `${import.meta.env.VITE_BACKEND_BASE}${restaurant.image}` : "";
+  const img = restaurant?.image ? toImageUrl(restaurant.image) : "";
 
   return (
     <Card id="restaurant-header" className="restaurant-header" elevation={0}>

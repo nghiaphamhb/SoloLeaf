@@ -55,8 +55,8 @@ export default function OrdersPageContent() {
       restaurant: {
         name: o.resName ?? "Unknown restaurant",
         logo: o.resLogo
-          ? `${import.meta.env.VITE_BACKEND_BASE}${o.resLogo}`
-          : `${import.meta.env.VITE_BACKEND_BASE}/uploads/restaurants/default.png`, // fallback
+          ? toImageUrl(o.resLogo)
+          : ``, // fallback
       },
 
       items: (o.items ?? []).map((it) => ({
@@ -64,7 +64,7 @@ export default function OrdersPageContent() {
         title: it.title,
         qty: it.qty,
         price: it.price,
-        image: it.image ? `${import.meta.env.VITE_BACKEND_BASE}${it.image}` : null,
+        image: it.image ? toImageUrl(it.image) : null,
       })),
     }));
   }, [filtered]);

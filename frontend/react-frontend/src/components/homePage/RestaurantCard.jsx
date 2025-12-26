@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import {toImageUrl} from "../../utils/imageUrl.js";
 
 export default function RestaurantCard({ restaurant, onClick }) {
-  const img = restaurant?.image ? `${import.meta.env.VITE_BACKEND_BASE}${restaurant.image}` : "";
+  const img = restaurant?.image ? toImageUrl(restaurant.image) : "";
 
   const title = restaurant?.title ?? "No title";
   const subtitle = restaurant?.subtitle ?? "";
