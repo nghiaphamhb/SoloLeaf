@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 export default function ItemCard({ food }) {
-  const img = food?.image ? `${import.meta.env.VITE_BACKEND_BASE}${food.image}` : "";
+  const img = food?.image ? toImageUrl(food.image) : "";
   const title = food?.title ?? "No title";
   const freeShip = !!food?.freeShip;
 

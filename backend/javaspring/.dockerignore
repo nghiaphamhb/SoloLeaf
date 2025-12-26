@@ -1,0 +1,12 @@
+# Build output
+target
+*.log
+
+# VCS / IDE
+.git
+.idea
+*.iml
+
+# Env (never bake secrets into image)
+.env
+.env.*

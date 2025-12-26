@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 // Comments in English
 function formatRuble(n) {
@@ -10,7 +11,7 @@ function formatRuble(n) {
 }
 
 export default function CartItemRow({ item, showControls = false, onDec, onInc }) {
-  const imgSrc = `${import.meta.env.VITE_BACKEND_BASE}${item.image}`;
+  const imgSrc = toImageUrl(item.image);
 
   return (
     <Box className="cart-item">
