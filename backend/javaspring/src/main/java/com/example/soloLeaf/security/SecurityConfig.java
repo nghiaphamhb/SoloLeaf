@@ -88,6 +88,7 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain apiChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/payment/webhook"))
                 .securityMatcher("/api/**")
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)

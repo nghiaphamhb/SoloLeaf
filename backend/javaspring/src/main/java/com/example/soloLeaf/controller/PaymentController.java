@@ -24,6 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -172,10 +173,8 @@ public class PaymentController {
     ) throws Exception {
 
         // Read raw body (IMPORTANT: must be raw, not parsed)
-        String payload;
-        try (BufferedReader reader = request.getReader()) {
-            payload = reader.lines().collect(Collectors.joining("\n"));
-        }
+        byte[] bytes = request.getInputStream().readAllBytes();
+        String payload = new String(bytes, StandardCharsets.UTF_8);
 
         Event event;
         try {
