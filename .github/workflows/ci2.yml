@@ -1,0 +1,30 @@
+name: CI 2
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  backend_maven:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Build backend (Maven)
+        working-directory: backend/javaspring
+        run: mvn -B -DskipTests package
+
+  backend_docker_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker build backend image
+        run: docker build -t sololeaf-backend:ci ./backend/javaspring
