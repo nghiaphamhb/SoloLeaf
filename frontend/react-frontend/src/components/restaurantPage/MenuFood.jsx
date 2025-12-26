@@ -11,7 +11,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import {toImageUrl} from "../../utils/imageUrl.js";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 export default function MenuFood({ items, onAddToCart }) {
   return (

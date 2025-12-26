@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Box, Card, CardContent, Chip, Typography } from "@mui/material";
-import {toImageUrl} from "../../utils/imageUrl.js";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 export default function RestaurantInfo({ restaurant }) {
   const img = restaurant?.image ? toImageUrl(restaurant.image) : "";

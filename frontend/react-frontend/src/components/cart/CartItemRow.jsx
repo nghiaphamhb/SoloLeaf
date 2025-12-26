@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import {toImageUrl} from "../../utils/imageUrl.js";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 // Comments in English
 function formatRuble(n) {

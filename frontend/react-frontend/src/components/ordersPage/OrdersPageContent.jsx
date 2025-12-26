@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import OrderCard from "./OrderCard.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 export default function OrdersPageContent() {
   const [orders, setOrders] = useState([]);
@@ -54,9 +55,7 @@ export default function OrdersPageContent() {
 
       restaurant: {
         name: o.resName ?? "Unknown restaurant",
-        logo: o.resLogo
-          ? toImageUrl(o.resLogo)
-          : ``, // fallback
+        logo: o.resLogo ? toImageUrl(o.resLogo) : ``, // fallback
       },
 
       items: (o.items ?? []).map((it) => ({

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import {toImageUrl} from "../../utils/imageUrl.js";
+import { toImageUrl } from "../../utils/imageUrl.js";
 
 export default function RestaurantCard({ restaurant, onClick }) {
   const img = restaurant?.image ? toImageUrl(restaurant.image) : "";
