@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import LandingPage from "./pages/public/LandingPage.jsx";
 import LoginPage from "./pages/public/LoginPage.jsx";
@@ -13,27 +13,40 @@ import { Provider } from "react-redux";
 import OrdersPage from "./pages/private/mainLayout/OrdersPage.jsx";
 import PaymentProcessingPage from "./pages/private/PaymentProcessingPage.jsx";
 import SpinPage from "./pages/private/mainLayout/SpinPage.jsx";
+import { trackPageView } from "./analytics/ga.js";
+
+function AnalyticsListener() {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location]);
+
+  return null;
+}
 
 export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Routes>
-          {/* that routes dont need authentication */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+        <AnalyticsListener>
+          <Routes>
+            {/* that routes dont need authentication */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-          {/* authentication */}
-          <Route element={<ProtectedLayout />}>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/restaurant/:id" element={<RestaurantPage />} />
-            <Route path="/checkout" element={<CheckoutConfirmPage />} />
-            <Route path="/orders" element={<OrdersPage />} />
-            <Route path="/payment/processing" element={<PaymentProcessingPage />} />
-            <Route path="/spin" element={<SpinPage />} />
-          </Route>
-        </Routes>
+            {/* authentication */}
+            <Route element={<ProtectedLayout />}>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/restaurant/:id" element={<RestaurantPage />} />
+              <Route path="/checkout" element={<CheckoutConfirmPage />} />
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/payment/processing" element={<PaymentProcessingPage />} />
+              <Route path="/spin" element={<SpinPage />} />
+            </Route>
+          </Routes>
+        </AnalyticsListener>
       </BrowserRouter>
     </Provider>
   );

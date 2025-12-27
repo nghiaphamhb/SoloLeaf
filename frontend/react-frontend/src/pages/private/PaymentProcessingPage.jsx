@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { clearCart, clearPromoCode } from "../../store/cartSlice.js";
 import "../../styles/checkout.css";
 import Bugsnag from "../../bugsnag/bugsnag.js";
+import { trackEvent } from "../../analytics/ga.js";
 
 export default function PaymentProcessingPage() {
   const [params] = useSearchParams();
@@ -38,6 +39,11 @@ export default function PaymentProcessingPage() {
         });
 
         if (data?.status === "DELIVERING" || data?.status === "DONE") {
+          trackEvent("payment_success", {
+            order_id: String(data?.id ?? ""),
+            status: data?.status ?? "",
+          });
+
           dispatch(clearCart());
           dispatch(clearPromoCode());
           navigate("/orders", { replace: true });
@@ -45,6 +51,7 @@ export default function PaymentProcessingPage() {
         }
       } catch (e) {
         Bugsnag.notify(new Error(e.message));
+        trackEvent("payment_failed", { reason: "not_paid" });
       }
 
       setAttempts((a) => {

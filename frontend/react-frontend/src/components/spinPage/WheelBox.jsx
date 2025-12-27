@@ -4,6 +4,7 @@ import { Alert, Box, Button, Card, Chip, Typography } from "@mui/material";
 import WheelCanvas from "./WheelCanvas.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import Bugsnag from "../../bugsnag/bugsnag.js";
+import { trackEvent } from "../../analytics/ga.js";
 
 const PERCENTS = [5, 10, 15, 20];
 const SEGMENTS = [
@@ -71,6 +72,8 @@ export default function WheelBox({ copyText, formatTime }) {
     setResult(null);
     setSpinning(true);
 
+    trackEvent("spin_click");
+
     try {
       const percent = PERCENTS[Math.floor(Math.random() * PERCENTS.length)];
 
@@ -98,10 +101,16 @@ export default function WheelBox({ copyText, formatTime }) {
       };
 
       setResult(discount);
+
+      trackEvent("spin_result", {
+        restaurant_id: String(data.resId),
+        percent: Number(data.percent),
+      });
     } catch (e) {
       const msg = e?.message ? String(e.message) : "Spin failed.";
       setError(msg);
       Bugsnag.notify(new Error(msg));
+      trackEvent("spin_error");
     } finally {
       setSpinning(false);
     }

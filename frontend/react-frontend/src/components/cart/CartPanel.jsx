@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Bugsnag from "../../bugsnag/bugsnag.js";
 import { useDispatch } from "react-redux";
 import { clearPromoCode } from "../../store/cartSlice.js";
+import { trackEvent } from "../../analytics/ga.js";
 
 export default function CartPanel({
   open,
@@ -27,8 +28,10 @@ export default function CartPanel({
     try {
       await onApplyDiscount?.(code);
       setDiscountCode(""); // clear input after apply
+      trackEvent("discount_applied", { code: code });
     } catch (e) {
       Bugsnag.notify(e.message);
+      trackEvent("discount_apply_failed", { reason: e.message });
     }
   };
 

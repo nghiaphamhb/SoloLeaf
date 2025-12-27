@@ -5,6 +5,9 @@ import "./styles/general.css";
 import App from "./App.jsx";
 import Bugsnag from "./bugsnag/bugsnag.js";
 import FallbackBoundary from "./bugsnag/FallbackBoundary.js";
+import { initGA } from "./analytics/ga.js";
+
+initGA();
 
 // Prevent white screen when error render (crash UI)
 const ErrorBoundary = Bugsnag.getPlugin("react")?.createErrorBoundary(React) ?? FallbackBoundary;
