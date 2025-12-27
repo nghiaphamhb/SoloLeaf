@@ -5,7 +5,7 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import { useDispatch } from "react-redux";
 import { clearCart, clearPromoCode } from "../../store/cartSlice.js";
 import "../../styles/checkout.css";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function PaymentProcessingPage() {
   const [params] = useSearchParams();

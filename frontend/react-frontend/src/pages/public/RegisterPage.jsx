@@ -3,7 +3,7 @@ import { registerApi } from "../../apis/authApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import { Alert, Box, Button, Container, TextField, Typography } from "@mui/material";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function RegisterPage() {
   const navigate = useNavigate();

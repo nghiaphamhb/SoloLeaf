@@ -5,7 +5,7 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import "../../styles/checkout.css";
 import { useCartGroups } from "../../hooks/useCartGroups";
 import CartItemRow from "../../components/cart/CartItemRow.jsx";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 import { useSelector } from "react-redux";
 import { selectCartPromoCode } from "../../store/cartSelector.js";
 

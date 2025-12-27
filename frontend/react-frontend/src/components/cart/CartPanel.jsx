@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Drawer, Typography, IconButton, TextField, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 import { useDispatch } from "react-redux";
 import { clearPromoCode } from "../../store/cartSlice.js";
 

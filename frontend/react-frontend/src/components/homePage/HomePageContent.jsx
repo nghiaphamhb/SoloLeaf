@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import CategoryMenu from "./CategoryMenu.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function HomePageContent() {
   const navigate = useNavigate();

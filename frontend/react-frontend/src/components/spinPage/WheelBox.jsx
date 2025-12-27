@@ -3,7 +3,7 @@ import { Alert, Box, Button, Card, Chip, Typography } from "@mui/material";
 
 import WheelCanvas from "./WheelCanvas.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 const PERCENTS = [5, 10, 15, 20];
 const SEGMENTS = [

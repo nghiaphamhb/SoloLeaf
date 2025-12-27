@@ -7,7 +7,7 @@ import MenuFood from "./MenuFood.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/cartSlice.js";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function RestaurantPageContent({ resId }) {
   // send action to the reducer of store

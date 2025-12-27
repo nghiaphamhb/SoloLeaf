@@ -10,7 +10,7 @@ import {
 import OrderCard from "./OrderCard.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import { toImageUrl } from "../../utils/imageUrl.js";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function OrdersPageContent() {
   const [orders, setOrders] = useState([]);

@@ -1,6 +1,6 @@
 /* Generic async request helper that attaches Bearer token automatically (if token exists). */
 /* Return JSON data */
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export async function apiRequest(url, options = {}) {
   const headers = {

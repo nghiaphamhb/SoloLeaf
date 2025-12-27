@@ -3,10 +3,10 @@
  */
 
 import { apiRequest } from "./apiRequest.js";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 // ---- Mocks ----
-jest.mock("../../bugsnag.js", () => ({
+jest.mock("../../bugsnag/bugsnag.js", () => ({
   notify: jest.fn(),
 }));
 

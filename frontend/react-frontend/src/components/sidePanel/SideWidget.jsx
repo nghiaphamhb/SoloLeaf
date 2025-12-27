@@ -7,7 +7,7 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import { clearCartStorage } from "../../store/cartPersist.js";
 import { clearCart } from "../../store/cartSlice.js";
 import { useDispatch } from "react-redux";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function SideWidget() {
   const [user, setUser] = useState(null);

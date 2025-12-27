@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Box } from "@mui/material";
 import WheelBox from "./WheelBox.jsx";
 import DiscountBox from "./DiscountBox.jsx";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function SpinPageContent() {
   const copyText = useCallback(async (text) => {

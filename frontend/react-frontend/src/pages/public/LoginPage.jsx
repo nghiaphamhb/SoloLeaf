@@ -3,7 +3,7 @@ import { loginApi } from "../../apis/authApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import { Box, Container, TextField, Typography, Alert, Button } from "@mui/material";
-import Bugsnag from "../../bugsnag.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function LoginPage() {
   const navigate = useNavigate();
