@@ -1,14 +1,11 @@
 package com.example.soloLeaf.controller;
 
 import com.example.soloLeaf.dto.FoodDTO;
-import com.example.soloLeaf.entity.Order;
-import com.example.soloLeaf.entity.OrderItem;
-import com.example.soloLeaf.entity.Users;
+import com.example.soloLeaf.entity.*;
+import com.example.soloLeaf.payload.ResponseData;
 import com.example.soloLeaf.payload.request.CheckoutSessionRequest;
-import com.example.soloLeaf.repository.FoodRepository;
-import com.example.soloLeaf.repository.OrderRepository;
-import com.example.soloLeaf.repository.RestaurantRepository;
-import com.example.soloLeaf.repository.UserRepository;
+import com.example.soloLeaf.repository.*;
+import com.example.soloLeaf.service.PaymentService;
 import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
@@ -55,7 +52,7 @@ public class PaymentController {
     OrderRepository orderRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private PaymentService paymentService;
 
     // Stripe API yêu cầu key phải được thiết lập tĩnh
     @PostConstruct
@@ -64,105 +61,12 @@ public class PaymentController {
         Stripe.apiKey = stripeSecretKey;
     }
 
+
     @PostMapping("/create-checkout-session")
-    public java.util.Map<String, String> createCheckoutSession(
-            @RequestBody CheckoutSessionRequest req,
-            Authentication authentication
-    ) {
-        try {
-            if (req.getItems() == null || req.getItems().isEmpty()) {
-                throw new RuntimeException("Cart is empty");
-            }
-
-            if (authentication == null || !authentication.isAuthenticated()
-                    || "anonymousUser".equals(authentication.getName())) {
-                throw new RuntimeException("Unauthorized");
-            }
-
-            String email = authentication.getName(); // username = email
-            Users user = userRepository.findByEmail(email);
-            if (user == null) {
-                throw new RuntimeException("User not found");
-            }
-            int userId = user.getId();
-
-            var restaurant = restaurantRepository.findById(req.getResId())
-                    .orElseThrow(() -> new RuntimeException("Restaurant not found: " + req.getResId()));
-
-            // 1) Create Order in DB first (PENDING)
-            Order order = new Order();
-            order.setUser(user);
-            order.setRestaurant(restaurant);
-            order.setCreateDate(new java.util.Date());
-            order.setStatus("PENDING");
-            order.setCurrency("rub");
-
-            long total = 0;
-
-            for (FoodDTO it : req.getItems()) {
-                // verify food exists (recommended)
-                var food = foodRepository.findById(it.getId())
-                        .orElseThrow(() -> new RuntimeException("Food not found: " + it.getId()));
-
-                OrderItem oi = new OrderItem();
-                oi.setCreateDate(new java.util.Date());
-                oi.setFood(food);
-                oi.setQty(it.getQty());
-                oi.setPrice((long)it.getPrice()); // snapshot rubles
-
-                // Keep both sides synced
-                order.addItem(oi);
-
-                total += (long) it.getPrice() * (long) it.getQty();
-            }
-
-            order.setTotalPrice(total);
-
-            // Save order + items (cascade ALL handles items)
-            order = orderRepository.save(order);
-
-            // 2) Create Stripe Checkout Session (store orderId in metadata)
-            SessionCreateParams.Builder sessionBuilder = SessionCreateParams.builder()
-                    .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-                    .setMode(SessionCreateParams.Mode.PAYMENT)
-                    .setSuccessUrl(frontendBaseUrl + "/payment/processing?session_id={CHECKOUT_SESSION_ID}")
-                    .setCancelUrl(frontendBaseUrl + "/checkout?canceled=1")
-                    .putMetadata("orderId", String.valueOf(order.getId()))
-                    .putMetadata("userId", String.valueOf(userId))
-                    .putMetadata("resId", String.valueOf(req.getResId()));
-
-            for (FoodDTO it : req.getItems()) {
-                long unitAmount = Math.max((long) it.getPrice() * 100L, 50L); // kopeks
-
-                SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
-                        .setPriceData(
-                                SessionCreateParams.LineItem.PriceData.builder()
-                                        .setCurrency("rub")
-                                        .setUnitAmount(unitAmount)
-                                        .setProductData(
-                                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                                        .setName(it.getTitle())
-                                                        .build()
-                                        )
-                                        .build()
-                        )
-                        .setQuantity((long) it.getQty())
-                        .build();
-
-                sessionBuilder.addLineItem(lineItem);
-            }
-
-            Session session = Session.create(sessionBuilder.build());
-
-            // 3) Update order with sessionId (still PENDING)
-            order.setStripeSessionId(session.getId());
-            orderRepository.save(order);
-
-            return java.util.Map.of("id", session.getId(), "url", session.getUrl());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to create checkout session: " + e.getMessage());
-        }
+    public ResponseEntity<?> createCheckoutSession(@RequestBody CheckoutSessionRequest req,
+                                                   Authentication authentication) throws Exception {
+        ResponseData response = paymentService.createCheckoutSessionTx(req, authentication, frontendBaseUrl);
+        return ResponseEntity.ok(response);
     }
 
     // Stripe sends raw JSON + signature header

@@ -68,9 +68,6 @@ public class OrderController {
                 o.getCreateDate(),
                 o.getStatus(),
                 o.getTotalPrice(),
-                o.getRestaurant().getId(),
-                o.getRestaurant().getTitle(),
-                o.getRestaurant().getImage(),
                 o.getOrderItemList().stream().map(oi -> new OrderItemDTO(
                         oi.getFood().getId(),
                         oi.getFood().getTitle(),

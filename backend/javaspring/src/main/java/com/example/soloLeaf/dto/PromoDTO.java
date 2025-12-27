@@ -4,14 +4,19 @@ import java.util.Date;
 
 public class PromoDTO {
     private int id;
+    private String code;
     private int percent;
     private Date startDate;
     private Date endDate;
     private int resId;
     private String resTitle;
 
-    public PromoDTO(int id, int percent, Date startDate, Date endDate, int resId, String resTitle) {
+    public PromoDTO() {
+    }
+
+    public PromoDTO(int id, String code, int percent, Date startDate, Date endDate, int resId, String resTitle) {
         this.id = id;
+        this.code = code;
         this.percent = percent;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -65,5 +70,13 @@ public class PromoDTO {
 
     public void setResTitle(String resTitle) {
         this.resTitle = resTitle;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
