@@ -1,6 +1,7 @@
 import React from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Box, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import orderLogo from "/order.png";
 
 function formatDateTime(iso) {
   const d = new Date(iso);
@@ -33,17 +34,15 @@ export default function OrderCard({ order }) {
             <Box className="header-left" sx={{ display: "flex", alignItems: "center", gap: 2 }}>
               <Box
                 component="img"
-                src={order.restaurant.logo}
+                src={orderLogo}
                 alt=""
                 sx={{ width: 56, height: 56, borderRadius: "14px", objectFit: "cover" }}
               />
 
               <Box className="rest-info">
                 <Typography variant="h6" sx={{ m: 0 }}>
-                  {order.restaurant.name}
+                  Order #{order.id}
                 </Typography>
-
-                <Typography sx={{ m: 0, opacity: 0.85 }}>Order #{order.id}</Typography>
 
                 <Typography sx={{ m: 0, opacity: 0.85 }}>
                   {formatDateTime(order.createdAt)}

@@ -12,6 +12,7 @@ import { store } from "./store/store.js";
 import { Provider } from "react-redux";
 import OrdersPage from "./pages/private/mainLayout/OrdersPage.jsx";
 import PaymentProcessingPage from "./pages/private/PaymentProcessingPage.jsx";
+import SpinPage from "./pages/private/mainLayout/SpinPage.jsx";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/checkout" element={<CheckoutConfirmPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/payment/processing" element={<PaymentProcessingPage />} />
+            <Route path="/spin" element={<SpinPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

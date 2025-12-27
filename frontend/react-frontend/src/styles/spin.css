@@ -1,0 +1,126 @@
+.lucky-discount__layout {
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  align-items: start;
+  grid-template-columns: 1fr;
+  width: 90%;
+}
+
+/* md: "1.2fr 0.8fr" */
+@media (width >= 900px) {
+  .lucky-discount__layout {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.lucky-discount__card {
+  padding: 24px;
+  border-radius: 1.25rem;
+}
+
+.lucky-discount__title {
+  margin-bottom: 8px;
+}
+
+.lucky-discount__desc {
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.lucky-discount__alert {
+  margin-bottom: 16px;
+}
+
+.lucky-discount__wheelBox {
+  height: 360px;
+  border-radius: 1rem;
+  border: 1px dashed rgb(0 0 0 / 20%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lucky-discount__wheelText {
+  opacity: 0.7;
+}
+
+.lucky-discount__wheelCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.lucky-discount__spinning {
+  position: absolute;
+  bottom: 16px;
+  opacity: 0.85;
+}
+
+.lucky-discount__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.lucky-discount__spinBtn {
+  background: linear-gradient(90deg, #d46a00 0%, #a3192f 100%) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  padding: 10px 22px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+}
+
+.lucky-discount__spinBtn:hover {
+  filter: brightness(1.05);
+  box-shadow: none !important;
+}
+
+.lucky-discount__spinBtn:disabled {
+  opacity: 0.6 !important;
+  color: rgb(255 255 255 / 85%) !important;
+}
+
+.lucky-discount__codeChip {
+  cursor: pointer;
+}
+
+.lucky-discount__validUntil {
+  opacity: 0.75;
+}
+
+.lucky-discount__tip {
+  margin-top: 16px;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+/* RIGHT side */
+.lucky-discount__rightHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.lucky-discount__divider {
+  margin-bottom: 16px;
+}
+
+.lucky-discount__empty {
+  opacity: 0.8;
+}
+
+.lucky-discount__tableWrap {
+  overflow-x: auto;
+}
+
+.lucky-discount__mono {
+  font-family: monospace;
+}

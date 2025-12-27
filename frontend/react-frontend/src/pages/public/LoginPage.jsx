@@ -3,6 +3,7 @@ import { loginApi } from "../../apis/authApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/auth.css";
 import { Box, Container, TextField, Typography, Alert, Button } from "@mui/material";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function LoginPage() {
 
       const token = data?.data; /* token saved in res.?data */
       if (!token) {
-        throw new Error("No token returned from server");
+        Bugsnag.notify(new Error("No token returned from server"));
       }
       localStorage.setItem("token", token);
 

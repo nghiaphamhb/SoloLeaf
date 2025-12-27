@@ -1,18 +1,28 @@
 import { configureStore } from "@reduxjs/toolkit";
-import cartReducer from "../store/cartSlice";
-import { loadCartFromStorage, saveCartToStorage } from "./cartPersist";
+import cartReducer from "./cartSlice.js";
+
+import { loadCartFromStorage, saveCartToStorage } from "./cartPersist.js";
 
 const preloadedCart = loadCartFromStorage();
 
-// the store has the reducer
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
   },
-  preloadedState: preloadedCart ? { cart: preloadedCart } : undefined,
+  preloadedState: preloadedCart
+    ? {
+        ...(preloadedCart ? { cart: preloadedCart } : {}),
+      }
+    : undefined,
 });
 
-// Save whenever cart changes
+let prevCart = store.getState().cart;
+
 store.subscribe(() => {
-  saveCartToStorage(store.getState().cart);
+  const state = store.getState();
+
+  if (state.cart !== prevCart) {
+    prevCart = state.cart;
+    saveCartToStorage(state.cart);
+  }
 });

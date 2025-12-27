@@ -7,6 +7,7 @@ import MenuFood from "./MenuFood.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/cartSlice.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function RestaurantPageContent({ resId }) {
   // send action to the reducer of store
@@ -46,6 +47,7 @@ export default function RestaurantPageContent({ resId }) {
         }
       } catch (e) {
         if (!cancelled) setError("Errors when downloading restaurant page: " + e.message);
+        Bugsnag.notify(new Error(e.message));
       } finally {
         if (!cancelled) setLoading(false);
       }

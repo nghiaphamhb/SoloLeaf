@@ -11,6 +11,9 @@ public class Promo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "code")
+    private String code;
+
     @ManyToOne
     @JoinColumn(name = "res_id")
     private Restaurant restaurant;
@@ -21,8 +24,15 @@ public class Promo {
     @Column(name = "start_date")
     private Date startDate;
 
+    @Column(name = "used_at")
+    private Date usedAt;
+
     @Column(name = "end_date")
     private Date endDate;
+
+    @OneToOne
+    @JoinColumn(name = "used_order_id")
+    private Order order;
 
     public int getId() {
         return id;
@@ -30,6 +40,14 @@ public class Promo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Restaurant getRestaurant() {
@@ -56,11 +74,27 @@ public class Promo {
         this.startDate = startDate;
     }
 
+    public Date getUsedAt() {
+        return usedAt;
+    }
+
+    public void setUsedAt(Date usedAt) {
+        this.usedAt = usedAt;
+    }
+
     public Date getEndDate() {
         return endDate;
     }
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

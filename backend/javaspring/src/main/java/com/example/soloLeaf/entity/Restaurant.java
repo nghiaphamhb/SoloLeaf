@@ -43,9 +43,6 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Promo> promoList;
 
-    @OneToMany(mappedBy = "restaurant")
-    private List<Order> orderList;
-
     public int getId() {
         return id;
     }
@@ -134,11 +131,4 @@ public class Restaurant {
         this.promoList = promoList;
     }
 
-    public List<Order> getOrdersList() {
-        return orderList;
-    }
-
-    public void setOrdersList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
 }

@@ -3,8 +3,9 @@ import { Box, CircularProgress, Typography, Alert } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import { useDispatch } from "react-redux";
-import { clearCart } from "../../store/cartSlice.js";
+import { clearCart, clearPromoCode } from "../../store/cartSlice.js";
 import "../../styles/checkout.css";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function PaymentProcessingPage() {
   const [params] = useSearchParams();
@@ -38,11 +39,12 @@ export default function PaymentProcessingPage() {
 
         if (data?.status === "DELIVERING" || data?.status === "DONE") {
           dispatch(clearCart());
+          dispatch(clearPromoCode());
           navigate("/orders", { replace: true });
           return;
         }
       } catch (e) {
-        console.error(e);
+        Bugsnag.notify(new Error(e.message));
       }
 
       setAttempts((a) => {

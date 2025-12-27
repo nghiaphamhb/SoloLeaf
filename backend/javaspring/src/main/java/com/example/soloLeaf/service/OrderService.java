@@ -26,12 +26,8 @@ public class OrderService implements OrderServiceImp {
             Users user = new Users();
             user.setId(orderRequest.getUserId());
 
-            Restaurant restaurant = new Restaurant();
-            restaurant.setId(orderRequest.getResId());
-
             Order order = new Order();
             order.setUser(user);
-            order.setRestaurant(restaurant);
 
             orderRepository.save(order);  // phai save truoc de tao order id tu dong
 

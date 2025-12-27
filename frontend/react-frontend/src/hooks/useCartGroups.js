@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { selectCartItems, selectCartInitialPrice } from "../store/cartSelector";
+import { selectCartItems, selectCartInitialPrice } from "../store/cartSelector.js";
 
 export function useCartGroups() {
   const items = useSelector(selectCartItems);

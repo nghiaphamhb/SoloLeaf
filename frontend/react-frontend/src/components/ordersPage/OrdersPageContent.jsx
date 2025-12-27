@@ -10,6 +10,7 @@ import {
 import OrderCard from "./OrderCard.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import { toImageUrl } from "../../utils/imageUrl.js";
+import Bugsnag from "../../bugsnag/bugsnag.js";
 
 export default function OrdersPageContent() {
   const [orders, setOrders] = useState([]);
@@ -29,6 +30,7 @@ export default function OrdersPageContent() {
         if (!cancelled) setOrders(Array.isArray(data) ? data : []);
       } catch (e) {
         if (!cancelled) setError(e?.message ? e.message : "Failed to load orders.");
+        Bugsnag.notify(new Error(e.message));
       } finally {
         if (!cancelled) setLoading(false);
       }

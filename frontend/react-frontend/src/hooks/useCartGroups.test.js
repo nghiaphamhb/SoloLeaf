@@ -2,7 +2,7 @@
 
 import { renderHook } from "@testing-library/react";
 import { useCartGroups } from "./useCartGroups";
-import { selectCartItems, selectCartInitialPrice } from "../store/cartSelector";
+import { selectCartItems, selectCartInitialPrice } from "../store/cartSelector.js";
 
 // Mock react-redux useSelector
 jest.mock("react-redux", () => ({

@@ -1,16 +1,25 @@
 package com.example.soloLeaf.payload.request;
 
-import com.example.soloLeaf.dto.FoodDTO;
-
 import java.util.List;
 
 public class CheckoutSessionRequest {
-    private Integer resId;
-    private List<FoodDTO> items;
+    private List<Item> items;
+    private String promoCode;
 
-    public Integer getResId() { return resId; }
-    public void setResId(Integer resId) { this.resId = resId; }
+    public static class Item {
+        private int id;   // foodId
+        private int qty;
 
-    public List<FoodDTO> getItems() { return items; }
-    public void setItems(List<FoodDTO> items) { this.items = items; }
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id; }
+
+        public int getQty() { return qty; }
+        public void setQty(int qty) { this.qty = qty; }
+    }
+
+    public List<Item> getItems() { return items; }
+    public void setItems(List<Item> items) { this.items = items; }
+
+    public String getPromoCode() { return promoCode; }
+    public void setPromoCode(String promoCode) { this.promoCode = promoCode; }
 }

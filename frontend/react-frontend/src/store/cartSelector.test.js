@@ -5,7 +5,7 @@ import {
   selectCartCount,
   selectCartInitialPrice,
   selectCartTotalPrice,
-} from "./cartSelector";
+} from "./cartSelector.js";
 
 describe("cartSelector", () => {
   test("selectCartItems returns items array", () => {
