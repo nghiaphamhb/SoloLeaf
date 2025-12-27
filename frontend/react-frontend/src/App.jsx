@@ -15,14 +15,14 @@ import PaymentProcessingPage from "./pages/private/PaymentProcessingPage.jsx";
 import SpinPage from "./pages/private/mainLayout/SpinPage.jsx";
 import { trackPageView } from "./analytics/ga.js";
 
-function AnalyticsListener() {
+function AnalyticsListener({ children }) {
   const location = useLocation();
 
   useEffect(() => {
     trackPageView(location.pathname + location.search);
   }, [location]);
 
-  return null;
+  return children;
 }
 
 export default function App() {
