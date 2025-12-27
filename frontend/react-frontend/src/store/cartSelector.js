@@ -8,3 +8,5 @@ export const selectCartInitialPrice = (state) =>
 
 // because also dont have discount: total = initial
 export const selectCartTotalPrice = selectCartInitialPrice;
+
+export const selectCartPromoCode = (state) => state.cart.promoCode;

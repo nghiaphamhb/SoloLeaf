@@ -6,6 +6,7 @@ import CategorySubnav from "./CategorySubnav.jsx";
 import MenuFood from "./MenuFood.jsx";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import { useDispatch } from "react-redux";
+import { addItem } from "../../store/cartSlice.js";
 import Bugsnag from "../../bugsnag.js";
 
 export default function RestaurantPageContent({ resId }) {

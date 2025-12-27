@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Box, Drawer, Typography, IconButton, TextField, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
+import Bugsnag from "../../bugsnag.js";
+import { useDispatch } from "react-redux";
+import { clearPromoCode } from "../../store/cartSlice.js";
 
 export default function CartPanel({
   open,
@@ -11,25 +14,42 @@ export default function CartPanel({
   children,
   initialPrice = 0,
   totalPrice = 0,
-  // onApplyDiscount,
+  onApplyDiscount,
 }) {
   const [discountCode, setDiscountCode] = useState("");
-  const [discountHelp, setDiscountHelp] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleApply = () => {
-    setDiscountHelp("Applied!");
+  const handleApply = async () => {
+    const code = discountCode.trim();
+    if (!code) return;
+
+    try {
+      await onApplyDiscount?.(code);
+      setDiscountCode(""); // clear input after apply
+    } catch (e) {
+      Bugsnag.notify(e.message);
+    }
   };
 
   const handleGoCheckout = () => {
-    onClose?.(); // close drawer
-    navigate("/checkout"); // go confirm page
+    onClose?.();
+    navigate("/checkout");
   };
 
   return (
-    <Drawer anchor="right" open={open} onClose={onClose}>
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      TransitionProps={{
+        onEntered: () => {
+          setDiscountCode("");
+        },
+      }}
+    >
       <Box role="presentation" className="cart-panel">
-        {/* Header */}
+        {/* HEADER */}
         <Box className="cart-panel__header">
           <Typography className="cart-panel__title">
             {title} ({count})
@@ -40,7 +60,7 @@ export default function CartPanel({
           </IconButton>
         </Box>
 
-        {/* Body */}
+        {/* BODY */}
         <Box className="cart-panel__body">
           {children ? (
             children
@@ -49,7 +69,7 @@ export default function CartPanel({
           )}
         </Box>
 
-        {/* Footer */}
+        {/* FOOTER */}
         <Box component="footer" className="cart-panel__footer">
           <Box className="cart-summary">
             <Box className="cart-summary__row">
@@ -61,14 +81,17 @@ export default function CartPanel({
               <span>Discount</span>
 
               <Box className="discount-cell">
-                <small className={`discount-help ${discountHelp ? "discount-help--visible" : ""}`}>
-                  {discountHelp}
-                </small>
-
                 <TextField
                   size="small"
                   value={discountCode}
-                  onChange={(e) => setDiscountCode(e.target.value)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setDiscountCode(v);
+
+                    if (!v.trim()) {
+                      dispatch(clearPromoCode());
+                    }
+                  }}
                   placeholder="Enter code"
                   className="discount-input"
                 />

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Box, Typography } from "@mui/material";
-import { incQty, decQty } from "../../store/cartSlice";
+import { incQty, decQty } from "../../store/cartSlice.js";
 import { useCartGroups } from "../../hooks/useCartGroups";
 import CartItemRow from "./CartItemRow.jsx";
 
