@@ -8,6 +8,7 @@ import CartItemRow from "../../components/cart/CartItemRow.jsx";
 import Bugsnag from "../../bugsnag/bugsnag.js";
 import { useSelector } from "react-redux";
 import { selectCartPromoCode } from "../../store/cartSelector.js";
+import { trackEvent } from "../../analytics/ga.js";
 
 function formatRuble(n) {
   const v = Number(n || 0);
@@ -76,6 +77,13 @@ export default function CheckoutConfirmPage() {
         discount: data?.discount || null,
       });
 
+      trackEvent("checkout_session_created", {
+        totalBefore: data?.totalBefore,
+        totalAfter: data?.totalAfter,
+        currency: data?.currency,
+        discount: data?.discount || null,
+      });
+
       const url = data?.url;
       if (!url) {
         Bugsnag.notify(new Error("Invalid payment."));
@@ -89,6 +97,7 @@ export default function CheckoutConfirmPage() {
       const msg = e?.message ? String(e.message) : "Payment init failed.";
       setError(`Payment init failed: ${msg}`);
       Bugsnag.notify(new Error(msg));
+      trackEvent("checkout_error");
     } finally {
       setPaying(false);
     }
