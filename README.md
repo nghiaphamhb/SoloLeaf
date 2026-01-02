@@ -15,13 +15,16 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  View orders history
 -  Search foods / restaurants (⏳)
 -  Mark favorite dishes (⏳)
--  Messaging with restaurant management (⏳)
 -  Lucky spin: Get free discount per day
 -  Edit profile (⏳)
 
-### Admin (⏳)
--  CRUD restaurant / food 
--  Order management 
+[//]: # (-  Messaging with restaurant management &#40;⏳&#41;)
+
+[//]: # (### Admin &#40;⏳&#41;)
+
+[//]: # (-  CRUD restaurant / food )
+
+[//]: # (-  Order management )
 
 ## Tech Stack
 ### Frontend
@@ -40,7 +43,6 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  Analytics: `Google Analytics`
 -  Deployment: `Vercel`
 -  Error Monitoring: `Bugsnag`
--  Cross-Platform: `Docker Compose` (⏳)
 
 ### Backend
 

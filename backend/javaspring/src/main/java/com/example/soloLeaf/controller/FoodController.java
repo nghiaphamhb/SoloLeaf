@@ -33,6 +33,30 @@ public class FoodController {
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<?> searchFoods(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "idAsc") String sort
+    ) {
+        ResponseData responseData = new ResponseData();
+        responseData.setData(foodServiceImp.searchFoods(q, page, size, sort));
+        responseData.setSuccess(true);
+        return ResponseEntity.ok(responseData);
+    }
+
+    @GetMapping("/search-grouped")
+    public ResponseEntity<?> searchFoodsGrouped(
+            @RequestParam String q,
+            @RequestParam(defaultValue = "10") int limitPerRestaurant
+    ) {
+        ResponseData responseData = new ResponseData();
+        responseData.setData(foodServiceImp.searchFoodsGrouped(q, limitPerRestaurant));
+        responseData.setSuccess(true);
+        return ResponseEntity.ok(responseData);
+    }
+
     @GetMapping("/category-menu")
     public ResponseEntity<?> getCategoryMenu() {
         ResponseData responseData = new ResponseData();
