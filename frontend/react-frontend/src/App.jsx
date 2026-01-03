@@ -15,6 +15,7 @@ import SpinPage from "./pages/private/mainLayout/SpinPage.jsx";
 import ProtectedLayout from "./layouts/ProtectedLayout.jsx";
 import CheckoutConfirmPage from "./pages/private/CheckoutConfirmPage.jsx";
 import PaymentProcessingPage from "./pages/private/PaymentProcessingPage.jsx";
+import SearchPage from "./pages/private/mainLayout/SearchPage.jsx";
 
 function AnalyticsListener() {
   const location = useLocation();
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/payment/processing" element={<PaymentProcessingPage />} />
             <Route path="/spin" element={<SpinPage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,316 @@
+/* =========================
+   Search Page (SoloLeaf)
+   Uses tokens from general.css
+   ========================= */
+
+/* Page wrapper: keep warm background, spacing consistent */
+.search-page {
+    flex: 1;
+    padding: 22px 0 28px;
+}
+
+/* Container: align to your main content width */
+.search-page__container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 18px;
+}
+
+.search-page__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Title */
+.search-header__title {
+    font-weight: 800;
+    color: var(--fg);
+    letter-spacing: 0.2px;
+}
+
+/* =========================
+   Search Bar
+   ========================= */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 12px;
+    border-radius: 18px;
+
+    background: var(--paper);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+
+    transition:
+            border-color var(--dur) var(--ease),
+            box-shadow var(--dur) var(--ease),
+            transform var(--dur) var(--ease);
+}
+
+/* Focus ring without changing MUI default too much */
+.search-bar:focus-within {
+    border-color: color-mix(in srgb, var(--brand) 35%, var(--border));
+    box-shadow: 0 10px 28px rgb(0 0 0 / 8%);
+    transform: translateY(-1px);
+}
+
+.search-bar__input {
+    flex: 1;
+    color: var(--fg);
+}
+
+/* (Optional) make the placeholder softer */
+.search-bar__input input::placeholder {
+    color: color-mix(in srgb, var(--fg-muted) 75%, transparent);
+}
+
+/* =========================
+   Cards (Filters / Results)
+   ========================= */
+.search-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+/* Inner padding for non-MUI wrapper blocks */
+.search-card__content {
+    padding: 16px 16px 18px;
+}
+
+/* =========================
+   Filters (Accordion)
+   ========================= */
+.filters__summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.filters__title {
+    font-weight: 800;
+    color: var(--fg);
+}
+
+/* Chips summary */
+.filters__chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-left: 6px;
+}
+
+/* Let chips look like your warm UI */
+.filters__chips .MuiChip-root {
+    background: color-mix(in srgb, var(--paper) 75%, var(--bg));
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+    font-weight: 600;
+}
+
+/* Layout row */
+.filters__row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Field sizing */
+.filters__field {
+    min-width: 180px;
+    flex: 1;
+}
+
+/* Actions on the right */
+.filters__actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* Buttons: match brand gradient vibe */
+.filters__actions .MuiButton-contained {
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    color: white;
+    border-radius: 999px;
+    padding: 8px 18px;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.filters__actions .MuiButton-contained:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.filters__actions .MuiButton-outlined {
+    border-radius: 999px;
+    border-color: color-mix(in srgb, var(--brand) 25%, var(--border));
+    color: var(--brand);
+    padding: 8px 16px;
+}
+
+/* Accordion polish: remove default gutters / divider feel */
+.search-card .MuiAccordion-root {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.search-card .MuiAccordionSummary-root {
+    padding: 6px 14px;
+}
+
+.search-card .MuiAccordionSummary-content {
+    margin: 10px 0;
+}
+
+/* =========================
+   Results header
+   ========================= */
+.results__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.results__title {
+    font-weight: 800;
+    color: var(--fg);
+}
+
+/* =========================
+   Food Cards
+   ========================= */
+.food-card {
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: var(--shadow-sm);
+
+    transition:
+            transform var(--dur) var(--ease),
+            box-shadow var(--dur) var(--ease),
+            border-color var(--dur) var(--ease);
+}
+
+.food-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--brand) 18%, var(--border));
+}
+
+/* Image area */
+.food-card__media {
+    height: 160px;
+    background: color-mix(in srgb, var(--paper) 70%, var(--bg));
+}
+
+/* Title and price */
+.food-card__title {
+    font-weight: 800;
+    color: var(--fg);
+}
+
+.food-card__price {
+    font-weight: 900;
+    font-size: 0.5rem;
+    color: var(--fg);
+    background: rgba(255, 165, 0, 0.36);
+    padding: 1px 5px;
+    border-radius: 999px;
+}
+
+/* Chips inside card */
+.food-card .MuiChip-root {
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgb(228, 244, 228);
+    color: var(--fg-muted);
+    font-weight: 700;
+}
+
+/* Add button */
+.food-card .MuiButton-contained {
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    border-radius: 999px;
+    padding: 8px 16px;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.food-card .MuiButton-contained:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Load more */
+.results__loadmore {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.results__loadmore .MuiButton-outlined {
+    border-radius: 999px;
+    padding: 8px 18px;
+    border-color: color-mix(in srgb, var(--brand) 25%, var(--border));
+    color: var(--brand);
+}
+
+/* Empty state spacing */
+.search-empty {
+    padding: 30px 0 26px;
+    text-align: center;
+    color: var(--fg-muted);
+}
+/* Pagination arrows */
+.results__header .MuiIconButton-root {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--paper) 70%, var(--bg));
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.results__header .MuiIconButton-root:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.results__header .MuiIconButton-root.Mui-disabled {
+    opacity: 0.45;
+    box-shadow: none;
+}
+
+/* =========================
+   Responsive tweaks
+   ========================= */
+@media (max-width: 600px) {
+    .search-page__container {
+        padding: 0 12px;
+    }
+
+    .search-card__content {
+        padding: 14px;
+    }
+
+    .filters__actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .food-card__media {
+        height: 150px;
+    }
+}
