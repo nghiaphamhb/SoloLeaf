@@ -25,10 +25,10 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
     List<Object[]> findRestaurantInfoByFoodId(@Param("foodId") int foodId);
 
     @Query("""
-        SELECT f FROM Food f
-        WHERE (:q IS NULL OR LOWER(f.title) LIKE LOWER(CONCAT('%', :q, '%')))
+      SELECT f FROM Food f
+      WHERE LOWER(f.title) LIKE LOWER(CONCAT('%', :q, '%'))
     """)
-    Page<Food> searchFoods(@Param("q") String q, Pageable pageable);
+    Page<Food> searchByTitle(@Param("q") String q, Pageable pageable);
 
     @Query("""
     select new com.example.soloLeaf.dto.searchPage.projection.FoodSearchRow(

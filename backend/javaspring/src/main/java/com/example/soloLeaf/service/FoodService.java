@@ -90,29 +90,35 @@ public class FoodService implements FoodServiceImp {
 
     @Override
     public PageDTO<FoodDTO> searchFoods(String q, int page, int size, String sort) {
+        String qq = (q == null || q.isBlank()) ? null : q.trim();
+
+        // If no query, return empty page instead of full list
+        if (qq == null) {
+            return new PageDTO<>(
+                    List.of(),
+                    page,
+                    size,
+                    0,
+                    0
+            );
+        }
+
         Sort s = switch (sort == null ? "" : sort) {
             case "priceAsc" -> Sort.by(Sort.Direction.ASC, "price");
             case "priceDesc" -> Sort.by(Sort.Direction.DESC, "price");
-            case "idDesc" -> Sort.by(Sort.Direction.DESC, "id");
             default -> Sort.by(Sort.Direction.ASC, "id");
         };
 
         PageRequest pr = PageRequest.of(page, size, s);
 
-        String query = (q == null || q.isBlank()) ? null : q.trim();
-        Page<Food> result = foodRepository.searchFoods(query, pr);
+        Page<Food> result = foodRepository.searchByTitle(qq, pr);
 
         List<FoodDTO> items = result.getContent().stream()
                 .map(this::toFoodDTO)
                 .toList();
 
-        return new PageDTO<>(
-                items,
-                result.getNumber(),
-                result.getSize(),
-                result.getTotalElements(),
-                result.getTotalPages()
-        );
+        return new PageDTO<>(items, result.getNumber(), result.getSize(),
+                result.getTotalElements(), result.getTotalPages());
     }
 
     /** Map Food entity to FoodDTO */
