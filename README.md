@@ -9,14 +9,14 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 ## Features
 ### User
--  Register / Login / log out
--  Order foods
--  Pay the bills (support discount by restaurants)
--  View orders history
--  Search foods / restaurants (⏳)
--  Mark favorite dishes (⏳)
--  Lucky spin: Get free discount per day
--  Edit profile (⏳)
+-  **Register / Login / log out**
+-  **Order foods** (support shopping cart)
+-  **Pay bills** (support discount by restaurants)
+-  **View orders history**
+-  **Search foods** (All/ By restaurants)
+-  **Mark favorite dishes** (⏳)
+-  **Lucky spin** (Get free discount by restaurants)
+-  **Edit profile** (⏳)
 
 [//]: # (-  Messaging with restaurant management &#40;⏳&#41;)
 
