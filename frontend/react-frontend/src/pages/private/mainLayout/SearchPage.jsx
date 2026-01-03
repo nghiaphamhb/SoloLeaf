@@ -4,9 +4,9 @@ import SearchPageContent from "../../../components/searchPage/SearchPageContent.
 import "../../../styles/spin.css";
 
 export default function SearchPage() {
-    return (
-        <MainLayout>
-            <SearchPageContent />
-        </MainLayout>
-    );
+  return (
+    <MainLayout>
+      <SearchPageContent />
+    </MainLayout>
+  );
 }
