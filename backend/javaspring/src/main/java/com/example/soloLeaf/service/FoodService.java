@@ -86,10 +86,19 @@ public class FoodService implements FoodServiceImp {
     }
 
     @Override
-    public PageDTO<FoodDTO> searchFoods(String q, Integer restaurantId, int page, int size, String sort) {
+    public PageDTO<FoodDTO> searchFoods(
+            String q,
+            Integer restaurantId,
+            Double minPrice,
+            Double maxPrice,
+            Boolean freeShip,
+            int page,
+            int size,
+            String sort
+    ) {
         String qq = (q == null || q.isBlank()) ? null : q.trim();
 
-        // If no query, return empty page instead of full list
+        // if no query -> return empty page (avoid returning full list)
         if (qq == null) {
             return new PageDTO<>(
                     List.of(),
@@ -108,7 +117,28 @@ public class FoodService implements FoodServiceImp {
 
         PageRequest pr = PageRequest.of(page, size, s);
 
-        Page<Food> result = foodRepository.searchFoods(qq, restaurantId, pr);
+        // Normalize filters (safe)
+        Double min = minPrice;
+        Double max = maxPrice;
+
+        // If user accidentally swaps min/max, you can auto-fix (safe)
+        if (min != null && max != null && min > max) {
+            double tmp = min;
+            min = max;
+            max = tmp;
+        }
+
+        // freeShip: if null -> ignore filter; if true/false -> filter exactly
+        Boolean fs = freeShip;
+
+        Page<Food> result = foodRepository.searchFoods(
+                qq,
+                restaurantId,
+                min,
+                max,
+                fs,
+                pr
+        );
 
         List<FoodDTO> items = result.getContent().stream()
                 .map(this::toFoodDTO)

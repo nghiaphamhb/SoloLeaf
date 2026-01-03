@@ -17,6 +17,15 @@ public interface FoodServiceImp {
 
     List<CategoryMenuDTO> getMenuInHomePage();
 
-    PageDTO<FoodDTO> searchFoods(String q, Integer restaurantId, int page, int size, String sort);
+    PageDTO<FoodDTO> searchFoods(
+            String q,
+            Integer restaurantId,
+            Double minPrice,
+            Double maxPrice,
+            Boolean freeShip,
+            int page,
+            int size,
+            String sort
+    );
 
 }

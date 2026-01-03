@@ -23,17 +23,22 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
     List<Object[]> findRestaurantInfoByFoodId(@Param("foodId") int foodId);
 
     @Query("""
-      SELECT DISTINCT f
-      FROM Food f
-      JOIN f.category c
-      JOIN c.menuRestaurants mr
-      JOIN mr.restaurant r
-      WHERE LOWER(f.title) LIKE LOWER(CONCAT('%', :q, '%'))
-        AND (:restaurantId IS NULL OR r.id = :restaurantId)
+        SELECT f
+        FROM Food f
+        JOIN f.category c
+        JOIN c.menuRestaurants mr
+        WHERE (:q IS NULL OR LOWER(f.title) LIKE LOWER(CONCAT('%', :q, '%')))
+          AND (:restaurantId IS NULL OR mr.restaurant.id = :restaurantId)
+          AND (:minPrice IS NULL OR f.price >= :minPrice)
+          AND (:maxPrice IS NULL OR f.price <= :maxPrice)
+          AND (:freeShip IS NULL OR f.isFreeShip = :freeShip)
     """)
     Page<Food> searchFoods(
             @Param("q") String q,
             @Param("restaurantId") Integer restaurantId,
+            @Param("minPrice") Double minPrice,
+            @Param("maxPrice") Double maxPrice,
+            @Param("freeShip") Boolean freeShip,
             Pageable pageable
     );
 

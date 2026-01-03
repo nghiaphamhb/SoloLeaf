@@ -38,7 +38,7 @@
   gap: 10px;
   padding: 10px 12px;
   border-radius: 18px;
-  background: var(--paper);
+  background: white;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   transition:
@@ -70,7 +70,7 @@
    Cards (Filters / Results)
    ========================= */
 .search-card {
-  background: var(--paper);
+  background: white;
   border: 1px solid var(--border);
   border-radius: 22px;
   box-shadow: var(--shadow-sm);
@@ -107,7 +107,7 @@
 
 /* Let chips look like your warm UI */
 .filters__chips .MuiChip-root {
-  background: color-mix(in srgb, var(--paper) 75%, var(--bg));
+  background: var(--brand-2);
   border: 1px solid var(--border);
   color: var(--fg-muted);
   font-weight: 600;
@@ -226,7 +226,7 @@
 /* Image area */
 .food-card__media {
   height: 160px;
-  background: color-mix(in srgb, var(--paper) 70%, var(--bg));
+  background: white;
 }
 
 /* Title and price */
@@ -339,10 +339,12 @@
   border-radius: 999px;
   font-weight: 700;
   padding: 0 2px;
+  background: #e4f4e4;
+  color: green;
 }
 
 .search-tabs {
-  background: var(--paper);
+  background: white;
   border: 1px solid var(--border);
   border-radius: 18px;
   box-shadow: var(--shadow-sm);
@@ -356,7 +358,7 @@
   font-weight: 800;
   min-height: 44px;
   border-radius: 999px;
-  color: var(--fg-muted);
+  color: gray;
 }
 
 /* Màu chữ tab đang được chọn */

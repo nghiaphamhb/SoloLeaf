@@ -7,6 +7,7 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import Bugsnag from "../../bugsnag/bugsnag.js";
 import RestaurantTabs from "./RestaurantTabs.jsx";
 
+// get keyword in the search bar after the time
 function useDebouncedValue(value, delayMs) {
   const [debounced, setDebounced] = useState(value);
 
@@ -43,6 +44,13 @@ export default function SearchPageContent() {
   const baseParams = useMemo(() => {
     return { size: 4, sort: "idAsc" };
   }, []);
+
+  const [filters, setFilters] = useState({
+    minPrice: "",
+    maxPrice: "",
+    freeShip: false,
+    sort: baseParams.sort, // "idAsc"
+  });
 
   const fetchTabs = async () => {
     try {
@@ -82,7 +90,7 @@ export default function SearchPageContent() {
     }
   };
 
-  const fetchFoods = async (nextPage, tabValue = activeTab) => {
+  const fetchFoods = async (nextPage, tabValue = activeTab, f = filters) => {
     setLoading(true);
     try {
       const url = buildUrl("/api/food", {
@@ -90,7 +98,11 @@ export default function SearchPageContent() {
         restaurantId: tabValue === "all" ? undefined : tabValue,
         page: nextPage,
         size: baseParams.size,
-        sort: baseParams.sort,
+        sort: f.sort,
+
+        minPrice: f.minPrice || undefined,
+        maxPrice: f.maxPrice || undefined,
+        freeShip: f.freeShip ? true : undefined,
       });
 
       const res = await apiRequest(url, { method: "GET" });
@@ -114,19 +126,19 @@ export default function SearchPageContent() {
 
   const handleTabChange = (tabValue) => {
     setActiveTab(tabValue);
-    fetchFoods(0, tabValue);
+    fetchFoods(0, tabValue, filters);
   };
 
   const handlePrevPage = () => {
     if (loading) return;
     if (pageInfo.page <= 0) return;
-    fetchFoods(pageInfo.page - 1, activeTab);
+    fetchFoods(pageInfo.page - 1, activeTab, filters);
   };
 
   const handleNextPage = () => {
     if (loading) return;
     if (pageInfo.page >= pageInfo.totalPages - 1) return;
-    fetchFoods(pageInfo.page + 1, activeTab);
+    fetchFoods(pageInfo.page + 1, activeTab, filters);
   };
 
   useEffect(() => {
@@ -141,7 +153,22 @@ export default function SearchPageContent() {
       <div className="search-page__container">
         <div className="search-page__stack">
           <SearchHeader q={q} setQ={setQ} />
-          <SearchFilters />
+          <SearchFilters
+            filters={filters}
+            onChange={setFilters}
+            onApply={() => fetchFoods(0, activeTab)}
+            onReset={() => {
+              const next = {
+                minPrice: "",
+                maxPrice: "",
+                freeShip: false,
+                sort: baseParams.sort,
+              };
+
+              setFilters(next);
+              fetchFoods(0, activeTab, next);
+            }}
+          />
           <RestaurantTabs tabs={restaurantTabs} activeTab={activeTab} onChange={handleTabChange} />
           <SearchResults
             items={items}
