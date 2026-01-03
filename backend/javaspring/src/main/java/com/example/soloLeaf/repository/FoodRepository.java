@@ -1,9 +1,7 @@
 package com.example.soloLeaf.repository;
 
-import com.example.soloLeaf.dto.searchPage.projection.FoodSearchRow;
 import com.example.soloLeaf.entity.Food;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,31 +23,20 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
     List<Object[]> findRestaurantInfoByFoodId(@Param("foodId") int foodId);
 
     @Query("""
-      SELECT f FROM Food f
+      SELECT DISTINCT f
+      FROM Food f
+      JOIN f.category c
+      JOIN c.menuRestaurants mr
+      JOIN mr.restaurant r
       WHERE LOWER(f.title) LIKE LOWER(CONCAT('%', :q, '%'))
+        AND (:restaurantId IS NULL OR r.id = :restaurantId)
     """)
-    Page<Food> searchByTitle(@Param("q") String q, Pageable pageable);
+    Page<Food> searchFoods(
+            @Param("q") String q,
+            @Param("restaurantId") Integer restaurantId,
+            Pageable pageable
+    );
 
-    @Query("""
-    select new com.example.soloLeaf.dto.searchPage.projection.FoodSearchRow(
-        f.id,
-        f.image,
-        f.title,
-        f.price,
-        f.isFreeShip,
-        f.timeShip,
-        r.id,
-        r.title,
-        r.image
-    )
-    from Food f
-    join f.category c
-    join c.menuRestaurants mr
-    join mr.restaurant r
-    where (:q is null or lower(f.title) like lower(concat('%', :q, '%')))
-    order by r.id asc, f.id asc
-""")
-    List<FoodSearchRow> searchFoodsGrouped(@Param("q") String q);
 
 
 }

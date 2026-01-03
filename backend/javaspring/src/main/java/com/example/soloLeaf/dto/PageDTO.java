@@ -1,4 +1,4 @@
-package com.example.soloLeaf.dto.searchPage;
+package com.example.soloLeaf.dto;
 
 import java.util.List;
 

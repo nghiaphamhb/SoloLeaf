@@ -43,12 +43,14 @@
   box-shadow: var(--shadow-sm);
   transition:
     border-color var(--dur) var(--ease),
+    border-width var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease),
     transform var(--dur) var(--ease);
 }
 
 /* Focus ring without changing MUI default too much */
 .search-bar:focus-within {
+  border-width: 2px;
   border-color: color-mix(in srgb, var(--brand) 35%, var(--border));
   box-shadow: 0 10px 28px rgb(0 0 0 / 8%);
   transform: translateY(-1px);
@@ -337,4 +339,32 @@
   border-radius: 999px;
   font-weight: 700;
   padding: 0 2px;
+}
+
+.search-tabs {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: 6px 10px;
+  overflow: hidden;
+}
+
+/* Màu chữ tab mặc định */
+.search-tabs .MuiTab-root {
+  text-transform: none;
+  font-weight: 800;
+  min-height: 44px;
+  border-radius: 999px;
+  color: var(--fg-muted);
+}
+
+/* Màu chữ tab đang được chọn */
+.search-tabs .MuiTab-root.Mui-selected {
+  color: var(--brand); /* màu brand */
+  font-weight: 700;
+}
+
+.search-tabs .MuiTabs-indicator {
+  height: 0; /* bỏ line indicator */
 }

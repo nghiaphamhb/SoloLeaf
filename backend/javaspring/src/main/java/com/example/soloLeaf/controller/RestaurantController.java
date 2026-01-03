@@ -61,4 +61,15 @@ public class RestaurantController {
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
+    @GetMapping("/tabs")
+    public ResponseEntity<?> getRestaurantTabs(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "6") int limit
+    ) {
+        ResponseData responseData = new ResponseData();
+        responseData.setData(restaurantServiceImp.getRestaurantTabs(q, limit));
+        responseData.setSuccess(true);
+        return ResponseEntity.ok(responseData);
+    }
+
 }

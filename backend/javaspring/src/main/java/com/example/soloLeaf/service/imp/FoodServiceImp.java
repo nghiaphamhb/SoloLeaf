@@ -2,8 +2,7 @@ package com.example.soloLeaf.service.imp;
 
 import com.example.soloLeaf.dto.CategoryMenuDTO;
 import com.example.soloLeaf.dto.FoodDTO;
-import com.example.soloLeaf.dto.searchPage.GroupedFoodSearchDTO;
-import com.example.soloLeaf.dto.searchPage.PageDTO;
+import com.example.soloLeaf.dto.PageDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public interface FoodServiceImp {
 
     List<CategoryMenuDTO> getMenuInHomePage();
 
-    PageDTO<FoodDTO> searchFoods(String q, int page, int size, String sort);
+    PageDTO<FoodDTO> searchFoods(String q, Integer restaurantId, int page, int size, String sort);
 
-    GroupedFoodSearchDTO searchFoodsGrouped(String q, int limitPerRestaurant);
 }
