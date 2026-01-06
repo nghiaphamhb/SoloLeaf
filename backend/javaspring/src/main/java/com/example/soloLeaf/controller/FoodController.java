@@ -33,24 +33,6 @@ public class FoodController {
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<?> searchFoods(
-            @RequestParam(required = false) String q,
-            @RequestParam(required = false) Integer restaurantId,
-            @RequestParam(required = false) Double minPrice,
-            @RequestParam(required = false) Double maxPrice,
-            @RequestParam(required = false) Boolean freeShip,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "idAsc") String sort
-    ) {
-        ResponseData responseData = new ResponseData();
-        responseData.setData(foodServiceImp.searchFoods(q, restaurantId, minPrice, maxPrice, freeShip, page, size, sort));
-        responseData.setSuccess(true);
-        return ResponseEntity.ok(responseData);
-    }
-
-
     @GetMapping("/category-menu")
     public ResponseEntity<?> getCategoryMenu() {
         ResponseData responseData = new ResponseData();

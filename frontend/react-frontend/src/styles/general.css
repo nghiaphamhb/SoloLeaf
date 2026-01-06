@@ -5,12 +5,12 @@
 :root {
   /* Brand colors */
   --brand: #8a1538;
-  --brand-2: rgb(204 64 21 / 87%);
+  --brand-2: #c0410b;
   --accent: rgb(194 69 11 / 65%);
 
   /* Text colors */
-  --fg: rgb(43 43 43);
-  --fg-muted: #fff;
+  --fg: #2b2b2b;
+  --fg-muted: #666;
 
   /* Backgrounds (warm – không trắng gắt) */
   --bg: #f6f3ef; /* nền page */

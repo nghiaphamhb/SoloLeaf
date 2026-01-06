@@ -14,14 +14,6 @@ public class RestaurantDTO {
     private boolean isFreeship;
     List<CategoryMenuDTO> categories;
 
-    public RestaurantDTO() {
-    }
-
-    public RestaurantDTO(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
     public int getId() {
         return id;
     }

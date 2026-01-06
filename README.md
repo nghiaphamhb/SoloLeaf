@@ -9,23 +9,19 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 ## Features
 ### User
--  **Register / Login / log out**
--  **Order foods** (support shopping cart)
--  **Pay bills** (support discount by restaurants)
--  **View orders history**
--  **Search foods** (support EN/RUS, suggestion by AI-lite)
--  **Lucky spin** (Get free discount by restaurants)
--  **Chatbot** supports ordering (⏳)
+-  Register / Login / log out
+-  Order foods
+-  Pay the bills (support discount by restaurants)
+-  View orders history
+-  Search foods / restaurants (⏳)
+-  Mark favorite dishes (⏳)
+-  Messaging with restaurant management (⏳)
+-  Lucky spin: Get free discount per day
+-  Edit profile (⏳)
 
-[//]: # (-  **Mark favorite dishes** &#40;⏳&#41;)
-
-[//]: # (-  **Edit profile** &#40;⏳&#41;)
-
-[//]: # (### Admin &#40;⏳&#41;)
-
-[//]: # (-  CRUD restaurant / food )
-
-[//]: # (-  Order management )
+### Admin (⏳)
+-  CRUD restaurant / food 
+-  Order management 
 
 ## Tech Stack
 ### Frontend
@@ -40,10 +36,11 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
     - 2E2 Testing: `Cypress`
 -  Component Libraries: `Material UI`
 -  Web APIs: `Canvas 2D` + `Clipboard`
--  Web Worker: **AI-lite** ranks search's results (_by keyword relevance, free-ship, rating_)
+-  Web Worker: (⏳)
 -  Analytics: `Google Analytics`
 -  Deployment: `Vercel`
 -  Error Monitoring: `Bugsnag`
+-  Cross-Platform: `Docker Compose` (⏳)
 
 ### Backend
 
@@ -55,15 +52,9 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  Testing: `Maven build` + `Docker image build`
 -  Deployment: `Render (Docker Web Service)`
 
-#### Microservices
+#### Microservices (⏳)
 -  Language: `JavaScript`
--  Runtime: `Node.js`
 -  Framework: `Express.js`
--  Middleware: `morgan` _(HTTP request logger)_ 
-- Roles: 
-  - **AI-lite Smart Search** (_query normalization, RU→EN mapping, suggestion handling_)
-
--  Deployment: `Render`
 
 ### Database
 - Database: `PostgreSQL`

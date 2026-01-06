@@ -17,6 +17,5 @@ public interface RestaurantServiceImp{
 
     List<RestaurantDTO> getHomePageRestaurants();
     RestaurantDTO getDetailRestaurant(int id);
-    List<RestaurantDTO> getRestaurantTabs(String q, int limit);
 
 }
