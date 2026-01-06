@@ -13,7 +13,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  **Order foods** (support shopping cart)
 -  **Pay bills** (support discount by restaurants)
 -  **View orders history**
--  **Search foods** (support EN/RUS, AI-lite)
+-  **Search foods** (support EN/RUS, suggestion by AI-lite)
 -  **Lucky spin** (Get free discount by restaurants)
 -  **Chatbot** supports ordering (⏳)
 
@@ -61,7 +61,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  Framework: `Express.js`
 -  Middleware: `morgan` _(HTTP request logger)_ 
 - Roles: 
-  - **AI-lite Smart Search** (_query normalization, RU→EN mapping, typo & synonym handling_)
+  - **AI-lite Smart Search** (_query normalization, RU→EN mapping, suggestion handling_)
 
 -  Deployment: `Render`
 
