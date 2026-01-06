@@ -2,7 +2,7 @@
 
 ## Demo
 
-[Video demo](https://drive.google.com/file/d/1j-fzAcYqbOizmSRsecNJhSi6gncerSQ1/view?usp=sharing)
+[Video demo](https://drive.google.com/file/d/1L_Gg-33aF4DokJFMSnVUW7ih2RCmkFRp/view?usp=sharing)
 
 ## Overview
 SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **frontend + backend + database**.
