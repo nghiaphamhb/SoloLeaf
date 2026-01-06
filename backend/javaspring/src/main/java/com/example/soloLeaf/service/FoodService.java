@@ -2,6 +2,7 @@ package com.example.soloLeaf.service;
 
 import com.example.soloLeaf.dto.CategoryMenuDTO;
 import com.example.soloLeaf.dto.FoodDTO;
+import com.example.soloLeaf.dto.PageDTO;
 import com.example.soloLeaf.entity.Category;
 import com.example.soloLeaf.entity.Food;
 import com.example.soloLeaf.repository.CategoryRepository;
@@ -83,4 +84,87 @@ public class FoodService implements FoodServiceImp {
 
         return listCategoryMenuDTO;
     }
+
+    @Override
+    public PageDTO<FoodDTO> searchFoods(
+            String q,
+            Integer restaurantId,
+            Double minPrice,
+            Double maxPrice,
+            Boolean freeShip,
+            int page,
+            int size,
+            String sort
+    ) {
+        String qq = (q == null || q.isBlank()) ? null : q.trim();
+
+        // if no query -> return empty page (avoid returning full list)
+        if (qq == null) {
+            return new PageDTO<>(
+                    List.of(),
+                    page,
+                    size,
+                    0,
+                    0
+            );
+        }
+
+        Sort s = switch (sort == null ? "" : sort) {
+            case "priceAsc" -> Sort.by(Sort.Direction.ASC, "price");
+            case "priceDesc" -> Sort.by(Sort.Direction.DESC, "price");
+            default -> Sort.by(Sort.Direction.ASC, "id");
+        };
+
+        PageRequest pr = PageRequest.of(page, size, s);
+
+        // Normalize filters (safe)
+        Double min = minPrice;
+        Double max = maxPrice;
+
+        // If user accidentally swaps min/max, you can auto-fix (safe)
+        if (min != null && max != null && min > max) {
+            double tmp = min;
+            min = max;
+            max = tmp;
+        }
+
+        // freeShip: if null -> ignore filter; if true/false -> filter exactly
+        Boolean fs = freeShip;
+
+        Page<Food> result = foodRepository.searchFoods(
+                qq,
+                restaurantId,
+                min,
+                max,
+                fs,
+                pr
+        );
+
+        List<FoodDTO> items = result.getContent().stream()
+                .map(this::toFoodDTO)
+                .toList();
+
+        return new PageDTO<>(
+                items,
+                result.getNumber(),
+                result.getSize(),
+                result.getTotalElements(),
+                result.getTotalPages()
+        );
+    }
+
+    /** Map Food entity to FoodDTO */
+    private FoodDTO toFoodDTO(Food f) {
+        FoodDTO dto = new FoodDTO();
+        dto.setId(f.getId());
+        dto.setImage(f.getImage());
+        dto.setTitle(f.getTitle());
+        dto.setPrice(f.getPrice());
+        dto.setFreeShip(f.isFreeShip());
+        dto.setTimeShip(f.getTimeShip());
+        // dto.setRating(...); // optional
+        return dto;
+    }
+
+
 }

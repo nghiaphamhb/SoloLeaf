@@ -9,6 +9,7 @@ import com.example.soloLeaf.service.imp.RestaurantServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -149,6 +150,15 @@ public class RestaurantService implements RestaurantServiceImp {
         return dto;
     }
 
+    @Override
+    public List<RestaurantDTO> getRestaurantTabs(String q, int limit) {
+        String query = (q == null || q.isBlank()) ? null : q.trim();
+        int safeLimit = Math.max(1, Math.min(limit, 30)); // giới hạn tránh spam
+
+        Pageable pageable = PageRequest.of(0, safeLimit);
+        return restaurantRepository.findTabsByFoodQuery(query, pageable);
+    }
+
     private double calculatorRating (List<RatingRestaurant> ratingRestaurantList){
         double totalPoint = 0;
         for (RatingRestaurant ratingRestaurant : ratingRestaurantList) {
@@ -156,7 +166,5 @@ public class RestaurantService implements RestaurantServiceImp {
         }
         return totalPoint / ratingRestaurantList.size();
     }
-
-
 
 }

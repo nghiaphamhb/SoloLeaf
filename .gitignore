@@ -6,6 +6,7 @@ log/
 # backend
 backend/javaspring/target/
 backend/javaspring/.idea/
+backend/nodejs-microservices/node_modules/
 backend/log/
 backend/sql/
 
