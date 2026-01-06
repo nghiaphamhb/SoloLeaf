@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import SearchHeader from "./SearchHeader.jsx";
 import SearchFilters from "./SearchFilters.jsx";
 import SearchResults from "./SearchResults.jsx";
@@ -6,6 +6,7 @@ import "../../styles/search.css";
 import { apiRequest } from "../../apis/request/apiRequest.js";
 import Bugsnag from "../../bugsnag/bugsnag.js";
 import RestaurantTabs from "./RestaurantTabs.jsx";
+import SearchRankWorker from "../../workers/searchRank.worker.js?worker";
 
 // get keyword in the search bar after the time
 function useDebouncedValue(value, delayMs) {
@@ -40,6 +41,27 @@ export default function SearchPageContent() {
 
   const [restaurantTabs, setRestaurantTabs] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
+
+  const [rankedItems, setRankedItems] = useState([]);
+
+  const workerRef = useRef(null);
+  const reqIdRef = useRef(0);
+
+  useEffect(() => {
+    workerRef.current = new SearchRankWorker();
+
+    workerRef.current.onmessage = (evt) => {
+      const { reqId, items: out } = evt.data || {};
+      // ignore old responses
+      if (reqId !== reqIdRef.current) return;
+      setRankedItems(out || []);
+    };
+
+    return () => {
+      workerRef.current?.terminate?.();
+      workerRef.current = null;
+    };
+  }, []);
 
   const baseParams = useMemo(() => {
     return { size: 4, sort: "idAsc" };
@@ -107,7 +129,28 @@ export default function SearchPageContent() {
 
       const res = await apiRequest(url, { method: "GET" });
       const data = res?.data;
-      setItems(data?.items ?? []);
+
+      const rawItems = data?.items ?? [];
+      setItems(rawItems);
+
+      if (!workerRef.current) {
+        setRankedItems(rawItems);
+      } else {
+        reqIdRef.current += 1;
+        const rid = reqIdRef.current;
+
+        workerRef.current.postMessage({
+          reqId: rid,
+          query: debouncedQ || "",
+          items: rawItems,
+          options: {
+            preferFreeShip: filters.freeShip,
+            minPrice: filters.minPrice || null,
+            maxPrice: filters.maxPrice || null,
+          },
+        });
+      }
+
       setPageInfo({
         page: data?.page ?? nextPage,
         size: data?.size ?? baseParams.size,
@@ -145,6 +188,8 @@ export default function SearchPageContent() {
     fetchTabs(); // cập nhật danh sách restaurants theo query
     fetchFoods(0, "all"); // query mới thì reset về All trang 0
     setActiveTab("all");
+    setItems([]);
+    setRankedItems([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedQ]);
 
