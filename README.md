@@ -39,7 +39,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
     - 2E2 Testing: `Cypress`
 -  Component Libraries: `Material UI`
 -  Web APIs: `Canvas 2D` + `Clipboard`
--  Web Worker: client-side background ranking for search results
+-  Web Worker: **AI-lite** ranks search's results (_by keyword relevance, free-ship, rating_)
 -  Analytics: `Google Analytics`
 -  Deployment: `Vercel`
 -  Error Monitoring: `Bugsnag`
