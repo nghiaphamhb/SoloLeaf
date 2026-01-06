@@ -39,7 +39,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
     - 2E2 Testing: `Cypress`
 -  Component Libraries: `Material UI`
 -  Web APIs: `Canvas 2D` + `Clipboard`
--  Web Worker: (⏳)
+-  Web Worker: client-side background ranking for search results
 -  Analytics: `Google Analytics`
 -  Deployment: `Vercel`
 -  Error Monitoring: `Bugsnag`
@@ -54,9 +54,12 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  Testing: `Maven build` + `Docker image build`
 -  Deployment: `Render (Docker Web Service)`
 
-#### Microservices (⏳)
+#### Microservices
 -  Language: `JavaScript`
+-  Runtime: `Node.js`
 -  Framework: `Express.js`
+-  Middleware: `morgan` _(HTTP request logger)_ 
+-  Deployment: ?
 
 ### Database
 - Database: `PostgreSQL`
