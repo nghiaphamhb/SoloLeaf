@@ -1,6 +1,8 @@
 import express from "express";
 import { getJson } from "../services/javaClient.js";
 import { cacheGet, cacheSet } from "../services/cache.js";
+import { detectLang, normalizeBasic } from "../services/langDetect.js";
+import { ruToEnQuery } from "../services/ruToEn.js";
 
 const router = express.Router();
 
@@ -9,7 +11,26 @@ router.get("/smart", async (req, res) => {
     try {
         const authHeader = req.headers["authorization"]; // "Bearer ..."
 
-        const q = (req.query.q || "").toString().trim();
+        // Raw query from client
+        const qRaw = (req.query.q || "").toString().trim();
+
+        // EN/RU-only enforcement + normalization
+        const lang = detectLang(qRaw);
+
+        if (lang === "invalid" || lang === "mixed") {
+            return res.json({
+                query: qRaw,
+                detectedLang: lang,
+                error: "Only English or Russian input is supported",
+                tabs: [],
+                page: { page: 0, size: 0, totalPages: 0, totalItems: 0 },
+                items: [],
+            });
+        }
+
+        const qBasic = normalizeBasic(qRaw);
+        const qForSearch = lang === "ru" ? ruToEnQuery(qBasic) : qBasic; // RU -> EN mapping
+
         const page = Number(req.query.page ?? 0);
         const size = Number(req.query.size ?? 4);
         const sort = (req.query.sort || "idAsc").toString();
@@ -23,9 +44,20 @@ router.get("/smart", async (req, res) => {
 
         const limitTabs = Number(req.query.limitTabs ?? 6);
 
+        // Cache key (include language + mapped query)
         const authKey = authHeader ? authHeader.slice(0, 24) : "anon";
         const cacheKey = JSON.stringify({
-            authKey, q, page, size, sort, tab, minPrice, maxPrice, freeShip, limitTabs
+            authKey,
+            q: qForSearch,
+            lang,
+            page,
+            size,
+            sort,
+            tab,
+            minPrice,
+            maxPrice,
+            freeShip,
+            limitTabs,
         });
 
         // check if payload is already in cache -> dont need to call Java
@@ -34,45 +66,51 @@ router.get("/smart", async (req, res) => {
 
         // Call Java APIs in parallel (all/two APIS)
         const [foodsRaw, tabsRaw] = await Promise.all([
-            getJson("/api/food", {
-                q: q || undefined,
-                page,
-                size,
-                sort,
-                restaurantId,
-                minPrice,
-                maxPrice,
-                freeShip
-            },  authHeader),
-            q
-                ? getJson("/api/restaurant/tabs", { q, limit: limitTabs }, authHeader)
-                : Promise.resolve(null)
+            getJson(
+                "/api/food",
+                {
+                    q: qForSearch || undefined, // IMPORTANT: use mapped query
+                    page,
+                    size,
+                    sort,
+                    restaurantId,
+                    minPrice,
+                    maxPrice,
+                    freeShip,
+                },
+                authHeader
+            ),
+            qForSearch
+                ? getJson("/api/restaurant/tabs", { q: qForSearch, limit: limitTabs }, authHeader) // IMPORTANT: use mapped query
+                : Promise.resolve(null),
         ]);
 
         // Handle different Java response shapes:
         // - wrapper { status, data, success }
         // - already unwrapped
         const foods = foodsRaw?.data ?? foodsRaw;
-        const tabsList = tabsRaw ? (Array.isArray(tabsRaw) ? tabsRaw : (tabsRaw?.data ?? [])) : [];
+        const tabsList = tabsRaw ? (Array.isArray(tabsRaw) ? tabsRaw : tabsRaw?.data ?? []) : [];
 
         const payload = {
-            query: q,
+            query: qRaw, // original user query (RU or EN)
+            detectedLang: lang,
+            appliedQuery: qForSearch, // normalized + mapped query used for search
             tabs: tabsList.map((r) => ({ id: r.id, title: r.title, image: r.image ?? null })),
             page: {
                 page: foods?.page ?? page,
                 size: foods?.size ?? size,
                 totalPages: foods?.totalPages ?? 0,
-                totalItems: foods?.totalItems ?? 0
+                totalItems: foods?.totalItems ?? 0,
             },
-            items: foods?.items ?? []
+            items: foods?.items ?? [],
         };
 
-        cacheSet(cacheKey, payload, 45_000);  // 45 seconds
+        cacheSet(cacheKey, payload, 45_000); // 45 seconds
         return res.json(payload);
     } catch (e) {
         return res.status(500).json({
             error: "nodejs-microservices failed",
-            message: e?.message || String(e)
+            message: e?.message || String(e),
         });
     }
 });

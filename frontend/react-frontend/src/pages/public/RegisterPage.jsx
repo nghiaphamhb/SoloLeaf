@@ -110,7 +110,7 @@ export default function RegisterPage() {
 
       <Box className="auth-footer">
         Already have an account?
-        <Link to="/login">Login now</Link>
+        <Link to="/login"> Login now</Link>
       </Box>
       <Box className="auth-footer">
         <Link to="/">Go back</Link>
