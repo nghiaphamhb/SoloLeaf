@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import SearchHeader from "./SearchHeader.jsx";
 import SearchFilters from "./SearchFilters.jsx";
 import SearchResults from "./SearchResults.jsx";
@@ -7,6 +7,19 @@ import { apiRequest } from "../../apis/request/apiRequest.js";
 import Bugsnag from "../../bugsnag/bugsnag.js";
 import RestaurantTabs from "./RestaurantTabs.jsx";
 import SearchRankWorker from "../../workers/searchRank.worker.js?worker";
+
+const SEARCH_BASE = import.meta.env.VITE_SEARCH_BASE || "";
+
+// util to add params into origin url
+const buildAbsUrl = (path, params = {}) => {
+  const usp = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v === undefined || v === null || v === "") return;
+    usp.set(k, String(v));
+  });
+  const qs = usp.toString();
+  return qs ? `${SEARCH_BASE}${path}?${qs}` : `${SEARCH_BASE}${path}`;
+};
 
 // get keyword in the search bar after the time
 function useDebouncedValue(value, delayMs) {
@@ -20,22 +33,10 @@ function useDebouncedValue(value, delayMs) {
   return debounced;
 }
 
-// util to add params into origin url
-function buildUrl(path, params = {}) {
-  const usp = new URLSearchParams();
-  Object.entries(params).forEach(([k, v]) => {
-    if (v === undefined || v === null || v === "") return;
-    usp.set(k, String(v));
-  });
-  const qs = usp.toString();
-  return qs ? `${path}?${qs}` : path;
-}
-
 export default function SearchPageContent() {
   const [q, setQ] = useState("");
   const debouncedQ = useDebouncedValue(q, 400);
 
-  const [items, setItems] = useState([]);
   const [pageInfo, setPageInfo] = useState({ page: 0, size: 4, totalPages: 0 });
   const [loading, setLoading] = useState(false);
 
@@ -47,6 +48,7 @@ export default function SearchPageContent() {
   const workerRef = useRef(null);
   const reqIdRef = useRef(0);
 
+  // if worker has already data
   useEffect(() => {
     workerRef.current = new SearchRankWorker();
 
@@ -74,65 +76,30 @@ export default function SearchPageContent() {
     sort: baseParams.sort, // "idAsc"
   });
 
-  const fetchTabs = async () => {
-    try {
-      if (!debouncedQ) {
-        setRestaurantTabs([]);
-        setActiveTab("all");
-        return;
-      }
-
-      const url = buildUrl("/api/restaurant/tabs", {
-        q: debouncedQ,
-        limit: 6,
-      });
-
-      const res = await apiRequest(url, { method: "GET" });
-
-      const payload = res?.data;
-
-      const list = Array.isArray(payload) ? payload : [];
-
-      const tabs = list.map((r) => ({
-        id: r.id,
-        title: r.title,
-        image: r.image ?? null,
-      }));
-
-      setRestaurantTabs(tabs);
-
-      // Nếu tab đang chọn không còn trong tabs -> reset về All
-      if (activeTab !== "all" && !tabs.some((t) => String(t.id) === String(activeTab))) {
-        setActiveTab("all");
-      }
-    } catch (e) {
-      setRestaurantTabs([]);
-      setActiveTab("all");
-      Bugsnag.notify(e);
-    }
-  };
-
-  const fetchFoods = async (nextPage, tabValue = activeTab, f = filters) => {
+  const fetchSmart = async (nextPage, tabValue = activeTab, f = filters) => {
     setLoading(true);
     try {
-      const url = buildUrl("/api/food", {
+      // prepare query to call api from nodejs
+      const url = buildAbsUrl("/api/search/smart", {
         q: debouncedQ || undefined,
-        restaurantId: tabValue === "all" ? undefined : tabValue,
         page: nextPage,
         size: baseParams.size,
         sort: f.sort,
+        tab: tabValue, // "all" or restaurantId
+        limitTabs: 6,
 
         minPrice: f.minPrice || undefined,
         maxPrice: f.maxPrice || undefined,
         freeShip: f.freeShip ? true : undefined,
       });
 
-      const res = await apiRequest(url, { method: "GET" });
-      const data = res?.data;
+      const data = await apiRequest(url, { method: "GET" });
+
+      setRestaurantTabs(data?.tabs ?? []);
 
       const rawItems = data?.items ?? [];
-      setItems(rawItems);
 
+      // send to worker
       if (!workerRef.current) {
         setRankedItems(rawItems);
       } else {
@@ -144,22 +111,23 @@ export default function SearchPageContent() {
           query: debouncedQ || "",
           items: rawItems,
           options: {
-            preferFreeShip: filters.freeShip,
-            minPrice: filters.minPrice || null,
-            maxPrice: filters.maxPrice || null,
+            preferFreeShip: f.freeShip,
+            minPrice: f.minPrice || null,
+            maxPrice: f.maxPrice || null,
           },
         });
       }
 
       setPageInfo({
-        page: data?.page ?? nextPage,
-        size: data?.size ?? baseParams.size,
-        totalPages: data?.totalPages ?? 0,
+        page: data?.page?.page ?? nextPage,
+        size: data?.page?.size ?? baseParams.size,
+        totalPages: data?.page?.totalPages ?? 0,
       });
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e) {
-      setItems([]);
+      setRestaurantTabs([]);
+      setRankedItems([]);
       setPageInfo({ page: 0, size: baseParams.size, totalPages: 0 });
       Bugsnag.notify(e);
     } finally {
@@ -169,27 +137,24 @@ export default function SearchPageContent() {
 
   const handleTabChange = (tabValue) => {
     setActiveTab(tabValue);
-    fetchFoods(0, tabValue, filters);
+    fetchSmart(0, tabValue, filters);
   };
 
   const handlePrevPage = () => {
     if (loading) return;
     if (pageInfo.page <= 0) return;
-    fetchFoods(pageInfo.page - 1, activeTab, filters);
+    fetchSmart(pageInfo.page - 1, activeTab, filters);
   };
 
   const handleNextPage = () => {
     if (loading) return;
     if (pageInfo.page >= pageInfo.totalPages - 1) return;
-    fetchFoods(pageInfo.page + 1, activeTab, filters);
+    fetchSmart(pageInfo.page + 1, activeTab, filters);
   };
 
   useEffect(() => {
-    fetchTabs(); // cập nhật danh sách restaurants theo query
-    fetchFoods(0, "all"); // query mới thì reset về All trang 0
     setActiveTab("all");
-    setItems([]);
-    setRankedItems([]);
+    fetchSmart(0, "all", filters);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedQ]);
 
@@ -201,22 +166,16 @@ export default function SearchPageContent() {
           <SearchFilters
             filters={filters}
             onChange={setFilters}
-            onApply={() => fetchFoods(0, activeTab)}
+            onApply={() => fetchSmart(0, activeTab, filters)}
             onReset={() => {
-              const next = {
-                minPrice: "",
-                maxPrice: "",
-                freeShip: false,
-                sort: baseParams.sort,
-              };
-
+              const next = { minPrice: "", maxPrice: "", freeShip: false, sort: baseParams.sort };
               setFilters(next);
-              fetchFoods(0, activeTab, next);
+              fetchSmart(0, activeTab, next);
             }}
           />
           <RestaurantTabs tabs={restaurantTabs} activeTab={activeTab} onChange={handleTabChange} />
           <SearchResults
-            items={items}
+            items={rankedItems}
             loading={loading}
             page={pageInfo.page}
             totalPages={pageInfo.totalPages}
