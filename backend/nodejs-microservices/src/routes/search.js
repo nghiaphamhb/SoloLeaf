@@ -1,8 +1,10 @@
 import express from "express";
 import { getJson } from "../services/javaClient.js";
 import { cacheGet, cacheSet } from "../services/cache.js";
+
 import { detectLang, normalizeBasic } from "../services/langDetect.js";
 import { ruToEnQuery } from "../services/ruToEn.js";
+import { normalizeQuery, suggestDidYouMean } from "../services/aiQuery.js";
 
 const router = express.Router();
 
@@ -22,14 +24,22 @@ router.get("/smart", async (req, res) => {
                 query: qRaw,
                 detectedLang: lang,
                 error: "Only English or Russian input is supported",
+                suggestion: null,
                 tabs: [],
                 page: { page: 0, size: 0, totalPages: 0, totalItems: 0 },
                 items: [],
             });
         }
 
+        // Normalize + RU->EN mapping (if needed)
         const qBasic = normalizeBasic(qRaw);
-        const qForSearch = lang === "ru" ? ruToEnQuery(qBasic) : qBasic; // RU -> EN mapping
+        const qForSearch = lang === "ru" ? ruToEnQuery(qBasic) : qBasic;
+        const qNorm = normalizeQuery(qForSearch);
+
+        // IMPORTANT:
+        // suggestion is ONLY for display in FE.
+        // We do NOT retry search using suggestion.
+        const suggestion = qNorm ? suggestDidYouMean(qNorm) : null;
 
         const page = Number(req.query.page ?? 0);
         const size = Number(req.query.size ?? 4);
@@ -44,11 +54,10 @@ router.get("/smart", async (req, res) => {
 
         const limitTabs = Number(req.query.limitTabs ?? 6);
 
-        // Cache key (include language + mapped query)
         const authKey = authHeader ? authHeader.slice(0, 24) : "anon";
         const cacheKey = JSON.stringify({
             authKey,
-            q: qForSearch,
+            q: qNorm, // cache based on actual query used for search (mapped+normalized)
             lang,
             page,
             size,
@@ -64,12 +73,12 @@ router.get("/smart", async (req, res) => {
         const cached = cacheGet(cacheKey);
         if (cached) return res.json(cached);
 
-        // Call Java APIs in parallel (all/two APIS)
+        // Call Java APIs in parallel
         const [foodsRaw, tabsRaw] = await Promise.all([
             getJson(
                 "/api/food",
                 {
-                    q: qForSearch || undefined, // IMPORTANT: use mapped query
+                    q: qNorm || undefined,
                     page,
                     size,
                     sort,
@@ -80,8 +89,8 @@ router.get("/smart", async (req, res) => {
                 },
                 authHeader
             ),
-            qForSearch
-                ? getJson("/api/restaurant/tabs", { q: qForSearch, limit: limitTabs }, authHeader) // IMPORTANT: use mapped query
+            qNorm
+                ? getJson("/api/restaurant/tabs", { q: qNorm, limit: limitTabs }, authHeader)
                 : Promise.resolve(null),
         ]);
 
@@ -92,9 +101,10 @@ router.get("/smart", async (req, res) => {
         const tabsList = tabsRaw ? (Array.isArray(tabsRaw) ? tabsRaw : tabsRaw?.data ?? []) : [];
 
         const payload = {
-            query: qRaw, // original user query (RU or EN)
+            query: qRaw,            // original user query (RU or EN)
             detectedLang: lang,
-            appliedQuery: qForSearch, // normalized + mapped query used for search
+            normalizedQuery: qNorm, // mapped+normalized query used for search
+            suggestion,             // ONLY for FE display
             tabs: tabsList.map((r) => ({ id: r.id, title: r.title, image: r.image ?? null })),
             page: {
                 page: foods?.page ?? page,

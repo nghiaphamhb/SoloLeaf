@@ -45,6 +45,12 @@ export default function SearchPageContent() {
 
   const [rankedItems, setRankedItems] = useState([]);
 
+  const [aiMeta, setAiMeta] = useState({
+    suggestion: null,
+    detectedLang: "en",
+    error: "",
+  });
+
   const workerRef = useRef(null);
   const reqIdRef = useRef(0);
 
@@ -96,6 +102,12 @@ export default function SearchPageContent() {
       const data = await apiRequest(url, { method: "GET" });
 
       setRestaurantTabs(data?.tabs ?? []);
+
+      setAiMeta({
+        suggestion: data?.suggestion ?? null,
+        detectedLang: data?.detectedLang ?? "en",
+        error: data?.error ?? "",
+      });
 
       const rawItems = data?.items ?? [];
 
@@ -162,7 +174,13 @@ export default function SearchPageContent() {
     <div className="search-page">
       <div className="search-page__container">
         <div className="search-page__stack">
-          <SearchHeader q={q} setQ={setQ} />
+          <SearchHeader
+            q={q}
+            setQ={setQ}
+            suggestion={aiMeta.suggestion}
+            detectedLang={aiMeta.detectedLang}
+            error={aiMeta.error}
+          />
           <SearchFilters
             filters={filters}
             onChange={setFilters}

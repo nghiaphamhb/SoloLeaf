@@ -370,3 +370,37 @@
 .search-tabs .MuiTabs-indicator {
   height: 0; /* bỏ line indicator */
 }
+
+.search-header__hint {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-header__hintText {
+  color: var(--brand);
+}
+
+.search-header__didyoumean {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-header__didyoumeanText {
+  color: var(--brand);
+}
+
+.search-header__didyoumeanChip {
+  border: 1px solid var(--border);
+  background: var(--paper);
+}
+
+.search-header__didyoumeanBtn {
+  text-transform: none;
+}
