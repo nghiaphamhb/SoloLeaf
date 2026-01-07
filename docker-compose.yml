@@ -1,0 +1,63 @@
+services:
+#  postgres:
+#    image: postgres:16
+#    container_name: sololeaf-postgres
+#    env_file:
+#      - .env
+#    environment:
+#      POSTGRES_DB: sololeaf
+#      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+#      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+#    networks: [appnet]
+#    restart: unless-stopped
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U ${SPRING_DATASOURCE_USERNAME} -d sololeaf"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+
+  backend:
+    build: ./backend/javaspring
+    container_name: sololeaf-backend
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks: [appnet]
+    restart: unless-stopped
+
+  microservice:
+    build: ./backend/nodejs-microservices
+    container_name: sololeaf-ms
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    ports:
+      - "3001:3000"
+    networks: [appnet]
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend/react-frontend
+    container_name: sololeaf-fe
+    env_file:
+      - .env
+    depends_on:
+      - backend
+      - microservice
+    ports:
+      - "80:80"
+    networks: [appnet]
+    restart: unless-stopped
+
+networks:
+  appnet:
+
+volumes:
+  pgdata:
