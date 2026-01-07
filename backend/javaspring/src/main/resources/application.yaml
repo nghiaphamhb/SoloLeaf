@@ -28,8 +28,10 @@ jwt:
   privateKey: ${JWT_PRIVATE_KEY}
   expirationSeconds: ${EXPIRATION_TIME}
 
-fileUpload:
-  rootPath: ${FILE_UPLOAD_ROOT_PATH}
+supabase:
+  url: ${SUPABASE_URL}
+  serviceRoleKey: ${SUPABASE_SERVICE_ROLE_KEY}
+  bucket: ${SUPABASE_BUCKET}
 
 stripe:
   secret-key: ${STRIPE_SECRET_KEY}

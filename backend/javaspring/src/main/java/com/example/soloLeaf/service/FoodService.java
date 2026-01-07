@@ -33,8 +33,8 @@ public class FoodService implements FoodServiceImp {
     @Override
     public boolean addFood(MultipartFile image, String title, String timeShip, boolean isFreeShip, double price, int cate_id) {
         try{
-            boolean savedFile = fileService.saveFile(image);
-            if (savedFile) {
+            String imageUrl = fileService.saveFile(image);
+            if (!imageUrl.isEmpty()) {
                 Food food = new Food();
                 food.setImage(image.getOriginalFilename());
                 food.setTitle(title);

@@ -14,4 +14,5 @@ public interface UserServiceImp {
     List<UserDTO> getAllUser();
     Users getCurrentUser();
     UserDTO getMyProfile();
+    Boolean updateUser(UserDTO userDTO);
 }

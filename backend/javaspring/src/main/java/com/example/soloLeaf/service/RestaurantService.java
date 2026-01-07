@@ -31,8 +31,8 @@ public class RestaurantService implements RestaurantServiceImp {
     @Override
     public boolean insertRestaurant(MultipartFile file, String title, String subtitle, String description, boolean isFreeShip, String address, String openDate) {
         try{
-            boolean savedFile = fileService.saveFile(file);
-            if (savedFile) {
+            String imageUrl = fileService.saveFile(file);
+            if (!imageUrl.isEmpty()) {
                 Restaurant restaurant = new Restaurant();
                 restaurant.setTitle(title);
                 restaurant.setSubtitle(subtitle);

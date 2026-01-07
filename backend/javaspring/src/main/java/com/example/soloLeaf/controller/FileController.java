@@ -19,17 +19,20 @@ public class FileController {
     @PostMapping()
     public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file) {
         ResponseData responseData = new ResponseData();
-        boolean isSuccess = fileServiceImp.saveFile(file);
-        responseData.setData(isSuccess);
+
+        String url = fileServiceImp.saveFile(file);
+        responseData.setSuccess(url != null);
+        responseData.setData(url);
+
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
-    @GetMapping("/download/{filename:.+}")
-    public ResponseEntity<?> downloadFile(@PathVariable String filename) {
-        Resource resource = fileServiceImp.loadFile(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" +resource.getFilename() + "\"")
-                .body(resource);
-    }
+//    @GetMapping("/download/{filename:.+}")
+//    public ResponseEntity<?> downloadFile(@PathVariable String filename) {
+//        Resource resource = fileServiceImp.loadFile(filename);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION,
+//                        "attachment; filename=\"" +resource.getFilename() + "\"")
+//                .body(resource);
+//    }
 }

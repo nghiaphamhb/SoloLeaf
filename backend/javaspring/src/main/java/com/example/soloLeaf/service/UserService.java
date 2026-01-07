@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,11 @@ public class UserService implements UserServiceImp {
         for (Users user : listUser) {
             UserDTO userDTO = new UserDTO(
                     user.getId(),
+                    user.getImageUrl(),
                     user.getEmail(),
                     user.getFullname(),
-                    user.getCreateDate()
+                    user.getCreateDate(),
+                    user.getRole().getRoleName()
             );
             listUserDTO.add(userDTO);
         }
@@ -54,9 +57,41 @@ public class UserService implements UserServiceImp {
 
     public UserDTO getMyProfile() {
         Users currentUser = getCurrentUser();
-        return new UserDTO(currentUser.getId(),
+        return new UserDTO(
+                currentUser.getId(),
+                currentUser.getImageUrl(),
                 currentUser.getEmail(),
                 currentUser.getFullname(),
-                currentUser.getCreateDate());
+                currentUser.getCreateDate(),
+                currentUser.getRole().getRoleName());
+    }
+
+    @Transactional
+    @Override
+    public Boolean updateUser(UserDTO userDTO) {
+        Users currentUser = getCurrentUser();
+
+        boolean changed = false;
+
+        // update fullname if provided
+        String newFullname = userDTO.getFullname();
+        if (newFullname != null && !newFullname.isBlank()) {
+            currentUser.setFullname(newFullname.trim());
+            changed = true;
+        }
+
+        // update imageUrl if provided
+        String newImageUrl = userDTO.getImageUrl();
+        if (newImageUrl != null && !newImageUrl.isBlank()) {
+            currentUser.setImageUrl(newImageUrl.trim());
+            changed = true;
+        }
+
+        if (!changed) {
+            return false; // nothing to update
+        }
+
+        userRepository.save(currentUser);
+        return true;
     }
 }

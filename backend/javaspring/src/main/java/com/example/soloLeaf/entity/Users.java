@@ -12,6 +12,9 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name="imageUrl")
+    private String imageUrl;
+
     @Column(name = "email")
     private String email;
 
@@ -36,6 +39,14 @@ public class Users {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public int getId() {
         return id;
