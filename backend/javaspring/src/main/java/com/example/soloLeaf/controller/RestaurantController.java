@@ -37,14 +37,14 @@ public class RestaurantController {
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
-    @GetMapping("/file/{filename:.+}")
-    public ResponseEntity<?> getFileRestaurant(@PathVariable String filename) {
-        Resource resource = fileServiceImp.loadFile(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" +resource.getFilename() + "\"")
-                .body(resource);
-    }
+//    @GetMapping("/file/{filename:.+}")
+//    public ResponseEntity<?> getFileRestaurant(@PathVariable String filename) {
+//        Resource resource = fileServiceImp.loadFile(filename);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION,
+//                        "attachment; filename=\"" +resource.getFilename() + "\"")
+//                .body(resource);
+//    }
 
     @GetMapping("")
     public ResponseEntity<?> getHomePageRestaurants() {

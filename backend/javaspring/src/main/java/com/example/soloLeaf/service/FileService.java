@@ -1,10 +1,14 @@
 package com.example.soloLeaf.service;
 
+import com.example.soloLeaf.dto.UserDTO;
 import com.example.soloLeaf.service.imp.FileServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -12,52 +16,82 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @Service
 public class FileService implements FileServiceImp {
-    @Value("${fileUpload.rootPath}")
-    private String rootPath;
 
-    private Path root;
+    @Value("${supabase.url}")
+    private String supabaseUrl;
 
-    private void init(){
-        try{
-            root = Paths.get(rootPath);
-            if (Files.notExists(root)){
-                Files.createDirectories(root);
-            }
-        } catch (IOException e) {
-            System.out.println("Error create directory root: " + e.getMessage());
+    @Value("${supabase.serviceRoleKey}")
+    private String serviceRoleKey;
+
+    @Value("${supabase.bucket}")
+    private String bucket;
+
+    @Autowired
+    private UserService userService;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    @Override
+    public String saveFile(MultipartFile file) {
+        try {
+            // 1) upload to supabase => get public url
+            String url = uploadToSupabaseAndReturnUrl(file);
+            if (url == null) return null;
+
+            // 2) update current user's imageUrl in DB via existing updateUser
+            UserDTO dto = new UserDTO();
+            dto.setImageUrl(url);
+
+            Boolean ok = userService.updateUser(dto);
+            if (!ok) return null;
+
+            return url;
+        } catch (Exception e) {
+            System.out.println("Error upload/save avatar: " + e.getMessage());
+            return null;
         }
     }
 
-    @Override
-    public boolean saveFile(MultipartFile file) {
-        init();
-        try{
-            Files.copy(file.getInputStream(),
-                    root.resolve(file.getOriginalFilename()),
-                    StandardCopyOption.REPLACE_EXISTING);
-            return true;
-        } catch (IOException e) {
-            System.out.println("Error save file: " + e.getMessage());
-            return false;
-        }
-    }
+    private String uploadToSupabaseAndReturnUrl(MultipartFile file) {
+        try {
+            String original = file.getOriginalFilename();
+            String ext = (original != null && original.contains("."))
+                    ? original.substring(original.lastIndexOf("."))
+                    : "";
 
-    @Override
-    public Resource loadFile(String filename) {
-        try{
-            init();  // init root
-            Path file = root.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
+            String objectPath = UUID.randomUUID() + ext;
+
+            // PUT /storage/v1/object/{bucket}/{path}
+            String putUrl = supabaseUrl + "/storage/v1/object/" + bucket + "/" + objectPath;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(serviceRoleKey);
+            headers.set("apikey", serviceRoleKey);
+            headers.set("x-upsert", "true");
+            headers.setContentType(MediaType.parseMediaType(
+                    file.getContentType() != null ? file.getContentType() : "application/octet-stream"
+            ));
+
+            HttpEntity<byte[]> entity = new HttpEntity<>(file.getBytes(), headers);
+
+            ResponseEntity<String> resp = restTemplate.exchange(
+                    putUrl, HttpMethod.PUT, entity, String.class
+            );
+
+            if (!resp.getStatusCode().is2xxSuccessful()) {
+                return null;
             }
 
-        } catch (IOException e) {
-            System.out.println("Error load file: " + e.getMessage());
+            // Public URL (bucket phải Public)
+            return supabaseUrl + "/storage/v1/object/public/" + bucket + "/" + objectPath;
+
+        } catch (Exception e) {
+            System.out.println("Error upload to Supabase: " + e.getMessage());
+            return null;
         }
-        return null;
     }
 }

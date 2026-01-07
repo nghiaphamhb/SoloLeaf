@@ -9,17 +9,17 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 ## Features
 ### User
--  **Register / Login / log out**
+-  **Register / Login / Logout**
 -  **Order foods** (support shopping cart)
--  **Pay bills** (support discount by restaurants)
+-  **Pay bills** (support discount)
 -  **View orders history**
 -  **Search foods** (support EN/RUS, suggestion by AI-lite)
 -  **Lucky spin** (Get free discount by restaurants)
--  **Chatbot** supports ordering (⏳)
+-  **Edit profile** 
 
 [//]: # (-  **Mark favorite dishes** &#40;⏳&#41;)
 
-[//]: # (-  **Edit profile** &#40;⏳&#41;)
+[//]: # (-  **Chatbot** supports ordering &#40;⏳&#41;)
 
 [//]: # (### Admin &#40;⏳&#41;)
 
@@ -39,9 +39,10 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
     - Unit &  Integration Testing: `Jest`
     - 2E2 Testing: `Cypress`
 -  Component Libraries: `Material UI`
--  Web APIs: `Canvas 2D` + `Clipboard`
--  Web Worker: **AI-lite** ranks search's results (_by keyword relevance, free-ship, rating_)
--  Analytics: `Google Analytics`
+-  Web APIs: 
+     - `Canvas 2D`, `Clipboard`, `Fetch`, `FormData`, `URL / URLSearchParams`, ...
+     -  `SearchRankWorker`: ranks search's results (_AI-lite_)
+- Analytics: `Google Analytics`
 -  Deployment: `Vercel`
 -  Error Monitoring: `Bugsnag`
 
@@ -60,14 +61,14 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  Runtime: `Node.js`
 -  Framework: `Express.js`
 -  Middleware: `morgan` _(HTTP request logger)_ 
-- Roles: 
-  - **AI-lite Smart Search** (_query normalization, RU→EN mapping, suggestion handling_)
+-  Roles: 
+   - **AI-lite Smart Search** (_query normalization, RU→EN mapping, suggestion handling_)
 
--  Deployment: `Render`
+-  Deployment: `Render (Node Web Service)`
 
 ### Database
 - Database: `PostgreSQL`
-- Deployment: `Render PostgreSQL`
+- Deployment: `Render (PostgreSQL)`
 
 
 ### DevOps 
@@ -77,4 +78,4 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 ### Integrations / API / Utils
 - **Integrated Stripe API for payment**: create `Checkout Session`and
   handle `Webhook Events` to confirm payment and update orders.
-- **Image Store**: `Supabase (Buckets)`
+- **Image Store/ Upload**: `Supabase (Buckets)`

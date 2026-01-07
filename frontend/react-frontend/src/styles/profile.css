@@ -1,0 +1,190 @@
+/* Center the whole block in the viewport */
+.profile-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  width: 100%;
+
+  /* NEW */
+  display: flex;
+  align-items: center; /* center vertically */
+  justify-content: center; /* center horizontally */
+  padding: 28px 0;
+}
+
+/* Keep 2 cards centered and limit max width like the screenshot */
+.profile-grid {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+
+  /* NEW */
+  justify-content: center; /* center horizontally inside container */
+  max-width: 1200px; /* tune 1100~1300 as you like */
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (width <= 900px) {
+  .profile-page {
+    align-items: flex-start; /* mobile: avoid too low center */
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .profile-grid {
+    flex-direction: column;
+    max-width: 720px;
+  }
+}
+
+/* =========================
+   Card base
+   ========================= */
+.profile-card {
+  background: #fff;
+  border: 1px solid #e9eef6;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgb(16 24 40 / 6%);
+  overflow: hidden;
+}
+
+/* =========================
+   LEFT: Avatar card
+   ========================= */
+.profile-card--avatar {
+  flex: 0 0 360px;
+  padding: 26px 18px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 92px !important;
+  height: 92px !important;
+  margin: 4px auto 14px;
+  border: 4px solid var(--brand-2);
+  background: #e8f1ff;
+  font-weight: 700;
+}
+
+.profile-name {
+  font-weight: 700 !important;
+  font-size: 28px !important;
+  line-height: 1.1 !important;
+  margin-top: 6px !important;
+}
+
+.profile-role {
+  color: #667085;
+  margin-top: 8px !important;
+}
+
+.profile-email {
+  color: #667085;
+  margin-top: 6px !important;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.profile-actions button {
+  border-radius: 10px;
+  text-transform: none;
+  font-weight: 600;
+  border-color: var(--brand-2);
+  color: var(--brand-2);
+}
+
+.profile-divider {
+  margin-top: 18px;
+  border: none;
+  border-top: 1px solid #eef2f7;
+}
+
+/* =========================
+   RIGHT: Edit form card
+   ========================= */
+.profile-card--edit {
+  flex: 1 1 auto;
+  padding: 22px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Text field */
+.profile-field label {
+  font-weight: 600;
+}
+
+/* Viền mặc định */
+.profile-field .MuiOutlinedInput-root fieldset {
+  border-color: #cbd5e1;
+}
+
+/* Khi hover */
+.profile-field .MuiOutlinedInput-root:hover fieldset {
+  border-color: var(--brand-2);
+}
+
+/* Khi focus */
+.profile-field .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: var(--brand-2);
+  border-width: 2px;
+}
+
+/* Label khi focus */
+.profile-field .MuiInputLabel-root.Mui-focused {
+  border-color: var(--brand);
+  color: var(--brand-2);
+}
+
+.profile-save {
+  margin-top: 6px !important;
+  width: 180px;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+  background-color: var(--brand-2) !important;
+}
+
+.profile-save:hover {
+  background-color: var(--brand) !important; /* <-- màu khi hover */
+}
+
+@media (width <= 900px) {
+  .profile-card--avatar {
+    flex-basis: auto;
+  }
+
+  .profile-save {
+    width: 100%;
+  }
+}
+
+.profile-notice {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.profile-notice--success {
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+  color: #027a48;
+}
+
+.profile-notice--error {
+  background: #fef3f2;
+  border: 1px solid #fecdca;
+  color: #b42318;
+}
