@@ -71,7 +71,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 
 
 ### DevOps 
-- `Docker` + `Docker Compose` (⏳)
+- `Docker` + `Docker Compose`
 - `CI/CD GitHub Actions`
 
 ### Integrations / API / Utils
