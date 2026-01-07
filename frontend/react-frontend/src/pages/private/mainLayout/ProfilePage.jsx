@@ -3,9 +3,9 @@ import ProfilePageContent from "../../../components/profilePage/ProfilePageConte
 import React from "react";
 
 export default function ProfilePage() {
-    return (
-        <MainLayout>
-            <ProfilePageContent />
-        </MainLayout>
-    );
+  return (
+    <MainLayout>
+      <ProfilePageContent />
+    </MainLayout>
+  );
 }
