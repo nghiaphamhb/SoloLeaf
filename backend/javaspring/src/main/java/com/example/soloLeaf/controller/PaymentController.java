@@ -40,15 +40,6 @@ public class PaymentController {
     private String frontendBaseUrl;
 
     @Autowired
-    UserRepository usersRepository;
-
-    @Autowired
-    RestaurantRepository restaurantRepository;
-
-    @Autowired
-    FoodRepository foodRepository;
-
-    @Autowired
     OrderRepository orderRepository;
 
     @Autowired

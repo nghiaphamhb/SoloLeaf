@@ -46,7 +46,7 @@ export default function PaymentProcessingPage() {
 
           dispatch(clearCart());
           dispatch(clearPromoCode());
-          navigate("/orders", { replace: true });
+          navigate("/home", { replace: true });
           return;
         }
       } catch (e) {
