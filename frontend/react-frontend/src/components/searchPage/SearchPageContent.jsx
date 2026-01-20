@@ -128,6 +128,9 @@ export default function SearchPageContent() {
             maxPrice: f.maxPrice || null,
           },
         });
+
+        // const buf = new ArrayBuffer(1024);
+        // workerRef.current.postMessage(buf, [buf]); 
       }
 
       setPageInfo({

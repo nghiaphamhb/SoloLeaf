@@ -17,3 +17,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <App />
   </ErrorBoundary>
 );
+
+// website register service worker
+navigator.serviceWorker?.register("/sw.js");

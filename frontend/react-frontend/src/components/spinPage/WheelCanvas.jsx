@@ -36,7 +36,7 @@ export default function WheelCanvas({
     const cy = radius;
 
     // Background circle
-    ctx.beginPath();
+    ctx.beginPath(); 
     ctx.arc(cx, cy, radius - 2, 0, Math.PI * 2);
     ctx.fillStyle = "#ffffff";
     ctx.fill();
