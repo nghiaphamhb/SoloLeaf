@@ -26,11 +26,12 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-self.addEventListener("fetch", (e) => { // catch all request (by fetch events)
+// SW catch all request (by fetch events)
+self.addEventListener("fetch", (e) => { 
   const req = e.request;
   const url = new URL(req.url);
 
-  // offline page
+  // cache offline page
   if (req.mode === "navigate") {  // stragery : network-first
     e.respondWith( 
       fetch(req).catch(() => caches.match(OFFLINE_URL)) // catch fetch's error by offline page
@@ -47,14 +48,68 @@ self.addEventListener("fetch", (e) => { // catch all request (by fetch events)
     return;
   }
 
-  // apply SWR for GET /api/restaurant
+  // cache datat, which returns from fetching api GET /api/restaurant
   if (req.method === "GET" && url.origin === self.location.origin && url.pathname === "/api/restaurant") {
     e.respondWith(staleWhileRevalidate(req, CACHE_HOMEPAGE));
     return;
   }
 });
 
-// helpers
+// SW handle Web Push event (Legacy Web Push + mutable branch of Declarative Web Push)
+self.addEventListener("push", (event) => {
+  if (!event.data) return;
+
+  event.waitUntil((async () => {
+    let data;
+    // Is valid JSON?
+    try {
+      const raw = await event.data.text();
+      data = JSON.parse(raw);
+    } catch {
+      return; // invalid JSON -> ignore
+    }
+
+    // Check web push
+    if (data?.web_push !== 8030) return;
+
+    const n = data?.notification;
+    if (!n?.title) return;
+
+    // mutable branch here
+    const isMutable = data?.mutable === true;
+
+    // Allow SW to modify/override notification when mutable=true
+    const finalTitle = n.title;
+    let finalBody = n.body || "";
+    let finalTag = n.tag;
+    let finalNavigate = n.navigate || "/";
+
+    // Here is custom modifications (optional for mutable)
+    if (isMutable) {
+      // add prefix to prove mutable path works
+      finalBody = `[mutable] ${finalBody}`;
+
+      // ensure tag exists so updates replace previous notification
+      if (!finalTag) finalTag = "soleaf";
+    }
+
+    await self.registration.showNotification(finalTitle, {
+      body: finalBody,
+      tag: finalTag,
+      renotify: true,
+      data: { navigate: finalNavigate },
+    });
+  })());
+});
+
+// SW handle the click on notification card
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = event.notification?.data?.navigate || "/";
+  event.waitUntil(clients.openWindow(url));
+});
+
+// == helpers == 
 async function cacheFirst(req, cacheName) {
   const cache = await caches.open(cacheName);
 
