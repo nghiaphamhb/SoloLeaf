@@ -50,7 +50,7 @@ public class PaymentService {
             Order order = new Order();
             order.setUser(user);
             order.setCreateDate(new java.util.Date());
-            order.setStatus(Math.random() < 0.5 ? "DELIVERING" : "DONE");
+            order.setStatus("PENDING");
             order.setCurrency("rub");
 
             long totalBefore = 0;

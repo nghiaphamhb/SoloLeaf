@@ -95,7 +95,6 @@ public class PaymentController {
                                 .orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
 
                         // Mark paid
-                        order.setStatus("DELIVERING");
                         order.setStripeSessionId(session.getId());
 
                         // Stripe amount_total is in smallest currency unit (kopeks)
