@@ -39,3 +39,8 @@ stripe:
 
 frontend:
   base-url: ${FRONTEND_BASE_URL}
+
+vapid:
+  publicKey: ${WEB_PUSH_PUBLIC_KEY}
+  privateKey: ${WEB_PUSH_PRIVATE_KEY}
+  subject: "mailto:phamdangtrungnghia@gmail.com"

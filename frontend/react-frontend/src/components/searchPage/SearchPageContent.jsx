@@ -130,7 +130,7 @@ export default function SearchPageContent() {
         });
 
         // const buf = new ArrayBuffer(1024);
-        // workerRef.current.postMessage(buf, [buf]); 
+        // workerRef.current.postMessage(buf, [buf]);
       }
 
       setPageInfo({

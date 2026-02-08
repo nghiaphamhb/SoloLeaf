@@ -38,7 +38,7 @@ export default function PaymentProcessingPage() {
           method: "GET",
         });
 
-        if (data?.status === "DELIVERING" || data?.status === "DONE") {
+        if (data?.status === "PENDING") {
           trackEvent("payment_success", {
             order_id: String(data?.id ?? ""),
             status: data?.status ?? "",
@@ -46,7 +46,17 @@ export default function PaymentProcessingPage() {
 
           dispatch(clearCart());
           dispatch(clearPromoCode());
-          navigate("/orders", { replace: true });
+          navigate("/home", {
+            replace: true,
+            state: {
+              justOrdered: {
+                orderId: data?.id,
+                status: data?.status,
+                sessionId,
+              },
+            },
+          });
+
           return;
         }
       } catch (e) {

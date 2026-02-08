@@ -3,6 +3,7 @@
 ## Demo
 
 👉 [Video demo](https://drive.google.com/file/d/1tQeAcKfuKjVnrYQhQgWM2OOeETlKRljp/view?usp=sharing)
+👉 [Web Push Notifications](https://drive.google.com/file/d/1bfiZL9xz1VgjxJa_6OmG6UKIcqfq6ket/view?usp=sharing)
 
 ## Overview
 SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **frontend + backend + database**.
@@ -16,6 +17,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 -  **Search foods** (support EN/RUS, suggestion by AI-lite)
 -  **Lucky spin** (Get free discount by restaurants)
 -  **Edit profile** 
+-  **Web push notifications** (Window/MacOS)
 
 [//]: # (-  **Mark favorite dishes** &#40;⏳&#41;)
 
@@ -40,7 +42,7 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
     - 2E2 Testing: `Cypress`
 -  Component Libraries: `Material UI`
 -  Web APIs: 
-     - `Canvas 2D`, `Clipboard`, `Fetch`, `FormData`, `URL / URLSearchParams`, ...
+     - `Canvas 2D`, `Clipboard`, `Crypto`,`Fetch`, `FormData`, `URL / URLSearchParams`, ...
      -  `SearchRankWorker`: ranks search's results (_AI-lite_)
 - Analytics: `Google Analytics`
 -  Deployment: `Vercel`
@@ -79,3 +81,4 @@ SoloLeaf is a fullstack web ordering app (multi-restaurant), which includes **fr
 - **Integrated Stripe API for payment**: create `Checkout Session`and
   handle `Webhook Events` to confirm payment and update orders.
 - **Image Store/ Upload**: `Supabase (Buckets)`
+- **Web Push (VAPID)**: store device subscriptions and send declarative push payloads (`web_push: 8030`) for cross-platform notifications (Safari/WebKit + Chromium fallback via Service Worker).
